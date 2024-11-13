@@ -1,0 +1,159 @@
+
+
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+.grid {
+  display: grid;
+
+  grid-template-columns: repeat(auto-fill,minmax(300px,1fr));
+  align-content: center;
+ padding-left:40px;
+ padding-right: 40px;
+
+  gap:40px;
+  margin-bottom: 30px;
+
+}
+.card {
+  position: relative;
+  border: 2px transparent #e5e7eb;
+  border-radius: 8px;
+  padding: 16px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  background-color: rgba(246, 244, 244, 0.47);
+ text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+
+
+}
+.card:hover {
+
+    transform: scale(1.05);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+    cursor: pointer;
+}
+
+/* h2{
+
+    font-size: 30px;
+  font-family: 'montserrat';
+    text-align: center;
+    margin-top: -40px;
+
+} */
+.card img {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    margin-left: auto;
+    margin-right: auto;
+
+
+}
+
+a{
+    font-family: 'montserrat';
+}
+
+h5{
+    font-family: 'montserrat';
+
+  transform: scale(1.05);
+
+  cursor: pointer;
+}
+
+h2{
+  margin-top: 50px;
+  font-size: 30px;
+font-family: 'montserrat';
+  text-align: center;
+  margin-bottom: 60px;
+
+}
+.card img {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+
+
+}
+
+a{
+  font-family: 'montserrat';
+}
+
+h5{
+  font-family: 'montserrat';
+
+}
+
+.hover-text {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+background-color: rgba(0, 0, 0, 0.11);
+  color: white;
+  font-size: 1.25rem;
+  font-weight: bold;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+  border-radius: 8px;
+}
+
+.image-container:hover .hover-text {
+  opacity: 1;
+ background-color: rgba(0, 0, 0, 0.11);
+  color: white;
+  font-size: 1.25rem;
+  font-weight: bold;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+   border-radius: 8px;
+}
+
+
+.image-container:hover .hover-text {
+  opacity: 1;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px 0;
+}
+
+.pagination button {
+  background-color: #212326;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 15px;
+  margin: 0 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.pagination button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.pagination button:hover:not(:disabled) {
+  background-color: #C1DCDC;
+}
+
+.pagination span {
+  margin: 0 10px;
+  font-weight: bold;
+}
+
+
