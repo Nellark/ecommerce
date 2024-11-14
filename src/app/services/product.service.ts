@@ -127,4 +127,13 @@ export class ProductService {
   isCartEmpty(): boolean {
     return this.getCart().length === 0;
   }
+
+  /**
+   * Submit an order. This could be an API call in a real-world scenario.
+   * @param orderData - The order details including cart items and shipping information.
+   */
+  submitOrder(orderData: any) {
+    // Simulate an API request to submit the order. You can replace this with an actual HTTP POST request.
+    return this.http.post(`${environment.SERVER}/orders`, orderData);
+  }
 }

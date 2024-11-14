@@ -4,16 +4,15 @@ import { FooterComponent } from "../footer/footer.component";
 import { NavbarComponent } from "../navbar/navbar.component";
 import { CommonModule, NgFor, NgIf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { DecimalPipe } from '@angular/common';  // Import DecimalPipe
 import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-cart',
   standalone: true,
-  imports: [FooterComponent, NavbarComponent, NgFor, NgIf, FormsModule, CommonModule, RouterLink],
+  imports: [NavbarComponent, NgFor, NgIf, FormsModule, CommonModule, RouterLink],
   templateUrl: './cart.component.html',
   styleUrls: ['./cart.component.css'],
-  providers: [DecimalPipe]  
+  providers: [ProductService] 
 })
 export class CartComponent implements OnInit {
   cartItems: any[] = [];
@@ -21,8 +20,7 @@ export class CartComponent implements OnInit {
   cartItemCount: number = 0;
 
   constructor(
-    private productService: ProductService,
-    private decimalPipe: DecimalPipe  
+    private productService: ProductService
   ) {}
 
   ngOnInit(): void {
@@ -30,44 +28,41 @@ export class CartComponent implements OnInit {
   }
 
   loadCart() {
-    this.cartItems = this.productService.getCart();
-    this.updateCartTotal();
+    this.cartItems = this.productService.getCart();  
+    this.updateCartTotal();  // Update total price
+    this.cartItemCount = this.productService.getCartItemCount(); 
   }
 
   removeItem(productId: string) {
-    this.productService.removeFromCart(productId);
-    this.loadCart();
+    this.productService.removeFromCart(productId);  
+    this.loadCart();  
   }
 
   clearCart() {
-    this.productService.clearCart();
-    this.loadCart();
+    this.productService.clearCart(); 
+    this.loadCart(); 
   }
 
-  // Update the quantity of a product
   updateQuantity(item: any, index: number) {
     if (item.quantity < 1) {
-      item.quantity = 1;  // Ensure quantity is at least 1
+      item.quantity = 1;  
     }
 
-    // Update the cart in localStorage
-    this.cartItems[index].quantity = item.quantity;
-    this.productService.updateCart(this.cartItems);
-
-    // Recalculate the cart total
-    this.updateCartTotal();
+    this.productService.updateCartItemQuantity(item.id, item.quantity);  
+    this.loadCart(); 
   }
 
-  // Calculate the total price and format it to 2 decimal places
   updateCartTotal() {
-    this.cartTotal = this.cartItems.reduce((total, item) => total + (item.price * item.quantity), 0);
+    let total = 0;
+    for (const item of this.cartItems) {
+      total += item.price * item.quantity; 
+    }
 
-    // Format the total to 2 decimal places using DecimalPipe
-    this.cartTotal = parseFloat(this.decimalPipe.transform(this.cartTotal, '1.2-2') || '0');  // Ensures 2 decimal places
+  
+    this.cartTotal = parseFloat(total.toFixed(2));  
   }
 
-  // Implement the goBack method for navigation
   goBack() {
-    window.history.back();  // This will take the user back to the previous page in their history
+    window.history.back(); 
   }
 }

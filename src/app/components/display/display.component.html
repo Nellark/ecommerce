@@ -1,9 +1,7 @@
 <app-navbar></app-navbar>
 
 <!-- Notification Banner -->
-<div *ngIf="showNotification" class="fixed top-0 left-0 right-0 background-color: #C1DCDC; border: 2px solid #C1DCDC; text-black text-center py-3 z-50">
-  Item added to the cart successfully!
-</div>
+
 
 <section *ngIf="selectedProduct; else loading">
   <div class="container px-5 py-24 mx-auto">
@@ -29,6 +27,8 @@
           </button>
         </div>
 
+      
+
         <div>
           <button (click)="goBack()" class="flex items-center text-green-900 mt-6 mb-6">
             <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24">
@@ -36,6 +36,10 @@
             </svg>
             Continue with shopping
           </button>
+        </div>
+
+        <div *ngIf="showNotification" class="left-0 text-2xl right-0 background-color: #C1DCDC; border: 2px solid #C1DCDC; text-black text-center py-3 z-50">
+          Item added to the cart successfully!
         </div>
       </div>
     </div>

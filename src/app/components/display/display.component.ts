@@ -7,7 +7,7 @@ import { NavbarComponent } from '../navbar/navbar.component';
 import { ProductInterface } from '../../model/model.module';
 import { ProductService } from '../../services/product.service';
 import { FormsModule } from '@angular/forms';
-import { Location } from '@angular/common'; // Import Location service
+import { Location } from '@angular/common'; 
 
 @Component({
   selector: 'app-display',
@@ -49,7 +49,7 @@ export class DisplayComponent implements OnInit {
     this.showNotification = true;
     setTimeout(() => {
       this.showNotification = false;
-    }, 3000); // Hide the notification after 3 seconds
+    }, 2000); 
   }
 
   goBack() {
