@@ -6,6 +6,7 @@ export interface ProductsResponseInterface {
 }
 
 export interface ProductInterface {
+  quantity: number;
   id: number;
   title: string;
   description: string;

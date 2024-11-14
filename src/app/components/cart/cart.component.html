@@ -1,0 +1,70 @@
+<app-navbar></app-navbar>
+
+<section class="bg-gray-50 py-12">
+  <div class="container mx-auto px-6">
+
+    <div class="max-w-4xl mx-auto bg-white rounded-lg shadow-lg p-8">
+
+
+      <h1 class="text-3xl font-semibold text-center text-gray-800 mb-8">Your Shopping Cart</h1>
+
+
+      <div *ngIf="cartItems.length > 0; else emptyCart">
+        <div class="space-y-6">
+          <div *ngFor="let item of cartItems; let i = index" class="flex items-center border-b border-gray-200 pb-6">
+            <img [src]="item.thumbnail" alt="Product Image" class="w-28 h-28 object-cover rounded-md shadow-sm mr-6">
+            <div class="flex flex-col flex-grow">
+              <h2 class="text-lg font-medium text-gray-800">{{ item.title }}</h2>
+              <p class="text-gray-500 text-sm">Brand: {{ item.brand }}</p>
+              <div class="flex justify-between mt-4 items-center">
+                <span class="text-lg font-semibold text-gray-900">R{{ item.price }}</span>
+                <div class="flex items-center space-x-4">
+
+                  <div class="flex items-center">
+                    <label for="quantity" class="mr-2 text-gray-600 text-sm">Qty:</label>
+                    <input
+                      type="number"
+                      [(ngModel)]="item.quantity"
+                      (change)="updateQuantity(item, i)"
+                      min="1"
+                      class="border border-gray-300 rounded-md py-1 px-3 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                    />
+                  </div>
+
+                  <button (click)="removeItem(item.id)" class="text-red-600 hover:text-red-800 text-sm">Remove</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="flex justify-between items-center mt-8 border-t border-gray-200 pt-6">
+          <span class="text-xl font-semibold text-gray-900">Total: R{{ cartTotal  }}</span>
+          <div class="flex space-x-4">
+            <div class="flex justify-center items-center">
+              <button (click)="goBack()" class="flex items-center text-green-600 hover:text-indigo-800 text-sm">
+                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24">
+                  <path d="M15 19l-7-7 7-7"></path>
+                </svg>
+                Go back
+              </button>
+            </div>
+            <button (click)="clearCart()" class="bg-gray-200 text-black px-5 py-2 rounded-md hover:bg-gray-300 transition text-sm">Clear Cart</button>
+            <button routerLink="/checkout" class="bg-green-800 text-white px-5 py-2 rounded-md hover:bg-[#C1DCDC] transition text-sm">Proceed to Checkout</button>
+          </div>
+        </div>
+      </div>
+
+
+      <ng-template #emptyCart>
+        <p class="text-xl text-gray-500 text-center mb-4">Your cart is empty. Start shopping now!</p>
+        <div class="text-center">
+          <button routerLink="/home" class="bg-[#C1DCDC] text-black px-5 py-2 rounded-md hover:bg-gray-400 text-sm">
+            Start Shopping
+          </button>
+        </div>
+      </ng-template>
+    </div>
+  </div>
+</section>

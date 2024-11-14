@@ -1,38 +1,52 @@
+
 <app-navbar></app-navbar>
+
 
 <h2 class="text-center mt-2 text-3xl font-bold">Product List</h2>
 
-
 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
 
-  <div *ngFor="let product of paginatedProducts" class="card max-w-sm bg-white border border-gray-200 rounded-lg shadow m-5">
-
+  <div
+    *ngFor="let product of paginatedProducts"
+    class="card max-w-sm bg-white border border-gray-200 rounded-lg shadow m-5"
+  >
     <div class="p-5">
-
-
       <a [routerLink]="['/display', product.id]" class="image-container">
-
-        <div class="hover-text">
-          Click for more details
-        </div>
-      <img class=" w-2px h-2px"
-      [src]="product.thumbnail" alt="{{ product.title }}" />
-
-      <h5 class="mb-2 text-xl font-bold">{{ product.title }}</h5>
-      <p class="font-bold text-lg"> R{{ product.price  }}</p>
-     </a>
-
-
-     </div>
-
+        <div class="hover-text">Click for more details</div>
+     
+        <img
+          class="w-full h-48 object-cover rounded-md"
+          [src]="product.thumbnail"
+          alt="{{ product.title }}"
+        />
+       
+        <h5 class="mb-2 text-xl font-bold">{{ product.title }}</h5>
+        <p class="font-bold text-lg">R{{ product.price }}</p>
+      </a>
+    </div>
   </div>
 </div>
 
 
-<div class="pagination">
-  <button (click)="prevPage()" [disabled]="currentPage === 1">Previous</button>
-  <span>Page {{ currentPage }} of {{ totalPages }}</span>
-  <button (click)="nextPage()" [disabled]="currentPage === totalPages">Next</button>
+<div class="pagination flex justify-center items-center mt-4">
+  <button
+    (click)="prevPage()"
+    class="mx-2 px-4 py-2 bg-gray-200 rounded-md hover:bg-gray-300"
+    [disabled]="currentPage === 1"
+  >
+    Previous
+  </button>
+  <span class="text-lg font-medium">Page {{ currentPage }} of {{ totalPages }}</span>
+  <button
+    (click)="nextPage()"
+    class="mx-2 px-4 py-2 bg-gray-200 rounded-md hover:bg-gray-300"
+    [disabled]="currentPage === totalPages"
+  >
+    Next
+  </button>
 </div>
 
 
+<div *ngIf="paginatedProducts.length === 0" class="text-center text-lg text-gray-500 mt-10">
+  No products found.
+</div>

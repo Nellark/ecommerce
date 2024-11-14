@@ -1,19 +1,12 @@
-.formDiv{
-    border: solid red;
+.badge {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background-color: red;
+    color: white;
+    font-size: 0.75rem;
+    font-weight: bold;
+    padding: 2px 6px;
+    border-radius: 50%;
+  }
   
-}
-.mother{
-    border: solid blue;
-    /* width: 20rem; */
-}
-nav{
-    border: solid green;
-}
-.mothers{
-    border: solid purple;
-
-}
-.motherss{
-    border: solid orange;
-
-}
