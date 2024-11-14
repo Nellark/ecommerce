@@ -4,6 +4,10 @@
 
 <h2 class="text-center mt-2 text-3xl font-bold">Product List</h2>
 
+<div *ngIf="loading" class="text-center mt-10">
+  <span class="text-lg font-semibold text-gray-600">Loading...</span>
+</div>
+
 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
 
   <div

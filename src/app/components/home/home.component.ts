@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { NavbarComponent } from '../navbar/navbar.component';
 
-import { ProductsResponseInterface } from '../../model/model.module';
+import { ProductsResponseInterface, ProductInterface } from '../../model/model.module';
 import { FormsModule } from '@angular/forms';
-import { CommonModule, NgFor } from '@angular/common';
+import { CommonModule, NgFor, NgIf } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { ProductService } from '../../services/product.service';
@@ -12,17 +12,18 @@ import { ProductService } from '../../services/product.service';
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [NgFor, RouterLink, HttpClientModule, CommonModule, NavbarComponent, FormsModule],
+  imports: [NgFor, RouterLink, HttpClientModule, CommonModule, NavbarComponent, FormsModule, NgIf],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],
 })
 export class HomeComponent implements OnInit {
-  products: any[] = [];
-  paginatedProducts: any[] = [];
-  filteredProducts: any[] = [];
+  products: ProductInterface[] = [];
+  paginatedProducts: ProductInterface[] = [];
+  filteredProducts: ProductInterface[] = [];
   currentPage: number = 1;
   itemsPerPage: number = 8;
   totalPages: number = 0;
+  loading: boolean = false; // Add loading property
 
   constructor(
     private productService: ProductService,
@@ -31,22 +32,28 @@ export class HomeComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-   
-    this.route.queryParams.subscribe((params) => {
-      if (params['page']) {
-        this.currentPage = +params['page']; 
-      }
+    this.loading = true; // Start loading
+
+    // Subscribe to filtered products from ProductService
+    this.productService.getFilteredProducts().subscribe((products) => {
+      this.filteredProducts = products;
+      this.totalPages = Math.ceil(this.filteredProducts.length / this.itemsPerPage);
+      this.updateProducts();
+      this.loading = false; // Stop loading
     });
 
+    // Fetch all products initially
     this.productService.getAllProducts().subscribe(
       (serverData: ProductsResponseInterface) => {
         this.products = serverData.products;
         this.filteredProducts = this.products;
         this.totalPages = Math.ceil(this.filteredProducts.length / this.itemsPerPage);
         this.updateProducts();
+        this.loading = false; // Stop loading
       },
       (error: any) => {
         console.error('Error fetching products:', error);
+        this.loading = false; // Stop loading on error
       }
     );
   }
@@ -72,28 +79,17 @@ export class HomeComponent implements OnInit {
     }
   }
 
-
   updateQueryParams() {
     this.router.navigate([], {
       relativeTo: this.route,
       queryParams: { page: this.currentPage },
-      queryParamsHandling: 'merge', 
+      queryParamsHandling: 'merge',
     });
   }
 
   onSearchQueryChanged(searchQuery: string) {
-    if (searchQuery.trim() === '') {
-      this.filteredProducts = this.products;
-    } else {
-      this.filteredProducts = this.products.filter((product) =>
-        product.title.toLowerCase().includes(searchQuery.toLowerCase())
-      );
-    }
-
-   
+    this.productService.searchProducts(searchQuery);
     this.currentPage = 1;
-    this.totalPages = Math.ceil(this.filteredProducts.length / this.itemsPerPage);
-    this.updateProducts();
-    this.updateQueryParams(); 
+    this.updateQueryParams();
   }
 }
