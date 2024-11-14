@@ -1,13 +1,24 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
+import { ProductService } from '../../services/product.service';
 import { RouterLink } from '@angular/router';
+import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [RouterLink],
+  imports: [RouterLink, NgIf],
   templateUrl: './navbar.component.html',
-  styleUrl: './navbar.component.css'
+  styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent {
+  @Output() searchQueryChanged = new EventEmitter<string>();
 
+
+  constructor(public productService: ProductService) {}
+
+  onSearch(event: Event) {
+    const inputElement = event.target as HTMLInputElement;
+    this.searchQueryChanged.emit(inputElement.value);
+  }
 }
+

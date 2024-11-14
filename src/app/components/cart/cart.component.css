@@ -1,0 +1,17 @@
+.container {
+    max-width: 100%;
+    margin-top: 2rem;
+  }
+  
+  h1 {
+    text-align: center;
+  }
+  
+  button {
+    cursor: pointer;
+  }
+  
+  button:hover {
+    opacity: 0.8;
+  }
+  
