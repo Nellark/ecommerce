@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { NavbarComponent } from '../navbar/navbar.component';
-
 import { ProductsResponseInterface, ProductInterface } from '../../model/model.module';
 import { FormsModule } from '@angular/forms';
 import { CommonModule, NgFor, NgIf } from '@angular/common';
@@ -23,7 +22,7 @@ export class HomeComponent implements OnInit {
   currentPage: number = 1;
   itemsPerPage: number = 8;
   totalPages: number = 0;
-  loading: boolean = false; // Add loading property
+  loading: boolean = false; // Add the loading state
 
   constructor(
     private productService: ProductService,
@@ -39,7 +38,7 @@ export class HomeComponent implements OnInit {
       this.filteredProducts = products;
       this.totalPages = Math.ceil(this.filteredProducts.length / this.itemsPerPage);
       this.updateProducts();
-      this.loading = false; // Stop loading
+      this.loading = false; // Stop loading when products are fetched
     });
 
     // Fetch all products initially
@@ -53,7 +52,7 @@ export class HomeComponent implements OnInit {
       },
       (error: any) => {
         console.error('Error fetching products:', error);
-        this.loading = false; // Stop loading on error
+        this.loading = false; // Stop loading in case of error
       }
     );
   }
@@ -88,8 +87,10 @@ export class HomeComponent implements OnInit {
   }
 
   onSearchQueryChanged(searchQuery: string) {
+    this.loading = true; // Start loading when searching
     this.productService.searchProducts(searchQuery);
     this.currentPage = 1;
     this.updateQueryParams();
+    this.loading = false; // Stop loading after search is complete
   }
 }
