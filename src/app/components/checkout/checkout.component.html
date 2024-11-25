@@ -1,14 +1,33 @@
-
 <app-navbar></app-navbar>
 
 <section class="bg-gray-50 py-12">
   <div class="container mx-auto px-6">
     <div class="max-w-4xl mx-auto bg-white rounded-lg shadow-lg p-8">
-
       <h1 class="text-3xl font-semibold text-center text-gray-800 mb-8">Checkout</h1>
 
+
+      <div class="mb-8">
+        <h2 class="text-xl font-semibold text-gray-800 mb-4">Order Summary</h2>
+        <div class="space-y-4">
+          <div *ngFor="let product of cartItems" class="flex justify-between items-center border-b py-4">
+            <div class="flex items-center">
+              <img [src]="product.thumbnail" alt="Product Image" class="w-16 h-16 object-cover rounded-md mr-4">
+              <div>
+                <h3 class="font-semibold text-gray-800">{{ product.title }}</h3>
+                <p class="text-gray-600">Quantity: {{ product.quantity }}</p>
+              </div>
+            </div>
+            <div>
+              <span class="text-gray-800 font-semibold">R{{ product.price * product.quantity }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+  
       <form (ngSubmit)="submitOrder()" #checkoutForm="ngForm">
         <div class="space-y-6">
+ 
           <div>
             <label for="name" class="block text-gray-700">Name</label>
             <input
@@ -60,8 +79,53 @@
             />
             <div *ngIf="checkoutForm.submitted && !shippingDetails.phone" class="text-red-600 text-sm">Phone is required.</div>
           </div>
+
+   
+          <div>
+            <label class="block text-gray-700">Payment Method</label>
+            <div class="space-y-4">
+              <div class="flex items-center">
+                <input
+                  type="radio"
+                  id="creditCard"
+                  name="paymentMethod"
+                  value="creditCard"
+                  [(ngModel)]="paymentMethod"
+                  required
+                  class="mr-2"
+                />
+                <label for="creditCard" class="text-gray-800">Credit Card</label>
+              </div>
+              <div class="flex items-center">
+                <input
+                  type="radio"
+                  id="paypal"
+                  name="paymentMethod"
+                  value="paypal"
+                  [(ngModel)]="paymentMethod"
+                  required
+                  class="mr-2"
+                />
+                <label for="paypal" class="text-gray-800">PayPal</label>
+              </div>
+              <div class="flex items-center">
+                <input
+                  type="radio"
+                  id="cashOnDelivery"
+                  name="paymentMethod"
+                  value="cashOnDelivery"
+                  [(ngModel)]="paymentMethod"
+                  required
+                  class="mr-2"
+                />
+                <label for="cashOnDelivery" class="text-gray-800">Cash on Delivery</label>
+              </div>
+            </div>
+            <div *ngIf="checkoutForm.submitted && !paymentMethod" class="text-red-600 text-sm">Payment method is required.</div>
+          </div>
         </div>
 
+    
         <div class="mt-6 flex justify-between items-center">
           <span class="text-xl font-semibold text-gray-900">Total: R{{ cartTotal }}</span>
           <button type="submit" class="bg-green-800 text-white px-5 py-2 rounded-md hover:bg-[#C1DCDC] transition text-sm">
@@ -73,4 +137,3 @@
   </div>
 </section>
 
-<app-footer></app-footer>
