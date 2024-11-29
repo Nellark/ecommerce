@@ -28,11 +28,9 @@ export class OrderTrackingComponent implements OnInit {
     this.fetchOrders();
   }
 
-  
-
   fetchOrders(): void {
     this.isLoading = true;
-    this.productService.fetchOrders().subscribe({
+    this.productService.getOrdersFromLocalStorage().subscribe({
       next: (data: Order[]) => {
         this.orders = data || []; 
         this.isLoading = false;

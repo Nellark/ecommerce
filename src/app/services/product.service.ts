@@ -4,7 +4,7 @@ import { BehaviorSubject, Observable, of } from 'rxjs';
 import { map, tap, catchError } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { environment } from '../../environments/environment.development';
-import { ProductsResponseInterface, ProductInterface, Order, FetchOrdersResponse } from '../model/model.module';
+import { ProductsResponseInterface, ProductInterface, Order } from '../model/model.module';
 
 @Injectable({
   providedIn: 'root',
@@ -24,22 +24,12 @@ export class ProductService {
     return this.http.get<ProductsResponseInterface>(environment.SERVER);
   }
 
-  fetchOrders(): Observable<Order[]> {
-    return this.http.get<FetchOrdersResponse>(`${environment.SERVER}/orders`).pipe(
-      map(response => {
-        this.orders = response.orders; 
-        this.saveToLocalStorage('orders', this.orders); 
-        return this.orders;
-      }),
-      catchError(error => {
-        console.error('Error fetching orders:', error);
-        return of(this.orders); 
-      })
-    );
+  getOrdersFromLocalStorage(): Observable<Order[]> {
+    return of(this.getFromLocalStorage('orders') || []);
   }
 
   submitOrder(orderData: any): Observable<Order> {
-    return this.http.post<Order>(`${environment.SERVER}/orders`, orderData).pipe(
+    return of(orderData).pipe(
       tap(newOrder => {
         this.orders.push(newOrder); 
         this.saveToLocalStorage('orders', this.orders); 
