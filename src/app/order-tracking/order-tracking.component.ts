@@ -33,6 +33,11 @@ export class OrderTrackingComponent implements OnInit {
     this.productService.getOrdersFromLocalStorage().subscribe({
       next: (data: Order[]) => {
         this.orders = data || []; 
+        if (this.orders.length === 0) {
+          this.errorMessage = 'No orders found.';
+        } else {
+          this.errorMessage = ''; // Clear error message if orders are found
+        }
         this.isLoading = false;
       },
       error: (error: any) => {
@@ -43,7 +48,9 @@ export class OrderTrackingComponent implements OnInit {
     });
   }
 
-  onOrderPlaced() {
-    this.fetchOrders(); 
+  onOrderPlaced(orderData: any) {
+    this.productService.submitOrder(orderData).subscribe(() => {
+      this.fetchOrders(); 
+    });
   }
 }

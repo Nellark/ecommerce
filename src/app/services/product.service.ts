@@ -29,12 +29,17 @@ export class ProductService {
   }
 
   submitOrder(orderData: any): Observable<Order> {
-    return of(orderData).pipe(
-      tap(newOrder => {
-        this.orders.push(newOrder); 
-        this.saveToLocalStorage('orders', this.orders); 
-      })
-    );
+    const newOrder: Order = {
+      ...orderData,
+      id: new Date().toISOString(),
+      date: new Date().toISOString(),
+      status: 'Pending',
+    };
+
+    this.orders.push(newOrder);
+    this.saveToLocalStorage('orders', this.orders);
+
+    return of(newOrder);
   }
 
   private saveToLocalStorage(key: string, data: any) {
