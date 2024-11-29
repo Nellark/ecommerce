@@ -20,7 +20,7 @@ export class HomeComponent implements OnInit {
   paginatedProducts: ProductInterface[] = [];
   filteredProducts: ProductInterface[] = [];
   currentPage: number = 1;
-  itemsPerPage: number = 8;
+  itemsPerPage: number = 10;
   totalPages: number = 0;
   loading: boolean = false; // Add the loading state
 

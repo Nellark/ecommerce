@@ -5,20 +5,19 @@
 .grid {
   display: grid;
 
-  grid-template-columns: repeat(auto-fill,minmax(300px,1fr));
+  grid-template-columns: repeat(auto-fill,minmax(250px,1fr));
   align-content: center;
  padding-left:40px;
  padding-right: 40px;
 
-  gap:40px;
-  margin-bottom: 30px;
+  gap:10px;
+  margin-bottom: 10px;
 
 }
 .card {
   position: relative;
   border: 2px transparent #e5e7eb;
-  border-radius: 8px;
-  padding: 16px;
+  border-radius: 6px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   background-color: rgba(246, 244, 244, 0.47);
  text-align: center;
@@ -34,14 +33,7 @@
     cursor: pointer;
 }
 
-/* h2{
 
-    font-size: 30px;
-  font-family: 'montserrat';
-    text-align: center;
-    margin-top: -40px;
-
-} */
 .card img {
     width: 150px;
     height: 150px;
@@ -72,19 +64,12 @@ font-family: 'montserrat';
   margin-bottom: 60px;
 
 }
-.card img {
-  width: 150px;
-  height: 150px;
-  object-fit: cover;
-
-
-}
 
 a{
   font-family: 'montserrat';
 }
 
-h5{
+p{
   font-family: 'montserrat';
 
 }

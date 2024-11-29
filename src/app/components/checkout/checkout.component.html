@@ -1,10 +1,9 @@
 <app-navbar></app-navbar>
 
-<section class="bg-gray-50 py-12">
+<section class="py-12">
   <div class="container mx-auto px-6">
-    <div class="max-w-4xl mx-auto bg-white rounded-lg shadow-lg p-8">
+    <div class="max-w-4xl mx-auto rounded-lg shadow-lg p-8">
       <h1 class="text-3xl font-semibold text-center text-gray-800 mb-8">Checkout</h1>
-
 
       <div class="mb-8">
         <h2 class="text-xl font-semibold text-gray-800 mb-4">Order Summary</h2>
@@ -24,100 +23,42 @@
         </div>
       </div>
 
-  
       <form (ngSubmit)="submitOrder()" #checkoutForm="ngForm">
         <div class="space-y-6">
- 
           <div>
-            <label for="name" class="block text-gray-700">Name</label>
-            <input
-              type="text"
-              id="name"
-              name="name"
-              [(ngModel)]="shippingDetails.name"
-              required
-              class="w-full px-4 py-2 border border-gray-300 rounded-md"
-            />
-            <div *ngIf="checkoutForm.submitted && !shippingDetails.name" class="text-red-600 text-sm">Name is required.</div>
+            <label class="block text-gray-700">Shipping Method</label>
+            <div class="space-y-4">
+              <div class="flex items-center">
+                <input type="radio" id="delivery" name="shippingMethod" value="delivery" [(ngModel)]="shippingMethod" required class="mr-2" />
+                <label for="delivery" class="text-gray-800">Delivery</label>
+              </div>
+              <div class="flex items-center">
+                <input type="radio" id="collection" name="shippingMethod" value="collection" [(ngModel)]="shippingMethod" required class="mr-2" />
+                <label for="collection" class="text-gray-800">Collection</label>
+              </div>
+            </div>
+            <div *ngIf="checkoutForm.submitted && !shippingMethod" class="text-red-600 text-sm">Shipping method is required.</div>
           </div>
 
-          <div>
+          <div *ngIf="shippingMethod === 'delivery'">
             <label for="address" class="block text-gray-700">Address</label>
-            <input
-              type="text"
-              id="address"
-              name="address"
-              [(ngModel)]="shippingDetails.address"
-              required
-              class="w-full px-4 py-2 border border-gray-300 rounded-md"
-            />
+            <input type="text" id="address" name="address" [(ngModel)]="shippingDetails.address" required class="w-full px-4 py-2 border border-gray-300 rounded-md" />
             <div *ngIf="checkoutForm.submitted && !shippingDetails.address" class="text-red-600 text-sm">Address is required.</div>
           </div>
 
           <div>
-            <label for="email" class="block text-gray-700">Email</label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              [(ngModel)]="shippingDetails.email"
-              required
-              class="w-full px-4 py-2 border border-gray-300 rounded-md"
-            />
-            <div *ngIf="checkoutForm.submitted && !shippingDetails.email" class="text-red-600 text-sm">Email is required.</div>
-          </div>
-
-          <div>
-            <label for="phone" class="block text-gray-700">Phone</label>
-            <input
-              type="text"
-              id="phone"
-              name="phone"
-              [(ngModel)]="shippingDetails.phone"
-              required
-              class="w-full px-4 py-2 border border-gray-300 rounded-md"
-            />
-            <div *ngIf="checkoutForm.submitted && !shippingDetails.phone" class="text-red-600 text-sm">Phone is required.</div>
-          </div>
-
-   
-          <div>
             <label class="block text-gray-700">Payment Method</label>
             <div class="space-y-4">
               <div class="flex items-center">
-                <input
-                  type="radio"
-                  id="creditCard"
-                  name="paymentMethod"
-                  value="creditCard"
-                  [(ngModel)]="paymentMethod"
-                  required
-                  class="mr-2"
-                />
+                <input type="radio" id="creditCard" name="paymentMethod" value="creditCard" [(ngModel)]="paymentMethod" required class="mr-2" />
                 <label for="creditCard" class="text-gray-800">Credit Card</label>
               </div>
               <div class="flex items-center">
-                <input
-                  type="radio"
-                  id="paypal"
-                  name="paymentMethod"
-                  value="paypal"
-                  [(ngModel)]="paymentMethod"
-                  required
-                  class="mr-2"
-                />
+                <input type="radio" id="paypal" name="paymentMethod" value="paypal" [(ngModel)]="paymentMethod" required class="mr-2" />
                 <label for="paypal" class="text-gray-800">PayPal</label>
               </div>
               <div class="flex items-center">
-                <input
-                  type="radio"
-                  id="cashOnDelivery"
-                  name="paymentMethod"
-                  value="cashOnDelivery"
-                  [(ngModel)]="paymentMethod"
-                  required
-                  class="mr-2"
-                />
+                <input type="radio" id="cashOnDelivery" name="paymentMethod" value="cashOnDelivery" [(ngModel)]="paymentMethod" required class="mr-2" />
                 <label for="cashOnDelivery" class="text-gray-800">Cash on Delivery</label>
               </div>
             </div>
@@ -125,7 +66,6 @@
           </div>
         </div>
 
-    
         <div class="mt-6 flex justify-between items-center">
           <span class="text-xl font-semibold text-gray-900">Total: R{{ cartTotal }}</span>
           <button type="submit" class="bg-green-800 text-white px-5 py-2 rounded-md hover:bg-[#C1DCDC] transition text-sm">
@@ -136,4 +76,3 @@
     </div>
   </div>
 </section>
-

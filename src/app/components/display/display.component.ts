@@ -16,6 +16,8 @@ import { Location } from '@angular/common';
   templateUrl: './display.component.html',
   styleUrls: ['./display.component.css']
 })
+
+
 export class DisplayComponent implements OnInit {
   selectedProduct: ProductInterface | null = null;
   product_id: string | null = null;
@@ -24,7 +26,8 @@ export class DisplayComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private productService: ProductService,
-    private location: Location
+    private location: Location,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -53,6 +56,10 @@ export class DisplayComponent implements OnInit {
   }
 
   goBack() {
-    this.location.back();
+    if (window.history.length > 1) {
+      this.location.back(); 
+    } else {
+      this.router.navigate(['/']); 
+    }
   }
 }

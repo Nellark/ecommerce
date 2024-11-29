@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ProductService } from '../../services/product.service';
 import { NgFor, NgIf } from '@angular/common';
-import { NavbarComponent } from '../navbar/navbar.component';
 import { FormsModule } from '@angular/forms';
-
+import { ProductService } from '../../services/product.service';
+import { NavbarComponent } from '../navbar/navbar.component';
 
 @Component({
   selector: 'app-checkout',
@@ -22,16 +21,17 @@ export class CheckoutComponent implements OnInit {
     email: '',
     phone: '',
   };
-  paymentMethod: any;
+  paymentMethod: string | null = null;
+  shippingMethod: string | null = null; 
 
   constructor(private productService: ProductService, private router: Router) {}
 
   ngOnInit(): void {
     this.loadCart();
   }
+  
 
   loadCart() {
- 
     this.cartItems = this.productService.getCart();
     this.cartTotal = this.productService.getCartTotal();
     this.cartTotal = parseFloat(this.cartTotal.toFixed(2));
@@ -39,22 +39,38 @@ export class CheckoutComponent implements OnInit {
 
   submitOrder() {
     if (this.cartItems.length === 0) {
-   
+      
+      return;
     }
 
-    if (this.shippingDetails.name && this.shippingDetails.address && this.shippingDetails.email && this.shippingDetails.phone && this.paymentMethod) {
-      const totalAmountFormatted = parseFloat(this.cartTotal.toFixed(2));
+    if (!this.shippingMethod) {
 
-      const orderData = {
-        cartItems: this.cartItems,
-        shippingDetails: this.shippingDetails,
-        totalAmount: totalAmountFormatted,
-        paymentMethod: this.paymentMethod, 
-      };
+      return;
+    }
 
-      console.log('Order placed successfully:', orderData);
+    if (this.shippingMethod === 'delivery' && !this.shippingDetails.address) {
+      return;
+    }
 
-      this.productService.clearCart();
-      this.router.navigate(['/order']);
-    } 
-}}
+    if (!this.paymentMethod) {
+      
+      return;
+    }
+
+    const totalAmountFormatted = parseFloat(this.cartTotal.toFixed(2));
+
+    const orderData = {
+      cartItems: this.cartItems,
+      shippingMethod: this.shippingMethod,
+      shippingDetails: this.shippingMethod === 'delivery' ? this.shippingDetails : null,
+      totalAmount: totalAmountFormatted,
+      paymentMethod: this.paymentMethod,
+    };
+
+    console.log('Order placed successfully:', orderData);
+
+  
+    this.productService.clearCart();
+    this.router.navigate(['/order']);
+  }
+}

@@ -1,8 +1,8 @@
 export interface ProductsResponseInterface {
-  total: number
-  skip: number
-  limit: number
-  products: ProductInterface[]
+  total: number;
+  skip: number;
+  limit: number;
+  products: ProductInterface[];
 }
 
 export interface ProductInterface {
@@ -30,12 +30,14 @@ export interface ProductInterface {
   images: string[];
   thumbnail: string;
 }
+
 interface Meta {
   createdAt: string;
   updatedAt: string;
   barcode: string;
   qrCode: string;
 }
+
 interface Review {
   rating: number;
   comment: string;
@@ -43,8 +45,21 @@ interface Review {
   reviewerName: string;
   reviewerEmail: string;
 }
+
 interface Dimensions {
   width: number;
   height: number;
   depth: number;
+}
+
+export interface Order {
+  id: string;
+  date: string;
+  status: 'Cancelled' | 'Out for Delivery' | 'Delivered';
+  items: { name: string; quantity: number }[];
+  total: number;
+}
+
+export interface FetchOrdersResponse {
+  orders: Order[];
 }

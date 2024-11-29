@@ -1,12 +1,58 @@
-.badge {
-    position: absolute;
-    top: -9px;
-    right: 15px;
-    background-color: red;
-    color: white;
-    font-size: 0.75rem;
-    font-weight: bold;
-    padding: 2px 6px;
-    border-radius: 50%;
+
+nav .search-input {
+  width: 100%;
+  max-width: 500px;  
+  padding: 6px 14px; 
+  font-size: 0.9rem;  
+  border-radius: 25px;  
+  border: 2px solid #ddd;
+  background-color: #ffffff;
+  transition: all 0.3s ease;
+}
+
+nav .search-input:focus {
+  outline: none;
+  border-color: #8c928d;  
+  box-shadow: 0 0 8px rgba(136, 145, 136, 0.6);  
+}
+
+nav .search-input::placeholder {
+  color: #aaa; 
+  font-style: italic; 
+}
+
+
+nav .cart-icon {
+  position: relative;
+}
+
+nav .badge {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  background-color: #ff3b30; 
+  color: white;
+  font-size: 0.75rem;
+  width: 18px;
+  height: 18px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  font-weight: bold;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+  animation: pulse 1.5s infinite;
+}
+
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
   }
-  
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
