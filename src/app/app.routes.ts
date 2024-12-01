@@ -8,16 +8,16 @@ import { CheckoutComponent } from './components/checkout/checkout.component';
 import { OrderTrackingComponent } from './order-tracking/order-tracking.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
-
+import { AuthGuard } from './guards/auth.guard';
 
 export const routes: Routes = [
     { path: '', component: LandingComponent },
-    { path: 'home', component: HomeComponent },
+    { path: 'home', component: HomeComponent, canActivate: [AuthGuard]  },
     { path: 'display/:id', component: DisplayComponent },
-    {path: 'cart', component: CartComponent},
+    { path: 'cart', component: CartComponent },
     { path: 'checkout', component: CheckoutComponent },
     { path: 'order', component: OrderComponent },
     { path: 'order-tracking', component: OrderTrackingComponent },
-    {path: 'login', component: LoginComponent},
-    {path: 'register', component: RegisterComponent},
+    { path: 'login', component: LoginComponent },
+    { path: 'register', component: RegisterComponent },
 ];
