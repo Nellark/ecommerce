@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { NavbarComponent } from '../navbar/navbar.component';
+
 import { ProductsResponseInterface, ProductInterface } from '../../model/model.module';
 import { FormsModule } from '@angular/forms';
 import { CommonModule, NgFor, NgIf } from '@angular/common';
@@ -19,10 +20,13 @@ export class HomeComponent implements OnInit {
   products: ProductInterface[] = [];
   paginatedProducts: ProductInterface[] = [];
   filteredProducts: ProductInterface[] = [];
+  categories: string[] = [];
+  selectedCategory: string = '';
   currentPage: number = 1;
   itemsPerPage: number = 10;
   totalPages: number = 0;
-  loading: boolean = false; // Add the loading state
+  loading: boolean = false;
+  sortOrder: string = '';
 
   constructor(
     private productService: ProductService,
@@ -31,28 +35,21 @@ export class HomeComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.loading = true; // Start loading
+    this.loading = true;
 
-    // Subscribe to filtered products from ProductService
-    this.productService.getFilteredProducts().subscribe((products) => {
-      this.filteredProducts = products;
-      this.totalPages = Math.ceil(this.filteredProducts.length / this.itemsPerPage);
-      this.updateProducts();
-      this.loading = false; // Stop loading when products are fetched
-    });
-
-    // Fetch all products initially
+    // Fetch products and categories
     this.productService.getAllProducts().subscribe(
       (serverData: ProductsResponseInterface) => {
         this.products = serverData.products;
-        this.filteredProducts = this.products;
+        this.filteredProducts = [...this.products];
+        this.categories = [...new Set(this.products.map((product) => product.category))];
         this.totalPages = Math.ceil(this.filteredProducts.length / this.itemsPerPage);
         this.updateProducts();
-        this.loading = false; // Stop loading
+        this.loading = false;
       },
       (error: any) => {
         console.error('Error fetching products:', error);
-        this.loading = false; // Stop loading in case of error
+        this.loading = false;
       }
     );
   }
@@ -86,11 +83,44 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  onSearchQueryChanged(searchQuery: string) {
-    this.loading = true; // Start loading when searching
-    this.productService.searchProducts(searchQuery);
+  // Filter by category
+  onCategoryChanged(category: string) {
+    this.selectedCategory = category;
+    this.applyFilters();
     this.currentPage = 1;
     this.updateQueryParams();
-    this.loading = false; // Stop loading after search is complete
+  }
+
+  // Sort functionality
+  onSortOrderChanged(order: string) {
+    this.sortOrder = order;
+    this.applyFilters();
+    this.currentPage = 1;
+    this.updateQueryParams();
+  }
+
+  // Apply filters (category and sort)
+  applyFilters() {
+    let filtered = [...this.products];
+
+    // Filter by category
+    if (this.selectedCategory) {
+      filtered = filtered.filter((product) => product.category === this.selectedCategory);
+    }
+
+    // Sort products
+    if (this.sortOrder === 'priceAsc') {
+      filtered.sort((a, b) => a.price - b.price);
+    } else if (this.sortOrder === 'priceDesc') {
+      filtered.sort((a, b) => b.price - a.price);
+    } else if (this.sortOrder === 'titleAsc') {
+      filtered.sort((a, b) => a.title.localeCompare(b.title));
+    } else if (this.sortOrder === 'titleDesc') {
+      filtered.sort((a, b) => b.title.localeCompare(a.title));
+    }
+
+    this.filteredProducts = filtered;
+    this.totalPages = Math.ceil(this.filteredProducts.length / this.itemsPerPage);
+    this.updateProducts();
   }
 }

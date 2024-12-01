@@ -4,10 +4,12 @@
 
       <!-- Logo and Home Link Section -->
       <div class="flex items-center space-x-3">
-        <a class="flex items-center space-x-3">
-          
+        <a [routerLink]="'/home'" class="flex items-center space-x-3">
           <img src="" class="h-8" alt="" />
           <span class="text-2xl font-semibold">CART-EASY</span>
+        </a>
+        <a [routerLink]="'/home'" class="text-lg font-medium text-gray-700 hover:text-gray-900">
+          Home
         </a>
       </div>
 
@@ -22,10 +24,15 @@
       </div>
 
       <!-- Cart Section -->
-      <div class="relative flex items-center">
-        <a [routerLink]="['/cart']" class="cart-icon">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-6 h-6">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l3 12h10l3-12h2M6 9h12M9 6h6M5 16a2 2 0 1 0 4 0a2 2 0 1 0-4 0zm10 0a2 2 0 1 0 4 0a2 2 0 1 0-4 0z" />
+      <div class="relative flex items-center space-x-4">
+        <a [routerLink]="'/login'" class="text-lg font-medium text-gray-700 hover:text-gray-900">
+          Login
+        </a>
+        <a [routerLink]="'/cart'" class="cart-icon">
+          <!-- Trolley Icon -->
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+            <path
+              d="M2.25 3a.75.75 0 010-1.5h3.336a1.5 1.5 0 011.419.976l.716 2.015H21.75a.75.75 0 01.742.888l-1.5 9a.75.75 0 01-.742.612H9.087l-.763 2.29a.75.75 0 01-1.424-.476l.66-1.981-4.68-11.335A1.5 1.5 0 012.25 3zm4.503 3.491l3.693 8.936h11.076l1.215-7.288H7.686l-.933-2.648zm2.997 14.259a1.75 1.75 0 113.5 0 1.75 1.75 0 01-3.5 0zm7.5-1.75a1.75 1.75 0 100 3.5 1.75 1.75 0 000-3.5z" />
           </svg>
           <span *ngIf="productService.getCartItemCount() > 0" class="badge">{{ productService.getCartItemCount() }}</span>
         </a>

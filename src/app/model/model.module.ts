@@ -1,3 +1,4 @@
+// Existing Interfaces
 export interface ProductsResponseInterface {
   total: number;
   skip: number;
@@ -62,4 +63,18 @@ export interface Order {
 
 export interface FetchOrdersResponse {
   orders: Order[];
+}
+
+export interface User {
+  id: number; 
+  username: string;
+  email: string;
+  password?: string; 
+  createdAt: string; 
+  updatedAt: string;
+}
+
+export interface AuthResponse {
+  user: User;         
+  token: string;      
 }

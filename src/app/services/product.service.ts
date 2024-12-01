@@ -4,7 +4,7 @@ import { BehaviorSubject, Observable, of } from 'rxjs';
 import { map, tap, catchError } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { environment } from '../../environments/environment.development';
-import { ProductsResponseInterface, ProductInterface, Order } from '../model/model.module';
+import { ProductsResponseInterface, ProductInterface, Order, User, AuthResponse } from '../model/model.module';
 
 @Injectable({
   providedIn: 'root',
@@ -12,13 +12,15 @@ import { ProductsResponseInterface, ProductInterface, Order } from '../model/mod
 export class ProductService {
   private cartKey = 'cart';
   private currentUrl: string | null = null;
-  private orders: Order[] = []; 
+  private orders: Order[] = [];
   products: ProductInterface[] = [];
   filteredProductsSubject = new BehaviorSubject<ProductInterface[]>([]);
+  currentUser: User | null = null;
 
   constructor(private http: HttpClient, private router: Router) {
     this.orders = this.getFromLocalStorage('orders') || [];
   }
+
 
   getAllProducts(): Observable<ProductsResponseInterface> {
     return this.http.get<ProductsResponseInterface>(environment.SERVER);
@@ -70,6 +72,7 @@ export class ProductService {
       : this.products;
     this.filteredProductsSubject.next(filtered);
   }
+
 
   getCart(): any[] {
     return this.getFromLocalStorage(this.cartKey) || [];
@@ -134,5 +137,49 @@ export class ProductService {
 
   isCartEmpty(): boolean {
     return this.getCart().length === 0;
+  }
+
+
+  register(username: string, email: string, password: string): Observable<AuthResponse | null> {
+    return this.http.post<AuthResponse>(`${environment.SERVER}/register`, { username, email, password })
+      .pipe(
+        tap(response => {
+          this.currentUser = response.user;
+        }),
+        catchError(error => {
+          console.error('Registration failed', error);
+          return of(null);
+        })
+      );
+  }
+
+  login(email: string, password: string): Observable<AuthResponse | null> {
+    return this.http.post<AuthResponse>(`${environment.SERVER}/login`, { email, password })
+      .pipe(
+        tap(response => {
+          this.currentUser = response.user;
+        }),
+        catchError(error => {
+          console.error('Login failed', error);
+          return of(null);
+        })
+      );
+  }
+
+  logout() {
+    this.currentUser = null;
+    localStorage.removeItem('currentUser');
+    this.router.navigate(['/login']);
+  }
+
+  isAuthenticated(): boolean {
+    return this.currentUser !== null || localStorage.getItem('currentUser') !== null;
+  }
+
+  private handleError<T>(operation = 'operation', result?: T) {
+    return (error: any): Observable<T> => {
+      console.error(`Error during ${operation}: `, error);
+      return of(result as T);
+    };
   }
 }

@@ -1,17 +1,42 @@
-
-
-<app-navbar/>
+<app-navbar></app-navbar>
 
 <h2 class="text-center mt-2 text-3xl font-bold">Product List</h2>
 
+<!-- Filter and Sort Controls -->
+<div class="flex flex-wrap justify-center mt-4 mb-6 gap-4">
+  <!-- Filter by Category -->
+  <select
+    class="px-4 py-2 border rounded-md"
+    [(ngModel)]="selectedCategory"
+    (change)="onCategoryChanged(selectedCategory)"
+  >
+    <option value="">All Categories</option>
+    <option *ngFor="let category of categories" [value]="category">
+      {{ category }}
+    </option>
+  </select>
 
-<!-- Loading Spinner -->
+  <!-- Sort Dropdown -->
+  <select
+    class="px-4 py-2 border rounded-md"
+    [(ngModel)]="sortOrder"
+    (change)="onSortOrderChanged(sortOrder)"
+  >
+    <option value="">Sort by</option>
+    <option value="priceAsc">Price: Low to High</option>
+    <option value="priceDesc">Price: High to Low</option>
+    <option value="titleAsc">Title: A to Z</option>
+    <option value="titleDesc">Title: Z to A</option>
+  </select>
+</div>
+
+<!-- Loading Indicator -->
 <div *ngIf="loading" class="text-center mt-10">
   <span class="text-lg font-semibold text-gray-600">Loading...</span>
 </div>
 
-<!-- Product List -->
-<div *ngIf="!loading" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+<!-- Product Grid -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
   <div
     *ngFor="let product of paginatedProducts"
     class="card max-w-sm bg-white border border-gray-200 rounded-lg shadow m-5"
@@ -24,15 +49,15 @@
           [src]="product.thumbnail"
           alt="{{ product.title }}"
         />
-        <p class="mb-2 text-md ">{{ product.title }}</p>
+        <h5 class="mb-2 text-xl font-bold">{{ product.title }}</h5>
         <p class="font-bold text-lg">R{{ product.price }}</p>
       </a>
     </div>
   </div>
 </div>
 
-<!-- Pagination -->
-<div class="pagination flex justify-center items-center mt-4" *ngIf="!loading">
+<!-- Pagination Controls -->
+<div class="pagination flex justify-center items-center mt-4">
   <button
     (click)="prevPage()"
     class="mx-2 px-4 py-2 bg-gray-200 rounded-md hover:bg-gray-300"
@@ -50,7 +75,7 @@
   </button>
 </div>
 
-<!-- No Products Message -->
-<div *ngIf="!loading && paginatedProducts.length === 0" class="text-center text-lg text-gray-500 mt-10">
+<!-- No Products Found Message -->
+<div *ngIf="paginatedProducts.length === 0 && !loading" class="text-center text-lg text-gray-500 mt-10">
   No products found.
 </div>

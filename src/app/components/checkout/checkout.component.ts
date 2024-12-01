@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { NgFor, NgIf } from '@angular/common';
+import { CommonModule, NgFor, NgIf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ProductService } from '../../services/product.service';
 import { NavbarComponent } from '../navbar/navbar.component';
@@ -8,7 +8,7 @@ import { NavbarComponent } from '../navbar/navbar.component';
 @Component({
   selector: 'app-checkout',
   standalone: true,
-  imports: [NgFor, NgIf, NavbarComponent, FormsModule],
+  imports: [NgFor, NgIf, NavbarComponent, FormsModule, CommonModule],
   templateUrl: './checkout.component.html',
   styleUrls: ['./checkout.component.css']
 })
