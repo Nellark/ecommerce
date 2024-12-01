@@ -48,9 +48,15 @@ export class OrderTrackingComponent implements OnInit {
     });
   }
 
-  onOrderPlaced(orderData: any) {
-    this.productService.submitOrder(orderData).subscribe(() => {
-      this.fetchOrders(); 
+  onOrderPlaced(orderData: any): void {
+    this.productService.submitOrder(orderData).subscribe({
+      next: () => {
+        this.fetchOrders(); 
+      },
+      error: (error: any) => {
+        console.error('Error submitting order:', error);
+        this.errorMessage = 'Failed to place order. Please try again later.';
+      }
     });
   }
 }

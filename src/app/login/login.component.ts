@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
 
+
 @Component({
   selector: 'app-login',
   standalone: true,
@@ -11,6 +12,7 @@ import { AuthService } from '../services/auth.service';
 })
 export class LoginComponent {
   loginForm: FormGroup;
+  router: any;
 
   constructor(private fb: FormBuilder, private authService: AuthService) {
     this.loginForm = this.fb.group({
@@ -24,6 +26,7 @@ export class LoginComponent {
       this.authService.login(this.loginForm.value.email, this.loginForm.value.password).subscribe({
         next: (response: any) => {
           console.log('Login successful', response);
+          this.router.navigate(['/home']);
         },
         error: (error: any) => {
           console.error('Login failed', error);
