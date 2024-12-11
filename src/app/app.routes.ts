@@ -5,7 +5,8 @@ import { LandingComponent } from './components/landing/landing.component';
 import { CartComponent } from './components/cart/cart.component';
 import { OrderComponent } from './components/order/order.component';
 import { CheckoutComponent } from './components/checkout/checkout.component';
-import { AuthGuard } from './guards/auth.guard';
+import { WishlistComponent } from './components/wishlist/wishlist.component';
+import { ConfirmedComponent } from './components/confirmed/confirmed.component';
 
 export const routes: Routes = [
     { path: '', component: LandingComponent },
@@ -14,5 +15,7 @@ export const routes: Routes = [
     { path: 'cart', component: CartComponent },
     { path: 'checkout', component: CheckoutComponent },
     { path: 'order', component: OrderComponent },
+    { path: 'wishlist', component: WishlistComponent},
+    {path: 'confirmed', component: ConfirmedComponent}
  
 ];

@@ -9,7 +9,6 @@ import { LoaderComponent } from '../../loader/loader.component';
 import { ProductInterface, ProductsResponseInterface } from '../../model/model.module';
 import { NavbarComponent } from '../navbar/navbar.component';
 
-
 @Component({
   selector: 'app-home',
   standalone: true,
@@ -30,6 +29,7 @@ export class HomeComponent implements OnInit {
   sortOrder: string = '';
   notFound: string | null = null;
   isLoading: boolean = true;
+  wishlistMessage: string | null = null;
 
   constructor(
     private productService: ProductService,
@@ -72,7 +72,6 @@ export class HomeComponent implements OnInit {
     this.currentPage = 1;
     this.updateProducts();
   }
-
 
   updateProducts() {
     const startIndex = (this.currentPage - 1) * this.itemsPerPage;
@@ -136,8 +135,24 @@ export class HomeComponent implements OnInit {
     this.updateProducts();
   }
 
-  addToCart(product: ProductInterface) {
-    this.productService.addToCart(product);
-    
+  // Add or remove a product from the wishlist
+  toggleWishlist(product: ProductInterface) {
+    if (this.isInWishlist(product)) {
+      this.productService.removeFromWishlist(product.id);
+      this.wishlistMessage = `${product.title} removed from wishlist!`;
+    } else {
+      this.productService.addToWishlist(product);
+      this.wishlistMessage = `${product.title} added to wishlist!`;
+    }
+
+    setTimeout(() => {
+      this.wishlistMessage = null;
+    }, 2000);
+  }
+
+
+  isInWishlist(product: ProductInterface): boolean {
+    const wishlist = this.productService.getWishlist();
+    return wishlist.some(item => item.id === product.id);
   }
 }

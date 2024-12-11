@@ -1,0 +1,24 @@
+
+
+
+<app-navbar></app-navbar>
+<app-loader [isLoading]="isLoading"></app-loader>  
+
+<div *ngIf="!isLoading">
+
+<section class=" py-12">
+  <div class="container mx-auto px-6">
+    <div class="max-w-4xl mx-auto  rounded-lg shadow-lg p-8 text-center">
+      <h1 class="text-3xl font-semibold text-black mb-8">Order Placed Successfully!</h1>
+      <p class="text-xl text-gray-500 mb-6">Thank you for your purchase. We will process your order and notify you shortly.</p>
+      <button (click)="proceedToHome()" routerlink='/home' class="bg-black text-white px-5 py-2 rounded-md hover:bg-gray-700 transition text-sm">Return to Home</button>
+    </div>
+</div>
+
+<div class="loader-overlay" *ngIf="isLoading">
+    <div class="loader"></div>
+  </div>
+</section>
+ 
+
+

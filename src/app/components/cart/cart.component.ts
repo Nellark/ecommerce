@@ -3,9 +3,9 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { ProductService } from '../../services/product.service';
 import { CommonModule, NgFor, NgIf } from '@angular/common';
-import { NavbarComponent } from '../navbar/navbar.component';
 import { FormsModule } from '@angular/forms';
-import { RouterLink, Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
+import { NavbarComponent } from '../navbar/navbar.component';
 import { LoaderComponent } from '../../loader/loader.component';
 
 
@@ -26,6 +26,7 @@ export class CartComponent implements OnInit {
   Loading: boolean = true;
 
   isLoading: boolean = true;
+previousOrders: any;
 
  
 
@@ -110,12 +111,34 @@ export class CartComponent implements OnInit {
 
 
   
-  proceedToHome() {
+  
 
-    this.productService.clearCart();
+    proceedToHome() {
+ const orderData = {
+        orderId: Date.now(),  
+        date: new Date().toLocaleString(),
+        cartItems: this.cartItems,
+        cartTotal: this.cartTotal,
+        cartItemCount: this.cartItemCount
+      };
     
-    this.router.navigate(['/order']);
-  }
+
+      const previousOrders = JSON.parse(localStorage.getItem('previousOrders') || '[]');
+    
+
+      previousOrders.push(orderData);
+    
+ 
+      localStorage.setItem('previousOrders', JSON.stringify(previousOrders));
+    
+
+      this.productService.clearCart();
+      this.loadCart(); 
+    
+ 
+      this.router.navigate(['/checkout']);
+    }
+    
   }
   
   

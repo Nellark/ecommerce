@@ -71,6 +71,6 @@ export class CheckoutComponent implements OnInit {
 
   
     this.productService.clearCart();
-    this.router.navigate(['/order']);
+    this.router.navigate(['/confirmed']);
   }
 }
