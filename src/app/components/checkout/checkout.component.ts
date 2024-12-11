@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { CommonModule, NgFor, NgIf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ProductService } from '../../services/product.service';
@@ -8,7 +8,7 @@ import { NavbarComponent } from '../navbar/navbar.component';
 @Component({
   selector: 'app-checkout',
   standalone: true,
-  imports: [NgFor, NgIf, NavbarComponent, FormsModule, CommonModule],
+  imports: [NgFor, NgIf, NavbarComponent, FormsModule, CommonModule, RouterLink],
   templateUrl: './checkout.component.html',
   styleUrls: ['./checkout.component.css']
 })
@@ -71,6 +71,6 @@ export class CheckoutComponent implements OnInit {
 
   
     this.productService.clearCart();
-    this.router.navigate(['/confirmed']);
+ 
   }
 }

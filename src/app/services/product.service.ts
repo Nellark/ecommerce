@@ -30,6 +30,7 @@ export class ProductService {
     this.filteredProductsSubject.next(products);
   }
 
+
   getProduct(productId: string) {
     return this.http.get<ProductInterface>(`${environment.SERVER}/${productId}`);
   }

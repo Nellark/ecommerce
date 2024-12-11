@@ -69,7 +69,7 @@
 
         <div class="mt-6 flex justify-between items-center">
           <span class="text-xl font-semibold text-gray-900">Total: R{{ cartTotal }}</span>
-          <button type="submit" class="bg-green-800 text-white px-5 py-2 rounded-md hover:bg-[#C1DCDC] transition text-sm">
+          <button [routerLink]= "['/confirmed']"  type="submit" class="bg-green-800 text-white px-5 py-2 rounded-md hover:bg-[#C1DCDC] transition text-sm">
             Place Order
           </button>
         </div>
