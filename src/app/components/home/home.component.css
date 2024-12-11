@@ -24,15 +24,35 @@
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 
 
-
 }
+
+.card button {
+
+
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1rem;
+  font-weight: bold;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+
+
+.card button:active {
+  transform: scale(0.98);
+}
+
+
+
 .card:hover {
 
     transform: scale(1.05);
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
     cursor: pointer;
 }
-
 
 .card img {
     width: 150px;
@@ -48,7 +68,7 @@ a{
     font-family: 'montserrat';
 }
 
-h5{
+p{
     font-family: 'montserrat';
 
   transform: scale(1.05);
@@ -117,7 +137,7 @@ background-color: rgba(0, 0, 0, 0.11);
 }
 
 .pagination button {
-  background-color: #212326;
+  background-color: #080808;
   color: white;
   border: none;
   border-radius: 5px;
@@ -128,12 +148,12 @@ background-color: rgba(0, 0, 0, 0.11);
 }
 
 .pagination button:disabled {
-  background-color: #ccc;
+  background-color: #010101;
   cursor: not-allowed;
 }
 
 .pagination button:hover:not(:disabled) {
-  background-color: #C1DCDC;
+  background-color: #aeb0b0;
 }
 
 .pagination span {

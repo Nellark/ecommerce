@@ -1,9 +1,11 @@
 <app-navbar></app-navbar>
+<app-loader [isLoading]="isLoading"></app-loader>  
 
-<section class="bg-gray-50 py-12">
+<div *ngIf="!isLoading">
+<section class="bg-white py-12">
   <div class="container mx-auto px-6">
 
-    <div class="max-w-4xl mx-auto bg-white rounded-lg shadow-lg p-8">
+    <div class="max-w-4xl mx-auto bg-gray-50 rounded-lg  p-8">
 
 
       <h1 class="text-3xl font-semibold text-center text-gray-800 mb-8">Your Shopping Cart</h1>
@@ -27,7 +29,7 @@
                       [(ngModel)]="item.quantity"
                       (change)="updateQuantity(item, i)"
                       min="1"
-                      class="border border-gray-300 rounded-md py-1 px-3 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                      class="border border-gray-300 rounded-md py-1 px-3 focus:outline-none focus:ring-2 focus:ring-gray-400"
                     />
                   </div>
 
@@ -43,7 +45,7 @@
           <span class="text-xl font-semibold text-gray-900">Total: R{{ cartTotal  }}</span>
           <div class="flex space-x-4">
             <div class="flex justify-center items-center">
-              <button (click)="goBack()" class="flex items-center text-green-600 hover:text-indigo-800 text-sm">
+              <button routerLink="/home" class="flex items-center text-black hover:text-gray-400 text-sm">
                 <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24">
                   <path d="M15 19l-7-7 7-7"></path>
                 </svg>
@@ -51,7 +53,7 @@
               </button>
             </div>
             <button (click)="clearCart()" class="bg-gray-200 text-black px-5 py-2 rounded-md hover:bg-gray-300 transition text-sm">Clear Cart</button>
-            <button routerLink="/checkout" class="bg-green-800 text-white px-5 py-2 rounded-md hover:bg-[#C1DCDC] transition text-sm">Proceed to Checkout</button>
+            <button button (click)="proceedToHome()"  routerLink="/confirmed" class="bg-black text-white px-5 py-2 rounded-md hover:bg-gray-400 transition text-sm">Proceed to Checkout</button>
           </div>
         </div>
       </div>
@@ -60,11 +62,15 @@
       <ng-template #emptyCart>
         <p class="text-xl text-gray-500 text-center mb-4">Your cart is empty. Start shopping now!</p>
         <div class="text-center">
-          <button routerLink="/home" class="bg-[#C1DCDC] text-black px-5 py-2 rounded-md hover:bg-gray-400 text-sm">
+          <button routerLink="/home" class="bg-black text-white px-5 py-2 rounded-md hover:bg-gray-400 text-sm">
             Start Shopping
           </button>
         </div>
       </ng-template>
     </div>
   </div>
-</section>
+  </section>
+</div>
+<div class="loader-overlay" *ngIf="isLoading">
+  <div class="loader"></div>
+</div>

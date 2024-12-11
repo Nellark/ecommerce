@@ -1,18 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { NavbarComponent } from '../navbar/navbar.component';
-
-import { ProductsResponseInterface, ProductInterface } from '../../model/model.module';
 import { FormsModule } from '@angular/forms';
 import { CommonModule, NgFor, NgIf } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { ProductService } from '../../services/product.service';
+import { LoaderComponent } from '../../loader/loader.component';
+import { ProductInterface, ProductsResponseInterface } from '../../model/model.module';
+import { NavbarComponent } from '../navbar/navbar.component';
+
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [NgFor, RouterLink, HttpClientModule, CommonModule, NavbarComponent, FormsModule, NgIf],
+  imports: [NgFor, RouterLink, HttpClientModule, CommonModule, NavbarComponent, FormsModule, NgIf, LoaderComponent],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],
 })
@@ -27,6 +28,8 @@ export class HomeComponent implements OnInit {
   totalPages: number = 0;
   loading: boolean = false;
   sortOrder: string = '';
+  notFound: string | null = null;
+  isLoading: boolean = true;
 
   constructor(
     private productService: ProductService,
@@ -36,8 +39,6 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.loading = true;
-
-    // Fetch products and categories
     this.productService.getAllProducts().subscribe(
       (serverData: ProductsResponseInterface) => {
         this.products = serverData.products;
@@ -53,6 +54,25 @@ export class HomeComponent implements OnInit {
       }
     );
   }
+
+  onSearch(searching: string): void {
+    if (searching.trim()) {
+      this.filteredProducts = this.products.filter((product) =>
+        product.title.toLowerCase().includes(searching.toLowerCase())
+      );
+      if (this.filteredProducts.length === 0) {
+        this.notFound = 'Item not found! ☹️';
+      } else {
+        this.notFound = null;
+      }
+    } else {
+      this.filteredProducts = [...this.products];
+    }
+    this.totalPages = Math.ceil(this.filteredProducts.length / this.itemsPerPage);
+    this.currentPage = 1;
+    this.updateProducts();
+  }
+
 
   updateProducts() {
     const startIndex = (this.currentPage - 1) * this.itemsPerPage;
@@ -83,7 +103,6 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  // Filter by category
   onCategoryChanged(category: string) {
     this.selectedCategory = category;
     this.applyFilters();
@@ -91,7 +110,6 @@ export class HomeComponent implements OnInit {
     this.updateQueryParams();
   }
 
-  // Sort functionality
   onSortOrderChanged(order: string) {
     this.sortOrder = order;
     this.applyFilters();
@@ -99,16 +117,11 @@ export class HomeComponent implements OnInit {
     this.updateQueryParams();
   }
 
-  // Apply filters (category and sort)
   applyFilters() {
     let filtered = [...this.products];
-
-    // Filter by category
     if (this.selectedCategory) {
       filtered = filtered.filter((product) => product.category === this.selectedCategory);
     }
-
-    // Sort products
     if (this.sortOrder === 'priceAsc') {
       filtered.sort((a, b) => a.price - b.price);
     } else if (this.sortOrder === 'priceDesc') {
@@ -118,9 +131,13 @@ export class HomeComponent implements OnInit {
     } else if (this.sortOrder === 'titleDesc') {
       filtered.sort((a, b) => b.title.localeCompare(a.title));
     }
-
     this.filteredProducts = filtered;
     this.totalPages = Math.ceil(this.filteredProducts.length / this.itemsPerPage);
     this.updateProducts();
+  }
+
+  addToCart(product: ProductInterface) {
+    this.productService.addToCart(product);
+    
   }
 }

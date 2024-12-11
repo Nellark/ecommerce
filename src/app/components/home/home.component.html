@@ -1,10 +1,14 @@
-<app-navbar></app-navbar>
+<app-navbar (searchEvent)="onSearch($event)"></app-navbar>
+<app-loader [isLoading]="loading"></app-loader> 
+
+
+<div *ngIf="!loading">
+
 
 <h2 class="text-center mt-2 text-3xl font-bold">Product List</h2>
 
-<!-- Filter and Sort Controls -->
+
 <div class="flex flex-wrap justify-center mt-4 mb-6 gap-4">
-  <!-- Filter by Category -->
   <select
     class="px-4 py-2 border rounded-md"
     [(ngModel)]="selectedCategory"
@@ -16,7 +20,6 @@
     </option>
   </select>
 
-  <!-- Sort Dropdown -->
   <select
     class="px-4 py-2 border rounded-md"
     [(ngModel)]="sortOrder"
@@ -30,12 +33,10 @@
   </select>
 </div>
 
-<!-- Loading Indicator -->
-<div *ngIf="loading" class="text-center mt-10">
-  <span class="text-lg font-semibold text-gray-600">Loading...</span>
+<div *ngIf="notFound" class="text-center text-lg text-gray-500 mt-10">
+  {{ notFound }}
 </div>
 
-<!-- Product Grid -->
 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
   <div
     *ngFor="let product of paginatedProducts"
@@ -43,20 +44,21 @@
   >
     <div class="p-5">
       <a [routerLink]="['/display', product.id]" class="image-container">
-        <div class="hover-text">Click for more details</div>
+       
         <img
           class="w-full h-48 object-cover rounded-md"
           [src]="product.thumbnail"
           alt="{{ product.title }}"
         />
-        <h5 class="mb-2 text-xl font-bold">{{ product.title }}</h5>
+        <div class="hover-text">Click for more details</div>
+        <p class="mb-2 text-md ">{{ product.title }}</p>
         <p class="font-bold text-lg">R{{ product.price }}</p>
       </a>
+
     </div>
   </div>
 </div>
 
-<!-- Pagination Controls -->
 <div class="pagination flex justify-center items-center mt-4">
   <button
     (click)="prevPage()"
@@ -75,7 +77,7 @@
   </button>
 </div>
 
-<!-- No Products Found Message -->
-<div *ngIf="paginatedProducts.length === 0 && !loading" class="text-center text-lg text-gray-500 mt-10">
-  No products found.
-</div>
+
+
+
+

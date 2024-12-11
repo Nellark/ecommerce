@@ -1,56 +1,27 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, Observable, of } from 'rxjs';
-import { map, tap, catchError } from 'rxjs/operators';
+import { BehaviorSubject, tap } from 'rxjs';
 import { Router } from '@angular/router';
 import { environment } from '../../environments/environment.development';
-import { ProductsResponseInterface, ProductInterface, Order, User, AuthResponse } from '../model/model.module';
+import { ProductInterface, ProductsResponseInterface } from '../model/model.module';
+
 
 @Injectable({
   providedIn: 'root',
 })
 export class ProductService {
-  private cartKey = 'cart';
+  private cartKey: string = 'cart';
   private currentUrl: string | null = null;
-  private orders: Order[] = [];
+
   products: ProductInterface[] = [];
-  filteredProductsSubject = new BehaviorSubject<ProductInterface[]>([]);
-  currentUser: User | null = null;
+  filteredProductsSubject: BehaviorSubject<ProductInterface[]> = new BehaviorSubject<ProductInterface[]>([]);
+  private cartSubject: BehaviorSubject<any[]> = new BehaviorSubject<any[]>(this.getCart());
 
-  constructor(private http: HttpClient, private router: Router) {
-    this.orders = this.getFromLocalStorage('orders') || [];
-  }
+  constructor(private http: HttpClient, private router: Router) {}
 
-
-  getAllProducts(): Observable<ProductsResponseInterface> {
+ 
+  getAllProducts() {
     return this.http.get<ProductsResponseInterface>(environment.SERVER);
-  }
-
-  getOrdersFromLocalStorage(): Observable<Order[]> {
-    return of(this.getFromLocalStorage('orders') || []);
-  }
-
-  submitOrder(orderData: any): Observable<Order> {
-    const newOrder: Order = {
-      ...orderData,
-      id: new Date().toISOString(),
-      date: new Date().toISOString(),
-      status: 'Pending',
-    };
-
-    this.orders.push(newOrder);
-    this.saveToLocalStorage('orders', this.orders);
-
-    return of(newOrder);
-  }
-
-  private saveToLocalStorage(key: string, data: any) {
-    localStorage.setItem(key, JSON.stringify(data));
-  }
-
-  private getFromLocalStorage(key: string): any {
-    const item = localStorage.getItem(key);
-    return item ? JSON.parse(item) : null;
   }
 
   setProducts(products: ProductInterface[]) {
@@ -58,69 +29,71 @@ export class ProductService {
     this.filteredProductsSubject.next(products);
   }
 
-  getProduct(productId: string): Observable<ProductInterface> {
+  getProduct(productId: string) {
     return this.http.get<ProductInterface>(`${environment.SERVER}/${productId}`);
   }
 
-  getFilteredProducts(): Observable<ProductInterface[]> {
+  getFilteredProducts() {
     return this.filteredProductsSubject.asObservable();
   }
 
   searchProducts(query: string) {
     const filtered = query
-      ? this.products.filter(product => product.title.toLowerCase().includes(query.toLowerCase()))
+      ? this.products.filter((product) =>
+          product.title.toLowerCase().includes(query.toLowerCase())
+        )
       : this.products;
     this.filteredProductsSubject.next(filtered);
   }
 
 
   getCart(): any[] {
-    return this.getFromLocalStorage(this.cartKey) || [];
+    const cart = localStorage.getItem(this.cartKey);
+    return cart ? JSON.parse(cart) : [];
   }
 
   private saveCart(cart: any[]) {
-    this.saveToLocalStorage(this.cartKey, cart);
+    localStorage.setItem(this.cartKey, JSON.stringify(cart));
+    this.cartSubject.next(cart); 
   }
 
-  addToCart(product: ProductInterface, quantity = 1) {
+  addToCart(product: ProductInterface, quantity: number = 1) {
     const cart = this.getCart();
-    const existingProductIndex = cart.findIndex(item => item.id === product.id);
+    const existingProductIndex = cart.findIndex((item: any) => item.id === product.id);
+
     if (existingProductIndex !== -1) {
       cart[existingProductIndex].quantity += quantity;
     } else {
       product.quantity = quantity;
       cart.push(product);
     }
+
     this.saveCart(cart);
-    if (this.currentUrl) {
-      this.router.navigateByUrl(this.currentUrl);
-    }
-  }
-
-  setCurrentUrl(url: string) {
-    this.currentUrl = url;
-  }
-
-  getCurrentUrl(): string | null {
-    return this.currentUrl;
   }
 
   updateCartItemQuantity(productId: string, newQuantity: number) {
     const cart = this.getCart();
-    const itemIndex = cart.findIndex(item => item.id === productId);
+    const itemIndex = cart.findIndex((item: any) => item.id === productId);
+
     if (itemIndex !== -1) {
       if (newQuantity > 0) {
         cart[itemIndex].quantity = newQuantity;
       } else {
-        cart.splice(itemIndex, 1);
+        cart.splice(itemIndex, 1); 
       }
-      this.saveCart(cart);
     }
+
+    this.saveCart(cart);
   }
 
   removeFromCart(productId: string) {
-    const cart = this.getCart().filter(item => item.id !== productId);
-    this.saveCart(cart);
+    const updatedCart = this.getCart().filter((item) => item.id !== productId);
+    this.saveCart(updatedCart);
+  }
+
+  clearCart() {
+    localStorage.removeItem(this.cartKey);
+    this.cartSubject.next([]);
   }
 
   getCartTotal(): number {
@@ -131,55 +104,30 @@ export class ProductService {
     return this.getCart().reduce((count, item) => count + item.quantity, 0);
   }
 
-  clearCart() {
-    localStorage.removeItem(this.cartKey);
-  }
-
   isCartEmpty(): boolean {
     return this.getCart().length === 0;
   }
 
-
-  register(username: string, email: string, password: string): Observable<AuthResponse | null> {
-    return this.http.post<AuthResponse>(`${environment.SERVER}/register`, { username, email, password })
-      .pipe(
-        tap(response => {
-          this.currentUser = response.user;
-        }),
-        catchError(error => {
-          console.error('Registration failed', error);
-          return of(null);
-        })
-      );
+  getCartObservable() {
+    return this.cartSubject.asObservable();
   }
 
-  login(email: string, password: string): Observable<AuthResponse | null> {
-    return this.http.post<AuthResponse>(`${environment.SERVER}/login`, { email, password })
-      .pipe(
-        tap(response => {
-          this.currentUser = response.user;
-        }),
-        catchError(error => {
-          console.error('Login failed', error);
-          return of(null);
-        })
-      );
+  proceedToCheckout(orderData: any) {
+    return this.http.post(`${environment.SERVER}/confirmed`, orderData).pipe(
+      tap(() => {
+        this.clearCart();
+      })
+    );
   }
 
-  logout() {
-    this.currentUser = null;
-    localStorage.removeItem('currentUser');
-    this.router.navigate(['/login']);
+
+  setCurrentUrl(url: string) {
+    this.currentUrl = url;
   }
 
-  isAuthenticated(): boolean {
-    return this.currentUser !== null || localStorage.getItem('currentUser') !== null;
+  getCurrentUrl(): string | null {
+    return this.currentUrl;
   }
 
-  private handleError<T>(operation = 'operation', result?: T) {
-    return (error: any): Observable<T> => {
-      console.error(`Error during ${operation}: `, error);
-      return of(result as T);
-    };
-  }
+  
 }

@@ -1,15 +1,14 @@
 .product-details {
-    max-width: 600px;
-    margin: 20px auto;
-    padding: 20px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    text-align: center;
-  }
-  
-  .product-details img {
-    max-width: 100%;
-    height: auto;
-    border-radius: 5px;
-  }
-  
+  max-width: 600px;
+  margin: 20px auto;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.product-details img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 5px;
+}
