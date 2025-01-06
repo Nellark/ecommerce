@@ -21,7 +21,7 @@ export class DisplayComponent implements OnInit {
   product_id: string | null = null;
   isLoading: boolean = true;
   showNotification: boolean = false;
-  cartItems: any[] = [];
+  wishlistMessage: string | null = null;
 
   constructor(
     private route: ActivatedRoute,
@@ -55,6 +55,28 @@ export class DisplayComponent implements OnInit {
     this.showNotificationMessage();
   }
 
+  toggleWishlist(product: ProductInterface | null): void {
+    if (!product) return;
+
+    if (this.isInWishlist(product)) {
+      this.productService.removeFromWishlist(product.id);
+      this.wishlistMessage = `${product.title} removed from wishlist!`;
+    } else {
+      this.productService.addToWishlist(product);
+      this.wishlistMessage = `${product.title} added to wishlist!`;
+    }
+
+    setTimeout(() => {
+      this.wishlistMessage = null;
+    }, 2000);
+  }
+
+  isInWishlist(product: ProductInterface | null): boolean {
+    if (!product) return false;
+    const wishlist = this.productService.getWishlist();
+    return wishlist.some((item) => item.id === product.id);
+  }
+
   showNotificationMessage(): void {
     this.showNotification = true;
     setTimeout(() => {
@@ -66,7 +88,7 @@ export class DisplayComponent implements OnInit {
     if (window.history.length > 1) {
       this.location.back();
     } else {
-      this.router.navigate(['/']); 
+      this.router.navigate(['/']);
     }
   }
 }

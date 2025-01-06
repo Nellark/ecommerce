@@ -32,6 +32,17 @@
         <p class="leading-relaxed text-gray-700">{{ selectedProduct.description }}</p>
         <div class="flex mt-6 items-center">
           <span class="title-font font-medium text-2xl text-gray-900 mr-3">R{{ selectedProduct.price }}</span>
+          
+          <button
+            class="ml-4 wishlist-button text-lg"
+            (click)="toggleWishlist(selectedProduct)"
+          >
+            <i
+              [class]="isInWishlist(selectedProduct) ? 'fas fa-heart' : 'far fa-heart'"
+              aria-hidden="true"
+            ></i>
+          </button>
+
           <button
             (click)="addToCart(selectedProduct)"
             class="flex ml-auto bg-black border-2 text-white rounded-lg px-4 py-2 hover:bg-gray-600 transition duration-200"
@@ -39,6 +50,7 @@
             Add to Cart
           </button>
         </div>
+        
         <button
           (click)="goBack()"
           class="flex items-center text-black mt-6 mb-6"
@@ -59,7 +71,6 @@
       </div>
     </div>
   </div>
-
-
+</div>
 
 <app-footer></app-footer>
