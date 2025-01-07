@@ -22,29 +22,34 @@ export class CheckoutComponent implements OnInit {
     phone: '',
   };
   paymentMethod: string | null = null;
-  shippingMethod: string | null = null; 
+  shippingMethod: string | null = null;
 
   constructor(private productService: ProductService, private router: Router) {}
 
   ngOnInit(): void {
     this.loadCart();
+    this.productService.getCartObservable().subscribe(cart => {
+      this.cartItems = cart;
+      this.calculateCartTotal();
+    });
   }
-  
 
-  loadCart() {
+  loadCart(): void {
     this.cartItems = this.productService.getCart();
-    this.cartTotal = this.productService.getCartTotal();
+    this.calculateCartTotal();
+  }
+
+  calculateCartTotal(): void {
+    this.cartTotal = this.cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
     this.cartTotal = parseFloat(this.cartTotal.toFixed(2));
   }
 
-  submitOrder() {
+  submitOrder(): void {
     if (this.cartItems.length === 0) {
-      
       return;
     }
 
     if (!this.shippingMethod) {
-
       return;
     }
 
@@ -53,24 +58,20 @@ export class CheckoutComponent implements OnInit {
     }
 
     if (!this.paymentMethod) {
-      
       return;
     }
-
-    const totalAmountFormatted = parseFloat(this.cartTotal.toFixed(2));
 
     const orderData = {
       cartItems: this.cartItems,
       shippingMethod: this.shippingMethod,
       shippingDetails: this.shippingMethod === 'delivery' ? this.shippingDetails : null,
-      totalAmount: totalAmountFormatted,
+      totalAmount: this.cartTotal,
       paymentMethod: this.paymentMethod,
     };
 
     console.log('Order placed successfully:', orderData);
 
-  
     this.productService.clearCart();
- 
+    this.router.navigate(['/confirmed']);
   }
 }

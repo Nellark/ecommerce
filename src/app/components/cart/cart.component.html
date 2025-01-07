@@ -7,9 +7,7 @@
 
     <div class="max-w-4xl mx-auto bg-gray-50 rounded-lg  p-8">
 
-
       <h1 class="text-3xl font-semibold text-center text-gray-800 mb-8">Your Shopping Cart</h1>
-
 
       <div *ngIf="cartItems.length > 0; else emptyCart">
         <div class="space-y-6">
@@ -40,7 +38,6 @@
           </div>
         </div>
 
-
         <div class="flex justify-between items-center mt-8 border-t border-gray-200 pt-6">
           <span class="text-xl font-semibold text-gray-900">Total: R{{ cartTotal  }}</span>
           <div class="flex space-x-4">
@@ -58,7 +55,6 @@
         </div>
       </div>
 
-
       <ng-template #emptyCart>
         <p class="text-xl text-gray-500 text-center mb-4">Your cart is empty. Start shopping now!</p>
         <div class="text-center">
@@ -69,8 +65,9 @@
       </ng-template>
     </div>
   </div>
-  </section>
+</section>
 </div>
+
 <div class="loader-overlay" *ngIf="isLoading">
   <div class="loader"></div>
 </div>
