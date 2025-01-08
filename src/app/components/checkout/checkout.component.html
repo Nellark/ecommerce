@@ -25,6 +25,7 @@
 
       <form (ngSubmit)="submitOrder()" #checkoutForm="ngForm">
         <div class="space-y-6">
+
           <div>
             <label class="block text-gray-700">Shipping Method</label>
             <div class="space-y-4">
@@ -48,15 +49,36 @@
 
           <div>
             <label class="block text-gray-700">Payment Method</label>
+            <img src= "/assets/Group 61.png ">
+            
             <div class="space-y-4">
               <div class="flex items-center">
                 <input type="radio" id="creditCard" name="paymentMethod" value="creditCard" [(ngModel)]="paymentMethod" required class="mr-2" />
                 <label for="creditCard" class="text-gray-800">Credit Card</label>
               </div>
-              <div class="flex items-center">
-                <input type="radio" id="paypal" name="paymentMethod" value="paypal" [(ngModel)]="paymentMethod" required class="mr-2" />
-                <label for="paypal" class="text-gray-800">PayPal</label>
+
+              <div *ngIf="paymentMethod === 'creditCard'" class="mt-2 space-y-2">
+                <img src="/assets/03 - Credit card - Account Card.png" alt="Credit Card" class="mt-4 rounded-md w-100">
+
+                <label for="cardNumber" class="block text-gray-700">Card Number</label>
+                <input type="text" id="cardNumber" [(ngModel)]="paymentDetails.cardNumber" name="cardNumber" required maxlength="16" placeholder="1234 5678 9012 3456" class="w-full px-4 py-2 border border-gray-300 rounded-md" />
+                <div *ngIf="checkoutForm.submitted && !paymentDetails.cardNumber" class="text-red-600 text-sm">Card number is required.</div>
+
+                <label for="expiryDate" class="block text-gray-700">Expiry Date</label>
+                <input type="text" id="expiryDate" [(ngModel)]="paymentDetails.expiryDate" name="expiryDate" required placeholder="MM/YY" class="w-full px-4 py-2 border border-gray-300 rounded-md" />
+                <div *ngIf="checkoutForm.submitted && !paymentDetails.expiryDate" class="text-red-600 text-sm">Expiry date is required.</div>
+
+                <label for="cvv" class="block text-gray-700">CVV</label>
+                <input type="text" id="cvv" [(ngModel)]="paymentDetails.cvv" name="cvv" required maxlength="3" placeholder="123" class="w-full px-4 py-2 border border-gray-300 rounded-md" />
+                <div *ngIf="checkoutForm.submitted && !paymentDetails.cvv" class="text-red-600 text-sm">CVV is required.</div>
+
+                <label for="cardHolderName" class="block text-gray-700">Cardholder Name</label>
+                <input type="text" id="cardHolderName" [(ngModel)]="paymentDetails.cardHolderName" name="cardHolderName" required placeholder="Mbali" class="w-full px-4 py-2 border-gray-300 rounded-md" />
+                <div *ngIf="checkoutForm.submitted && !paymentDetails.cardHolderName" class="text-red-600 text-sm">Cardholder name is required.</div>
               </div>
+
+              <!-- Image after Credit Card details -->
+            
               <div class="flex items-center">
                 <input type="radio" id="cashOnDelivery" name="paymentMethod" value="cashOnDelivery" [(ngModel)]="paymentMethod" required class="mr-2" />
                 <label for="cashOnDelivery" class="text-gray-800">Cash on Delivery</label>
@@ -68,7 +90,7 @@
 
         <div class="mt-6 flex justify-between items-center">
           <span class="text-xl font-semibold text-gray-900">Total: R{{ cartTotal }}</span>
-          <button [routerLink]="['/confirmed']" type="submit" class="bg-green-800 text-white px-5 py-2 rounded-md hover:bg-[#C1DCDC] transition text-sm">
+          <button type="submit" class="bg-black text-white px-5 py-2 rounded-md hover:bg-gray-400 transition text-sm">
             Place Order
           </button>
         </div>

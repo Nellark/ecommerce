@@ -3,8 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject } from 'rxjs';
 import { Router } from '@angular/router';
 import { environment } from '../../environments/environment.development';
-import { ProductInterface, ProductsResponseInterface } from '../model/model.module';
 import { tap } from 'rxjs/operators';
+import { ProductInterface, ProductsResponseInterface } from '../model/model.module';
 
 @Injectable({
   providedIn: 'root',
