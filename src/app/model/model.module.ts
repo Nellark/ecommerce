@@ -1,4 +1,4 @@
-// Existing Interfaces
+
 export interface ProductsResponseInterface {
   total: number;
   skip: number;
@@ -77,4 +77,9 @@ export interface User {
 export interface AuthResponse {
   user: User;         
   token: string;      
+}
+export interface UserInterface {
+  email: string;
+  password: string;
+
 }

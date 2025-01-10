@@ -9,20 +9,19 @@ import { NgIf } from '@angular/common';
   standalone: true,
   imports: [FormsModule, NgIf, RouterLink],
   templateUrl: './login.component.html',
-  styleUrl: './login.component.css'
+  styleUrls: ['./login.component.css'],
 })
 export class LoginComponent {
   username: string = '';
   password: string = '';
   errorMessage: string = '';
-
-  constructor(private authService: AuthService, private router: Router) {}
+  
+  constructor(private authService: AuthService) {}
 
   onLogin(): void {
-    if (this.authService.login(this.username, this.password)) {
-      this.router.navigate(['/home']);
-    } else {
-      this.errorMessage = 'Invalid username or password';
-    }
+    this.authService.login({ email: this.username, password: this.password });
+    this.authService.message$.subscribe((message) => {
+      this.errorMessage = message;
+    });
   }
 }

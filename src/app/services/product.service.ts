@@ -30,7 +30,6 @@ export class ProductService {
     this.filteredProductsSubject.next(products);
   }
 
-
   getProduct(productId: string) {
     return this.http.get<ProductInterface>(`${environment.SERVER}/${productId}`);
   }
@@ -55,32 +54,32 @@ export class ProductService {
 
   private saveCart(cart: ProductInterface[]) {
     localStorage.setItem(this.cartKey, JSON.stringify(cart));
-    this.cartSubject.next(cart); 
+    this.cartSubject.next(cart);
   }
 
   addToCart(product: ProductInterface, quantity: number = 1) {
     const cart = this.getCart();
-    const existingProductIndex = cart.findIndex((item: any) => String(item.id) === String(product.id));  
-  
+    const existingProductIndex = cart.findIndex((item: ProductInterface) => String(item.id) === String(product.id));  
+
     if (existingProductIndex !== -1) {
       cart[existingProductIndex].quantity += quantity;
     } else {
       product.quantity = quantity;
       cart.push(product);
     }
-  
+
     this.saveCart(cart);
   }
-  
+
   removeFromCart(productId: string) {  
-    const updatedCart = this.getCart().filter((item: any) => String(item.id) !== String(productId)); 
+    const updatedCart = this.getCart().filter((item: ProductInterface) => String(item.id) !== String(productId)); 
     this.saveCart(updatedCart);
   }
-  
+
   updateCartItemQuantity(productId: string, newQuantity: number) {
     const cart = this.getCart();
-    const itemIndex = cart.findIndex((item: any) => String(item.id) === String(productId));  
-  
+    const itemIndex = cart.findIndex((item: ProductInterface) => String(item.id) === String(productId));  
+
     if (itemIndex !== -1) {
       if (newQuantity > 0) {
         cart[itemIndex].quantity = newQuantity;
@@ -88,7 +87,7 @@ export class ProductService {
         cart.splice(itemIndex, 1); 
       }
     }
-  
+
     this.saveCart(cart);
   }
 
@@ -123,7 +122,7 @@ export class ProductService {
 
   addToWishlist(product: ProductInterface): void {
     let wishlist = this.getWishlist();
-    if (!wishlist.find((item) => item.id === product.id)) {
+    if (!wishlist.find((item: ProductInterface) => item.id === product.id)) {
       wishlist.push(product);
       this.saveWishlist(wishlist);
     }
@@ -131,7 +130,7 @@ export class ProductService {
 
   removeFromWishlist(productId: number): void {
     let wishlist = this.getWishlist();
-    wishlist = wishlist.filter((product) => product.id !== productId);
+    wishlist = wishlist.filter((product: ProductInterface) => product.id !== productId);
     this.saveWishlist(wishlist);
   }
 
@@ -142,7 +141,7 @@ export class ProductService {
 
   private saveWishlist(wishlist: ProductInterface[]): void {
     localStorage.setItem(this.wishlistKey, JSON.stringify(wishlist));
-    this.wishlistSubject.next(wishlist); 
+    this.wishlistSubject.next(wishlist);
   }
 
   getWishlistObservable() {
@@ -158,6 +157,6 @@ export class ProductService {
   }
 
   getWishlistItemCount(): number {
-    return this.getWishlist().length;  
+    return this.getWishlist().length;
   }
 }
