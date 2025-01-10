@@ -1,49 +1,59 @@
 <app-navbar></app-navbar>
 
+<div *ngIf="currentUser; else notLoggedIn">
+  <div *ngIf="previousOrders.length > 0; else noOrders">
+    <div class="containall">
+      <div class="space-y-6">
+        <div *ngFor="let order of previousOrders" class="flex items-center border-b border-gray-200 pb-6">
+          <div class="flex flex-col flex-grow">
+            <h2 class="text-lg font-medium text-gray-800">
+              Order #{{ order.orderId }} ({{ order.date }})
+            </h2>
 
+            <div class="mt-4">
+              <ul class="space-y-4">
+                <li *ngFor="let item of order.cartItems" class="flex items-center justify-between">
+                  <img [src]="item.thumbnail" alt="Product Image" class="w-16 h-16 object-cover rounded-md mr-4">
+                  <div class="flex-grow">
+                    <span class="text-gray-800">{{ item.title }} (x{{ item.quantity }})</span>
+                  </div>
+                  <span class="text-gray-900">R{{ item.price * item.quantity }}</span>
+                </li>
+              </ul>
+            </div>
 
-<div *ngIf="previousOrders.length > 0; else noOrders">
-  <div class="containall">
-  <div class="space-y-6">
-    <div *ngFor="let order of previousOrders" class="flex items-center border-b border-gray-200 pb-6">
-      <div class="flex flex-col flex-grow">
-        <h2 class="text-lg font-medium text-gray-800">Order #{{ order.orderId }} ({{ order.date }})</h2>
-
-        <div class="mt-4">
-          <ul class="space-y-4">
-            <li *ngFor="let item of order.cartItems" class="flex items-center justify-between">
-              <img [src]="item.thumbnail" alt="Product Image" class="w-16 h-16 object-cover rounded-md mr-4">
-              <div class="flex-grow">
-                <span class="text-gray-800">{{ item.title }} (x{{ item.quantity }})</span>
-              </div>
-              <span class="text-gray-900">R{{ item.price * item.quantity }}</span>
-            </li>
-          </ul>
+            <div class="flex justify-between items-center mt-6 border-t border-gray-200 pt-4">
+              <span class="text-xl font-semibold text-gray-900">
+                Total: R{{ order.cartTotal }}
+              </span>
+            </div>
+          </div>
         </div>
+      </div>
 
-        <div class="flex justify-between items-center mt-6 border-t border-gray-200 pt-4">
-          <span class="text-xl font-semibold text-gray-900">Total: R{{ order.cartTotal  }}</span>
-         
-        </div>
+      <div class="flex justify-center mt-8">
+        <button routerLink="/home" class="bg-black text-white px-5 py-2 rounded-md hover:bg-gray-400 text-sm">
+          Continue Shopping
+        </button>
       </div>
     </div>
   </div>
 
-  <div class="flex justify-center mt-8">
-    <button routerLink="/home" class="bg-black text-white px-5 py-2 rounded-md hover:bg-gray-400 text-sm">
-      Continue Shopping
-    </button>
-  </div>
-</div>
+  <ng-template #noOrders>
+    <p class="text-xl text-gray-500 text-center mb-4">You have no previous orders yet.</p>
+    <div class="text-center">
+      <button routerLink="/home" class="bg-black text-white px-5 py-2 rounded-md hover:bg-gray-400 text-sm">
+        Continue Shopping
+      </button>
+    </div>
+  </ng-template>
 </div>
 
-<ng-template #noOrders>
-  <p class="text-xl text-gray-500 text-center mb-4">You have no previous orders yet.</p>
+<ng-template #notLoggedIn>
+  <p class="text-xl text-gray-500 text-center mb-4">You need to log in to view your orders.</p>
   <div class="text-center">
-    <button routerLink="/home" class="bg-black text-white px-5 py-2 rounded-md hover:bg-gray-400 text-sm">
-      continue Shopping
+    <button routerLink="/login" class="bg-black text-white px-5 py-2 rounded-md hover:bg-gray-400 text-sm">
+      Go to Login
     </button>
   </div>
 </ng-template>
-
-

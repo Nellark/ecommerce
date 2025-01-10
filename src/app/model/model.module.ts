@@ -1,4 +1,3 @@
-
 export interface ProductsResponseInterface {
   total: number;
   skip: number;
@@ -32,14 +31,13 @@ export interface ProductInterface {
   thumbnail: string;
 }
 
-interface Meta {
-  createdAt: string;
-  updatedAt: string;
-  barcode: string;
-  qrCode: string;
+export interface Dimensions {
+  width: number;
+  height: number;
+  depth: number;
 }
 
-interface Review {
+export interface Review {
   rating: number;
   comment: string;
   date: string;
@@ -47,17 +45,32 @@ interface Review {
   reviewerEmail: string;
 }
 
-interface Dimensions {
-  width: number;
-  height: number;
-  depth: number;
+export interface Meta {
+  createdAt: string;
+  updatedAt: string;
+  barcode: string;
+  qrCode: string;
+}
+
+export enum OrderStatus {
+  Cancelled = 'Cancelled',
+  OutForDelivery = 'Out for Delivery',
+  Delivered = 'Delivered',
+}
+
+export interface OrderItem {
+  name: string;
+  quantity: number;
 }
 
 export interface Order {
+orderId: any;
+cartItems: any;
+cartTotal: any;
   id: string;
   date: string;
-  status: 'Cancelled' | 'Out for Delivery' | 'Delivered';
-  items: { name: string; quantity: number }[];
+  status: OrderStatus;
+  items: OrderItem[];
   total: number;
 }
 
@@ -66,21 +79,21 @@ export interface FetchOrdersResponse {
 }
 
 export interface User {
-  id: number; 
+  id: number;
   username: string;
   email: string;
-  password?: string; 
-  createdAt: string; 
+  password?: string; // Optional for scenarios like token-based auth
+  createdAt: string;
   updatedAt: string;
 }
 
 export interface AuthResponse {
-  user: User;         
-  token: string;      
+  user: User;
+  token: string;
 }
+
 export interface UserInterface {
   email?: string;
-  username?: string;
+  username: string;
   password: string;
-
 }

@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
 import { CommonModule, NgFor, NgIf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ProductService } from '../../services/product.service';
+import { AuthService } from '../../services/auth.service';
 import { NavbarComponent } from '../navbar/navbar.component';
-
 
 @Component({
   selector: 'app-checkout',
@@ -39,7 +39,11 @@ export class CheckoutComponent implements OnInit {
     address: false,
   };
 
-  constructor(private productService: ProductService, private router: Router) {}
+  constructor(
+    private productService: ProductService,
+    private authService: AuthService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.loadCart();
@@ -78,13 +82,11 @@ export class CheckoutComponent implements OnInit {
       isValid = false;
     }
 
-
     if (this.shippingMethod === 'delivery' && !this.shippingDetails.address) {
       this.formErrors.address = true;
       isValid = false;
     }
 
-  
     if (this.paymentMethod === 'creditCard') {
       const { cardNumber, expiryDate, cvv, cardHolderName } = this.paymentDetails;
 
@@ -112,6 +114,18 @@ export class CheckoutComponent implements OnInit {
     return isValid;
   }
 
+  saveOrder(order: any): void {
+    const currentUser = this.authService.getUserData();
+    if (!currentUser?.username) {
+      console.error('User is not logged in.');
+      return;
+    }
+
+    const previousOrders = JSON.parse(localStorage.getItem(`previousOrders_${currentUser.username}`) || '[]');
+    previousOrders.push(order);
+    localStorage.setItem(`previousOrders_${currentUser.username}`, JSON.stringify(previousOrders));
+  }
+
   submitOrder(): void {
     if (!this.validateForm()) {
       return;
@@ -124,7 +138,11 @@ export class CheckoutComponent implements OnInit {
       paymentDetails: this.paymentDetails,
       paymentMethod: this.paymentMethod,
       totalAmount: this.cartTotal,
+      date: new Date().toISOString(),
+      orderId: Math.random().toString(36).substr(2, 9),
     };
+
+    this.saveOrder(orderData);
 
     console.log('Order placed:', orderData);
     this.productService.clearCart();

@@ -7,9 +7,8 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root',
 })
 export class AuthService {
-  private user: UserInterface[] = [];
+  private users: UserInterface[] = []; 
   private isAuthenticated: boolean = false;
-
 
   private messageSubject = new BehaviorSubject<string>('');
   message$ = this.messageSubject.asObservable();
@@ -21,24 +20,32 @@ export class AuthService {
   register(userData: UserInterface): void {
     const userEmail = userData.email;
 
-    if (this.user.some((user) => user.email === userEmail)) {
+
+    if (this.users.some((user) => user.email === userEmail)) {
       this.messageSubject.next('Email already taken');
       return;
     }
 
-    this.user.push(userData);
+
+    this.users.push(userData);
     this.messageSubject.next('Registered successfully');
     this.router.navigateByUrl('/login');
   }
 
   login(userData: UserInterface): void {
-    const foundUser = this.user.find(
-      (user) => user.username === userData.username && user.password === userData.password
+
+    const foundUser = this.users.find(
+      (user) =>
+        user.username === userData.username &&
+        user.password === userData.password
     );
 
     if (foundUser) {
+ 
       localStorage.setItem('auth', 'true');
+      localStorage.setItem('currentUser', JSON.stringify(foundUser));
       this.isAuthenticated = true;
+
       this.messageSubject.next('Logged in successfully');
       this.router.navigateByUrl('/home');
     } else {
@@ -52,6 +59,13 @@ export class AuthService {
 
   logout(): void {
     localStorage.removeItem('auth');
+    localStorage.removeItem('currentUser');
+    this.isAuthenticated = false;
     this.router.navigate(['/home']);
+  }
+
+  getUserData(): any {
+
+    return JSON.parse(localStorage.getItem('currentUser') || 'null');
   }
 }
