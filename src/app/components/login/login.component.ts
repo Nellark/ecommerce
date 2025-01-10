@@ -19,7 +19,7 @@ export class LoginComponent {
   constructor(private authService: AuthService) {}
 
   onLogin(): void {
-    this.authService.login({ email: this.username, password: this.password });
+    this.authService.login({ username: this.username, password: this.password });
     this.authService.message$.subscribe((message) => {
       this.errorMessage = message;
     });

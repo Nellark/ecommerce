@@ -79,7 +79,8 @@ export interface AuthResponse {
   token: string;      
 }
 export interface UserInterface {
-  email: string;
+  email?: string;
+  username?: string;
   password: string;
 
 }

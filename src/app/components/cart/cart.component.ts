@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { NavbarComponent } from '../navbar/navbar.component';
 import { LoaderComponent } from '../../loader/loader.component';
+import { AuthService } from '../../services/auth.service'; 
 
 @Component({
   selector: 'app-cart',
@@ -25,7 +26,12 @@ export class CartComponent implements OnInit {
   isLoading: boolean = true;
   previousOrders: any;
 
-  constructor(private productService: ProductService ,private router: Router) {}
+  // Make authService public so it can be accessed in the template
+  constructor(
+    private productService: ProductService,
+    private router: Router,
+    public authService: AuthService  // <-- Change 'private' to 'public' here
+  ) {}
 
   ngOnInit(): void {
     this.loadCart();
@@ -70,7 +76,6 @@ export class CartComponent implements OnInit {
       total += item.price * item.quantity; 
     }
     this.cartTotal = parseFloat(total.toFixed(2));  
-    this.cartTotal = parseFloat(total.toFixed(2));  
   }
 
   goBack() {
@@ -78,21 +83,25 @@ export class CartComponent implements OnInit {
   }
 
   proceedToHome() {
-    const orderData = {
-      orderId: Date.now(),  
-      date: new Date().toLocaleString(),
-      cartItems: this.cartItems,
-      cartTotal: this.cartTotal,
-      cartItemCount: this.cartItemCount
-    };
+    if (this.authService.isAuthenticatedUser()) {
+      const orderData = {
+        orderId: Date.now(),  
+        date: new Date().toLocaleString(),
+        cartItems: this.cartItems,
+        cartTotal: this.cartTotal,
+        cartItemCount: this.cartItemCount
+      };
 
-    const previousOrders = JSON.parse(localStorage.getItem('previousOrders') || '[]');
-    previousOrders.push(orderData);  
-    localStorage.setItem('previousOrders', JSON.stringify(previousOrders));
+      const previousOrders = JSON.parse(localStorage.getItem('previousOrders') || '[]');
+      previousOrders.push(orderData);  
+      localStorage.setItem('previousOrders', JSON.stringify(previousOrders));
 
-    this.productService.clearCart();
-    this.loadCart(); 
+      this.productService.clearCart();
+      this.loadCart(); 
 
-    this.router.navigate(['/checkout']);
+      this.router.navigate(['/checkout']);
+    } else {
+      this.router.navigate(['/cart']);
+    }
   }
 }

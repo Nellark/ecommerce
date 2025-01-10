@@ -7,6 +7,10 @@
 
     <div class="max-w-4xl mx-auto bg-gray-50 rounded-lg  p-8">
 
+      <div *ngIf="!authService.isAuthenticatedUser()">
+        <p class="text-red-600 text-center text-md">You need to log in before proceeding to checkout.</p>
+      </div>
+
       <h1 class="text-3xl font-semibold text-center text-gray-800 mb-8">Your Shopping Cart</h1>
 
       <div *ngIf="cartItems.length > 0; else emptyCart">
@@ -54,6 +58,8 @@
           </div>
         </div>
       </div>
+
+   
 
       <ng-template #emptyCart>
         <p class="text-xl text-gray-500 text-center mb-4">Your cart is empty. Start shopping now!</p>

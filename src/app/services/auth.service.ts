@@ -33,7 +33,7 @@ export class AuthService {
 
   login(userData: UserInterface): void {
     const foundUser = this.user.find(
-      (user) => user.email === userData.email && user.password === userData.password
+      (user) => user.username === userData.username && user.password === userData.password
     );
 
     if (foundUser) {
@@ -52,6 +52,6 @@ export class AuthService {
 
   logout(): void {
     localStorage.removeItem('auth');
-    this.router.navigate(['/login']);
+    this.router.navigate(['/home']);
   }
 }

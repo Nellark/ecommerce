@@ -78,13 +78,13 @@ export class CheckoutComponent implements OnInit {
       isValid = false;
     }
 
-    // Validate shipping address for delivery
+
     if (this.shippingMethod === 'delivery' && !this.shippingDetails.address) {
       this.formErrors.address = true;
       isValid = false;
     }
 
-    // Validate payment method and credit card details
+  
     if (this.paymentMethod === 'creditCard') {
       const { cardNumber, expiryDate, cvv, cardHolderName } = this.paymentDetails;
 

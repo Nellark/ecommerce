@@ -17,15 +17,18 @@
         <span>Wishlist</span>
       </a>
 
-      <a [routerLink]="[ '/login' ]" routerLinkActive="active" class="flex items-center rounded-md px-3 py-2 text-lg font-medium text-white hover:text-gray-400 transition">
-        <i class="fas fa-user text-2xl"></i>
+      <!-- Conditionally show Login or Logout -->
+      <a *ngIf="!authService.isAuthenticatedUser()" [routerLink]="[ '/login' ]" routerLinkActive="active" class="flex items-center rounded-md px-3 py-2 text-lg font-medium text-white hover:text-gray-400 transition">
+        <span>Login</span>
+      </a>
+
+      <a *ngIf="authService.isAuthenticatedUser()" (click)="logout()" class="flex items-center rounded-md px-3 py-2 text-lg font-medium text-white hover:text-gray-400 transition">
+        <span>Logout</span>
       </a>
 
       <a [routerLink]="[ '/cart' ]" routerLinkActive="active" class="flex items-center space-x-2 rounded-md px-3 py-2 text-lg font-medium text-white hover:text-gray-400">
         <i class="fas fa-shopping-cart"></i>
       </a>
-
-
 
       <span *ngIf="productService.getCartItemCount() > 0" class="badge">{{ productService.getCartItemCount() }}</span>
     </div>

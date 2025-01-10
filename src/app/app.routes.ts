@@ -13,14 +13,13 @@ import { authGuard } from './guards/auth.guard';
 
 export const routes: Routes = [
     { path: '', component: LandingComponent },
-    { path: 'home', component: HomeComponent, canActivate: [authGuard]},
+    { path: 'home', component: HomeComponent },
     { path: 'display/:id', component: DisplayComponent },
     { path: 'cart', component: CartComponent },
-    { path: 'checkout', component: CheckoutComponent },
+    { path: 'checkout', component: CheckoutComponent, canActivate: [authGuard] },  
     { path: 'order', component: OrderComponent },
-    { path: 'wishlist', component: WishlistComponent},
-    {path: 'confirmed', component: ConfirmedComponent},
-    {path: 'login', component: LoginComponent},
-    {path: 'register', component: RegisterComponent}
- 
+    { path: 'wishlist', component: WishlistComponent },
+    { path: 'confirmed', component: ConfirmedComponent },
+    { path: 'login', component: LoginComponent },
+    { path: 'register', component: RegisterComponent }
 ];
