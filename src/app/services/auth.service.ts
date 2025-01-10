@@ -29,12 +29,9 @@ export class AuthService {
       return;
     }
 
- 
     this.users.push(userData);
 
     localStorage.setItem('users', JSON.stringify(this.users));
-
- 
     localStorage.setItem('currentUser', JSON.stringify(userData));
     localStorage.setItem('auth', 'true');
 
@@ -43,7 +40,6 @@ export class AuthService {
   }
 
   login(userData: UserInterface): void {
- 
     const foundUser = this.users.find(
       (user) =>
         user.username === userData.username &&
@@ -51,9 +47,18 @@ export class AuthService {
     );
 
     if (foundUser) {
+    
+      const preLoginCart = localStorage.getItem('tempCart');
+      const userCart = JSON.parse(localStorage.getItem('cart') || '[]');
 
-      localStorage.removeItem('cart');
-      localStorage.removeItem('wishlist');
+    
+      const mergedCart = preLoginCart ? [...userCart, ...JSON.parse(preLoginCart)] : userCart;
+
+    
+      localStorage.setItem('cart', JSON.stringify(mergedCart));
+      localStorage.removeItem('tempCart'); 
+
+    
       localStorage.setItem('auth', 'true');
       localStorage.setItem('currentUser', JSON.stringify(foundUser));
       this.isAuthenticated = true;
@@ -65,12 +70,17 @@ export class AuthService {
     }
   }
 
+  addToCartBeforeLogin(item: any): void {
+    const tempCart = JSON.parse(localStorage.getItem('tempCart') || '[]');
+    tempCart.push(item);
+    localStorage.setItem('tempCart', JSON.stringify(tempCart));
+  }
+
   isAuthenticatedUser(): boolean {
     return localStorage.getItem('auth') === 'true';
   }
 
   logout(): void {
-
     localStorage.removeItem('auth');
     localStorage.removeItem('currentUser');
     localStorage.removeItem('cart');
