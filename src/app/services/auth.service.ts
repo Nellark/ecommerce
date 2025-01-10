@@ -7,7 +7,7 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root',
 })
 export class AuthService {
-  private users: UserInterface[] = []; 
+  private users: UserInterface[] = [];
   private isAuthenticated: boolean = false;
 
   private messageSubject = new BehaviorSubject<string>('');
@@ -20,12 +20,10 @@ export class AuthService {
   register(userData: UserInterface): void {
     const userEmail = userData.email;
 
-
     if (this.users.some((user) => user.email === userEmail)) {
       this.messageSubject.next('Email already taken');
       return;
     }
-
 
     this.users.push(userData);
     this.messageSubject.next('Registered successfully');
@@ -33,7 +31,6 @@ export class AuthService {
   }
 
   login(userData: UserInterface): void {
-
     const foundUser = this.users.find(
       (user) =>
         user.username === userData.username &&
@@ -41,7 +38,9 @@ export class AuthService {
     );
 
     if (foundUser) {
- 
+      localStorage.removeItem('cart');
+      
+   
       localStorage.setItem('auth', 'true');
       localStorage.setItem('currentUser', JSON.stringify(foundUser));
       this.isAuthenticated = true;
@@ -60,12 +59,12 @@ export class AuthService {
   logout(): void {
     localStorage.removeItem('auth');
     localStorage.removeItem('currentUser');
+    localStorage.removeItem('cart');  
     this.isAuthenticated = false;
     this.router.navigate(['/home']);
   }
 
   getUserData(): any {
-
     return JSON.parse(localStorage.getItem('currentUser') || 'null');
   }
 }
