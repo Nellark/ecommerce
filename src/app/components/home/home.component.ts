@@ -53,6 +53,15 @@ export class HomeComponent implements OnInit {
         this.loading = false;
       }
     );
+
+    // Check for query params for pagination on reload
+    this.route.queryParams.subscribe(params => {
+      const page = params['page'];
+      if (page) {
+        this.currentPage = parseInt(page, 10);
+        this.updateProducts();
+      }
+    });
   }
 
   onSearch(searching: string): void {
@@ -149,7 +158,6 @@ export class HomeComponent implements OnInit {
       this.wishlistMessage = null;
     }, 2000);
   }
-
 
   isInWishlist(product: ProductInterface): boolean {
     const wishlist = this.productService.getWishlist();

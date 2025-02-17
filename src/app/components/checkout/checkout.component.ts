@@ -14,6 +14,9 @@ import { NavbarComponent } from '../navbar/navbar.component';
   styleUrls: ['./checkout.component.css']
 })
 export class CheckoutComponent implements OnInit {
+isOrderValid(arg0: any) {
+throw new Error('Method not implemented.');
+}
   cartItems: any[] = [];
   cartTotal: number = 0;
   shippingDetails: any = {
@@ -38,6 +41,7 @@ export class CheckoutComponent implements OnInit {
     shippingMethod: false,
     address: false,
   };
+currentOrder: any;
 
   constructor(
     private productService: ProductService,
@@ -65,8 +69,6 @@ export class CheckoutComponent implements OnInit {
 
   validateForm(): boolean {
     let isValid = true;
-
-    // Reset errors
     this.formErrors = {
       cardNumber: false,
       expiryDate: false,
@@ -76,7 +78,6 @@ export class CheckoutComponent implements OnInit {
       address: false,
     };
 
-    // Validate shipping method
     if (!this.shippingMethod) {
       this.formErrors.shippingMethod = true;
       isValid = false;

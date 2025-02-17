@@ -59,8 +59,11 @@ export enum OrderStatus {
 }
 
 export interface OrderItem {
+  productId: number;
   name: string;
   quantity: number;
+  price: number;
+  thumbnail?: string;
 }
 
 export interface Order {
@@ -82,7 +85,7 @@ export interface User {
   id: number;
   username: string;
   email: string;
-  password?: string; // Optional for scenarios like token-based auth
+  password?: string; 
   createdAt: string;
   updatedAt: string;
 }
@@ -96,4 +99,12 @@ export interface UserInterface {
   email?: string;
   username: string;
   password: string;
+}
+
+export interface Product {
+  id: number;
+  name: string;
+  description: string;
+  price: number;
+  imageUrl: string;
 }

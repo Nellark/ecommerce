@@ -2,12 +2,12 @@
   <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
 
     <a [routerLink]="[ '/home' ]" routerLinkActive="active" class="flex items-center space-x-2 rtl:space-x-reverse">
-      <i class="fas fa-shopping-bag text-white text-2xl"></i>
-      <span class="self-center text-2xl font-semibold whitespace-nowrap text-white">CART-EASY</span>
+     
+      <span class="self-center text-2xl font-semibold whitespace-nowrap text-white">ProsthetiQ-Qreations</span>
     </a>
 
-    <span *ngIf="authService.isAuthenticatedUser()" class="text-white text-lg">
-      Welcome, {{ authService.getUsername() }}
+    <span *ngIf="authService.isAuthenticatedUser()" class="flex items-center space-x-reverse rounded-md px-2 py-2 text-lg font-medium text-white">
+        {{ authService.getUsername() }}
     </span>
 
   <div class="cart relative flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
@@ -16,7 +16,7 @@
         <span>Your Orders</span>
       </a>
 
-      <a [routerLink]="[ '/wishlist' ]" routerLinkActive="active" class="flex items-center space-x-2 rounded-md px-3 py-2 text-lg font-medium text-white hover:text-gray-400">
+      <a [routerLink]="[ '/wishlist' ]" routerLinkActive="active" class="flex items-center space-x-2 rounded-md px-3 py-2 text-lg font-medium text-white hover:text-gray-400 transition">
         <i class="fas fa-heart"></i>
         <span>Wishlist</span>
       </a>
