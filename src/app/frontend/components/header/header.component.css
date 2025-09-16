@@ -171,3 +171,54 @@
     .search-container { max-width: 200px; }
   }
   
+
+  /* Second row styling */
+.sub-header {
+    background: linear-gradient(90deg, #7c3aed 0%, #9f7aea 100%);
+    color: white;
+    font-size: 0.95rem;
+    box-shadow: 0 1px 6px rgba(0,0,0,0.08);
+  }
+  
+  .sub-header-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    padding: 0.6rem 1rem;
+    flex-wrap: wrap;
+  }
+  
+  .sub-link {
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+    position: relative;
+    padding: 0.25rem 0;
+    transition: color 0.2s ease;
+  }
+  
+  .sub-link:hover {
+    color: #fbbf24;
+  }
+  
+  .sub-link.highlight {
+    font-weight: 700;
+    background: rgba(255,255,255,0.1);
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+  }
+  
+  /* Make room for fixed header + sub-header */
+  body {
+    padding-top: 120px; 
+  }
+  
+  /* Mobile tweaks */
+  @media (max-width: 768px) {
+    .sub-header-content {
+      gap: 1rem;
+      font-size: 0.9rem;
+    }
+  }
+  

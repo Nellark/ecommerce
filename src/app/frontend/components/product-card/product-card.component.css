@@ -84,7 +84,7 @@
   }
 
   .quick-add-btn:hover {
-    background: #2563eb;
+    background: #eadcfc;
     color: white;
     transform: scale(1.1);
   }
@@ -143,7 +143,7 @@
   .current-price {
     font-size: 1.25rem;
     font-weight: 700;
-    color: #2563eb;
+    color: #4f1896;
   }
 
   .original-price {

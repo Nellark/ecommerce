@@ -1,17 +1,15 @@
 <header class="header">
     <div class="container">
       <div class="header-content">
-        <!-- Logo -->
+        <!-- existing top row -->
         <div class="logo" routerLink="/">
           <h1>KulShopper</h1>
         </div>
   
-        <!-- Mobile menu button -->
         <button class="menu-toggle" (click)="isMenuOpen = !isMenuOpen" aria-label="Toggle navigation">
           ☰
         </button>
   
-        <!-- Navigation -->
         <nav class="nav" [class.open]="isMenuOpen">
           <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Home</a>
           <a routerLink="/products" routerLinkActive="active">Products</a>
@@ -19,9 +17,8 @@
           <a routerLink="/contact" routerLinkActive="active">Contact</a>
         </nav>
   
-        <!-- Search -->
         <div class="search-container">
-          <input 
+          <input
             type="text"
             placeholder="Search products..."
             class="search-input"
@@ -33,7 +30,6 @@
           </button>
         </div>
   
-        <!-- Actions -->
         <div class="actions">
           <button class="action-btn" routerLink="/login">Login</button>
           <button class="cart-btn" routerLink="/cart">
@@ -41,6 +37,19 @@
             <span class="cart-count" *ngIf="cartItemCount > 0">{{ cartItemCount }}</span>
           </button>
         </div>
+      </div>
+    </div>
+  
+    <!-- ▼ NEW SECOND ROW ▼ -->
+    <div class="sub-header">
+      <div class="container sub-header-content">
+        <a routerLink="/categories" class="sub-link">Categories</a>
+        <a routerLink="/deals/sale" class="sub-link highlight">🔥 Hot Sale</a>
+        <a routerLink="/deals/discounts" class="sub-link">Discounts</a>
+        <a routerLink="/deals/daily" class="sub-link">Daily Deals</a>
+        <a routerLink="/deals/weekly" class="sub-link">Weekly Deals</a>
+        <a routerLink="/deals/flash" class="sub-link highlight">⚡ Flash Offers</a>
+        <a routerLink="/filter" class="sub-link">Filter & Sort</a>
       </div>
     </div>
   </header>
