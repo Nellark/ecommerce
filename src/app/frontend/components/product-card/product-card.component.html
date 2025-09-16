@@ -1,0 +1,29 @@
+<div class="product-card" [routerLink]="['/products', product.id]">
+    <div class="product-image">
+      <img [src]="product.image" [alt]="product.name" loading="lazy">
+      <div class="product-badges">
+        <span class="badge badge-new" *ngIf="product.isNew">New</span>
+        <span class="badge badge-sale" *ngIf="product.isSale">Sale</span>
+      </div>
+      <button class="quick-add-btn" (click)="addToCart($event)" title="Add to Cart">
+        🛒
+      </button>
+    </div>
+    
+    <div class="product-info">
+      <div class="product-category">{{ product.category }}</div>
+      <h3 class="product-name">{{ product.name }}</h3>
+      
+      <div class="product-rating">
+        <div class="stars">
+          <span *ngFor="let star of getStars(product.rating)" [class]="star">⭐</span>
+        </div>
+        <span class="rating-text">{{ product.rating }} ({{ product.reviews }})</span>
+      </div>
+      
+      <div class="product-pricing">
+        <span class="current-price">\${{ product.price }}</span>
+        <span class="original-price" *ngIf="product.originalPrice">\${{ product.originalPrice }}</span>
+      </div>
+    </div>
+  </div>
