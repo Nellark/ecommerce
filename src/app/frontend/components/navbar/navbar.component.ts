@@ -2,8 +2,10 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { NgIf } from '@angular/common';
+import { AuthService } from '../../services/auth.service';
 import { ProductService } from '../../services/product.service';
-import { AuthService } from '../../services/auth.service';  
+
+
 
 @Component({
   selector: 'app-navbar',
@@ -18,7 +20,7 @@ export class NavbarComponent implements OnInit {
 
   constructor(
     public productService: ProductService,
-    public authService: AuthService  
+    public authService: AuthService
   ) {}
 
   ngOnInit(): void {
@@ -43,6 +45,6 @@ export class NavbarComponent implements OnInit {
   }
 
   logout(): void {
-    this.authService.logout();  
+    this.authService.logout();
   }
 }

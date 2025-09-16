@@ -1,15 +1,15 @@
 import { Routes } from '@angular/router';
-import { DisplayComponent } from './components/display/display.component';
-import { HomeComponent } from './components/home/home.component';
-import { LandingComponent } from './components/landing/landing.component';
-import { CartComponent } from './components/cart/cart.component';
-import { OrderComponent } from './components/order/order.component';
-import { CheckoutComponent } from './components/checkout/checkout.component';
-import { WishlistComponent } from './components/wishlist/wishlist.component';
-import { ConfirmedComponent } from './components/confirmed/confirmed.component';
-import { LoginComponent } from './components/login/login.component';
-import { RegisterComponent } from './components/register/register.component';
-import { authGuard } from './guards/auth.guard';
+import { DisplayComponent } from './frontend/components/display/display.component';
+import { HomeComponent } from './frontend/components/home/home.component';
+import { LandingComponent } from './frontend/components/landing/landing.component';
+import { CartComponent } from './frontend/components/cart/cart.component';
+import { OrderComponent } from './frontend/components/order/order.component';
+import { CheckoutComponent } from './frontend/components/checkout/checkout.component';
+import { WishlistComponent } from './frontend/components/wishlist/wishlist.component';
+import { ConfirmedComponent } from './frontend/components/confirmed/confirmed.component';
+import { LoginComponent } from './frontend/components/login/login.component';
+import { RegisterComponent } from './frontend/components/register/register.component';
+import { authGuard } from './frontend/guards/auth.guard';
 
 export const routes: Routes = [
     { path: '', component: LandingComponent },

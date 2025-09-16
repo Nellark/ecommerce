@@ -65,10 +65,9 @@ app.post('/tyres', upload.single('image'), (req, res) => {
     });
 });
 
-// Serving static files from the 'uploads' folder
 app.use('/uploads', express.static(path.join(__dirname, 'public/uploads')));
 
-const PORT = 5000;
+const PORT = 3000;
 app.listen(PORT, () => {
     console.log(`Server running on http://localhost:${PORT}`);
 });
