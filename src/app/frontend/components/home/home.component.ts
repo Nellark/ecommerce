@@ -14,10 +14,12 @@ import { ProductCardComponent } from '../../components/product-card/product-card
 })
 export class HomeComponent implements OnInit {
   featuredProducts: Product[] = [];
+  weeklyDeals: Product[] = [];
 
   constructor(private productService: ProductService) {}
 
   ngOnInit(): void {
     this.featuredProducts = this.productService.getFeaturedProducts();
+    this.weeklyDeals = this.productService.getWeeklyDeals();
   }
 }

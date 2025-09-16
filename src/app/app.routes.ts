@@ -1,25 +1,21 @@
 import { Routes } from '@angular/router';
-import { DisplayComponent } from './frontend/components/display/display.component';
 import { HomeComponent } from './frontend/components/home/home.component';
-import { LandingComponent } from './frontend/components/landing/landing.component';
+
 import { CartComponent } from './frontend/components/cart/cart.component';
-import { OrderComponent } from './frontend/components/order/order.component';
-import { CheckoutComponent } from './frontend/components/checkout/checkout.component';
-import { WishlistComponent } from './frontend/components/wishlist/wishlist.component';
-import { ConfirmedComponent } from './frontend/components/confirmed/confirmed.component';
+
 import { LoginComponent } from './frontend/components/login/login.component';
-import { RegisterComponent } from './frontend/components/register/register.component';
-import { authGuard } from './frontend/guards/auth.guard';
+import { ProductsComponent } from './frontend/components/products/products.component';
+import { ProductCardComponent } from './frontend/components/product-card/product-card.component';
+import { ProductDetailComponent } from './frontend/components/product-detail/product-detail.component';
+
 
 export const routes: Routes = [
-    { path: '', component: LandingComponent },
-    { path: 'home', component: HomeComponent },
-    { path: 'display/:id', component: DisplayComponent },
-    { path: 'cart', component: CartComponent },
-    { path: 'checkout', component: CheckoutComponent, canActivate: [authGuard] },  
-    { path: 'order', component: OrderComponent },
-    { path: 'wishlist', component: WishlistComponent },
-    { path: 'confirmed', component: ConfirmedComponent },
+   
+    { path: '', component: HomeComponent },
+    { path: 'cart', component: CartComponent},
+    { path: 'products', component: ProductsComponent },
+    { path: 'product-card', component: ProductCardComponent },
+    { path: 'product-detail', component: ProductDetailComponent },
     { path: 'login', component: LoginComponent },
-    { path: 'register', component: RegisterComponent }
+ 
 ];

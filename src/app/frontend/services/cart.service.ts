@@ -40,12 +40,30 @@ export class CartService {
     }
   }
 
+  /**
+   * Helper method to adjust quantity by a delta
+   * @param productId number - Product ID
+   * @param delta number - positive or negative adjustment
+   */
+  changeQuantity(productId: number, delta: number): void {
+    const item = this.cartItemsValue.find(i => i.product.id === productId);
+    if (item) {
+      this.updateQuantity(productId, item.quantity + delta);
+    }
+  }
+
   getCartTotal(): number {
-    return this.cartItemsValue.reduce((total, item) => total + (item.product.price * item.quantity), 0);
+    return this.cartItemsValue.reduce(
+      (total, item) => total + (item.product.price * item.quantity), 
+      0
+    );
   }
 
   getCartItemCount(): number {
-    return this.cartItemsValue.reduce((count, item) => count + item.quantity, 0);
+    return this.cartItemsValue.reduce(
+      (count, item) => count + item.quantity, 
+      0
+    );
   }
 
   clearCart(): void {

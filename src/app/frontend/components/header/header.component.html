@@ -3,38 +3,45 @@
       <div class="header-content">
         <!-- Logo -->
         <div class="logo" routerLink="/">
-          <h1>ShopHub</h1>
+          <h1>KulShopper</h1>
         </div>
-
+  
+        <!-- Mobile menu button -->
+        <button class="menu-toggle" (click)="isMenuOpen = !isMenuOpen" aria-label="Toggle navigation">
+          ☰
+        </button>
+  
         <!-- Navigation -->
-        <nav class="nav">
+        <nav class="nav" [class.open]="isMenuOpen">
           <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Home</a>
           <a routerLink="/products" routerLinkActive="active">Products</a>
           <a routerLink="/about" routerLinkActive="active">About</a>
           <a routerLink="/contact" routerLinkActive="active">Contact</a>
         </nav>
-
+  
         <!-- Search -->
         <div class="search-container">
           <input 
-            type="text" 
-            placeholder="Search products..." 
+            type="text"
+            placeholder="Search products..."
             class="search-input"
             [(ngModel)]="searchQuery"
-            (keyup.enter)="onSearch()">
+            (keyup.enter)="onSearch()"
+          >
           <button class="search-btn" (click)="onSearch()">
             <i class="search-icon">🔍</i>
           </button>
         </div>
-
+  
         <!-- Actions -->
         <div class="actions">
           <button class="action-btn" routerLink="/login">Login</button>
           <button class="cart-btn" routerLink="/cart">
             <span class="cart-icon">🛒</span>
-            <span class="cart-count" *ngIf="(cartItemCount$ | async) > 0">{{ cartItemCount$ | async }}</span>
+            <span class="cart-count" *ngIf="cartItemCount > 0">{{ cartItemCount }}</span>
           </button>
         </div>
       </div>
     </div>
   </header>
+  

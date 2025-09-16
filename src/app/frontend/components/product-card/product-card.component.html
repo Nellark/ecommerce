@@ -1,29 +1,41 @@
 <div class="product-card" [routerLink]="['/products', product.id]">
     <div class="product-image">
       <img [src]="product.image" [alt]="product.name" loading="lazy">
+  
+      <!-- Badges -->
       <div class="product-badges">
-        <span class="badge badge-new" *ngIf="product.isNew">New</span>
-        <span class="badge badge-sale" *ngIf="product.isSale">Sale</span>
+        <span class="badge new" *ngIf="product.isNew">New</span>
+        <span class="badge sale" *ngIf="product.originalPrice">
+          Sale {{ getDiscount(product) }}% Off
+        </span>
       </div>
-      <button class="quick-add-btn" (click)="addToCart($event)" title="Add to Cart">
-        🛒
-      </button>
+  
+      <!-- Add to Cart -->
+      <button class="quick-add-btn" (click)="addToCart($event)" title="Add to Cart">🛒</button>
     </div>
-    
+  
     <div class="product-info">
       <div class="product-category">{{ product.category }}</div>
       <h3 class="product-name">{{ product.name }}</h3>
-      
+  
+      <!-- Rating -->
       <div class="product-rating">
-        <div class="stars">
-          <span *ngFor="let star of getStars(product.rating)" [class]="star">⭐</span>
-        </div>
+        <span *ngFor="let star of getStars(product.rating)" 
+              [ngClass]="{
+                'full-star': star==='full',
+                'half-star': star==='half',
+                'empty-star': star==='empty'
+              }">★</span>
         <span class="rating-text">{{ product.rating }} ({{ product.reviews }})</span>
       </div>
-      
+  
+      <!-- Pricing -->
       <div class="product-pricing">
-        <span class="current-price">\${{ product.price }}</span>
-        <span class="original-price" *ngIf="product.originalPrice">\${{ product.originalPrice }}</span>
+        <span class="current-price">R {{ product.price | number:'1.2-2' }}</span>
+        <span class="original-price" *ngIf="product.originalPrice">
+          R {{ product.originalPrice | number:'1.2-2' }}
+        </span>
       </div>
     </div>
   </div>
+  

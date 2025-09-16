@@ -1,32 +1,33 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Router, RouterModule } from '@angular/router';
+import { RouterModule, Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CartService } from '../../services/cart.service';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-header',
   standalone: true,
   imports: [CommonModule, RouterModule, FormsModule],
   templateUrl: './header.component.html',
-  styleUrl: './header.component.css'
+  styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
-  searchQuery = '';
-  cartItemCount$: Observable<number>;
+  searchQuery: string = '';
+  cartItemCount: number = 0;
+
+  // ✅ add this
+  isMenuOpen = false;
 
   constructor(
     private cartService: CartService,
     private router: Router
-  ) {
-    this.cartItemCount$ = this.cartService.cartItems$.pipe(
-      map(items => items.reduce((count, item) => count + item.quantity, 0))
-    );
-  }
+  ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.cartService.cartItems$.subscribe(items => {
+      this.cartItemCount = items.reduce((count, item) => count + item.quantity, 0);
+    });
+  }
 
   onSearch(): void {
     if (this.searchQuery.trim()) {
@@ -35,4 +36,10 @@ export class HeaderComponent implements OnInit {
       });
     }
   }
+
+  // ✅ optional helper if you prefer a method
+  toggleMenu(): void {
+    this.isMenuOpen = !this.isMenuOpen;
+  }
 }
+

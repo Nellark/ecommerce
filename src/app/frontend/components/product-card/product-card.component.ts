@@ -9,7 +9,7 @@ import { CartService } from '../../services/cart.service';
   standalone: true,
   imports: [CommonModule, RouterModule],
   templateUrl: './product-card.component.html',
-  styleUrl: './product-card.component.css'
+  styleUrls: ['./product-card.component.css']
 })
 export class ProductCardComponent {
   @Input() product!: Product;
@@ -20,19 +20,9 @@ export class ProductCardComponent {
     const fullStars = Math.floor(rating);
     const hasHalfStar = rating % 1 !== 0;
     const stars: string[] = [];
-
-    for (let i = 0; i < fullStars; i++) {
-      stars.push('full');
-    }
-
-    if (hasHalfStar) {
-      stars.push('half');
-    }
-
-    while (stars.length < 5) {
-      stars.push('empty');
-    }
-
+    for (let i = 0; i < fullStars; i++) stars.push('full');
+    if (hasHalfStar) stars.push('half');
+    while (stars.length < 5) stars.push('empty');
     return stars;
   }
 
@@ -40,5 +30,12 @@ export class ProductCardComponent {
     event.preventDefault();
     event.stopPropagation();
     this.cartService.addToCart(this.product);
+  }
+
+  getDiscount(product: Product): number | null {
+    if (product.originalPrice && product.originalPrice > product.price) {
+      return Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100);
+    }
+    return null;
   }
 }

@@ -14,6 +14,8 @@ export interface Product {
   isSale?: boolean;
 }
 
+
+
 export interface CartItem {
   product: Product;
   quantity: number;

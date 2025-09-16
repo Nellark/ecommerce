@@ -6,7 +6,8 @@ import { Product } from '../models/product.model';
   providedIn: 'root'
 })
 export class ProductService {
-  private products: Product[] = [
+  /** Master list of products */
+  private readonly products: Product[] = [
     {
       id: 1,
       name: 'Premium Wireless Headphones',
@@ -113,31 +114,44 @@ export class ProductService {
     }
   ];
 
-  private productsSubject = new BehaviorSubject<Product[]>(this.products);
-  products$ = this.productsSubject.asObservable();
+  /** Reactive stream of all products */
+  private readonly productsSubject = new BehaviorSubject<Product[]>(this.products);
+  readonly products$: Observable<Product[]> = this.productsSubject.asObservable();
 
+  /** Return observable of all products */
   getAllProducts(): Observable<Product[]> {
     return this.products$;
   }
 
+  /** Get a single product by its id */
   getProductById(id: number): Product | undefined {
     return this.products.find(p => p.id === id);
   }
 
+  /** Filter products by category */
   getProductsByCategory(category: string): Product[] {
-    return this.products.filter(p => p.category === category);
+    return this.products.filter(
+      p => p.category.toLowerCase() === category.toLowerCase()
+    );
   }
 
+  /** First 4 products for a “featured” section */
   getFeaturedProducts(): Product[] {
     return this.products.slice(0, 4);
   }
 
+  /** Text search across name, category and description */
   searchProducts(query: string): Product[] {
+    if (!query?.trim()) return [];
     const searchTerm = query.toLowerCase();
-    return this.products.filter(p => 
-      p.name.toLowerCase().includes(searchTerm) || 
-      p.category.toLowerCase().includes(searchTerm) ||
-      p.description.toLowerCase().includes(searchTerm)
+    return this.products.filter(p =>
+      [p.name, p.category, p.description]
+        .some(field => field.toLowerCase().includes(searchTerm))
+    );
+  }
+  getWeeklyDeals(): Product[] {
+    return this.products.filter(
+      p => (p as any).isSale === true || (p as any).isNew === true
     );
   }
 }
