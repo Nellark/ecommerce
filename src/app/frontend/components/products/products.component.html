@@ -1,18 +1,80 @@
-<div class="products-page">
-    <div class="container">
-      <!-- Page Header -->
-      <div class="page-header">
-        <h1 class="page-title">Our Products</h1>
-        <p class="page-subtitle">Discover amazing products at unbeatable prices</p>
+<div class="products-page container">
+  <div class="page-header">
+    <h1 class="page-title">Shop Our Products</h1>
+    <p class="page-subtitle">Filter and find your perfect item</p>
+  </div>
+
+  <div class="products-content">
+    <!-- Sidebar Filters -->
+    <aside class="sidebar">
+      <div class="sidebar-filters">
+        <!-- Category -->
+        <h3 class="filter-title">Category</h3>
+        <div class="filter-group">
+          <button *ngFor="let category of categories"
+                  (click)="selectedCategory = category; applyFilters()"
+                  [class.active]="selectedCategory === category"
+                  class="filter-btn">
+            {{ category }}
+          </button>
+          <button (click)="selectedCategory=''; applyFilters()" class="filter-btn clear">All</button>
+        </div>
+
+        <!-- Size -->
+        <h3 class="filter-title">Size</h3>
+        <div class="filter-group">
+          <button *ngFor="let size of ['S','M','L','XL','One Size']"
+                  (click)="selectedSize=size; applyFilters()"
+                  [class.active]="selectedSize===size"
+                  class="filter-btn">{{ size }}</button>
+          <button (click)="selectedSize=''; applyFilters()" class="filter-btn clear">All</button>
+        </div>
+
+        <!-- Color -->
+        <h3 class="filter-title">Color</h3>
+        <div class="filter-group color-group">
+          <span *ngFor="let color of ['Black','White','Blue','Red','Brown','Silver','Pink','Purple','Multicolor','Green','Gray']"
+                (click)="selectedColor=color; applyFilters()"
+                [class.active]="selectedColor===color"
+                [style.backgroundColor]="color.toLowerCase()"
+                class="color-circle">
+          </span>
+          <button (click)="selectedColor=''; applyFilters()" class="filter-btn clear mt-2">All</button>
+        </div>
+
+        <!-- Style -->
+        <h3 class="filter-title">Style</h3>
+        <div class="filter-group">
+          <button *ngFor="let style of ['Modern','Casual','Sport','Classic','Professional']"
+                  (click)="selectedStyle=style; applyFilters()"
+                  [class.active]="selectedStyle===style"
+                  class="filter-btn">{{ style }}</button>
+          <button (click)="selectedStyle=''; applyFilters()" class="filter-btn clear">All</button>
+        </div>
+
+        <!-- Sort -->
+        <h3 class="filter-title">Sort By</h3>
+        <select [(ngModel)]="sortBy" (change)="applyFilters()" class="sort-select w-full">
+          <option value="name">Name</option>
+          <option value="price-low">Price: Low to High</option>
+          <option value="price-high">Price: High to Low</option>
+          <option value="rating">Rating</option>
+        </select>
+
+        <button (click)="clearFilters()" class="btn btn-primary w-full mt-6">Clear All Filters</button>
       </div>
+    </aside>
 
-      <!-- Filters -->
-     
+    <!-- Products Grid -->
+    <section class="products-grid">
+      <app-product-card
+        *ngFor="let product of filteredProducts"
+        [product]="product">
+      </app-product-card>
 
-      
-
-      
-      
+      <div *ngIf="filteredProducts.length === 0" class="no-products">
+        <p>No products found matching your criteria.</p>
       </div>
-    </div>
-
+    </section>
+  </div>
+</div>

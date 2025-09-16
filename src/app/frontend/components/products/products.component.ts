@@ -11,7 +11,7 @@ import { ProductCardComponent } from '../../components/product-card/product-card
   standalone: true,
   imports: [CommonModule, FormsModule, ProductCardComponent],
   templateUrl: './products.component.html',
-  styleUrl: './products.component.css'
+  styleUrls: ['./products.component.css'] // ✅ fixed
 })
 export class ProductsComponent implements OnInit {
   products: Product[] = [];
@@ -20,6 +20,9 @@ export class ProductsComponent implements OnInit {
   selectedCategory = '';
   sortBy = 'name';
   searchQuery = '';
+  selectedSize = '';
+  selectedColor = '';
+  selectedStyle = '';
 
   constructor(
     private productService: ProductService,
@@ -45,22 +48,27 @@ export class ProductsComponent implements OnInit {
   applyFilters(): void {
     let filtered = [...this.products];
 
-    // Apply category filter
+    // Category filter
     if (this.selectedCategory) {
       filtered = filtered.filter(p => p.category === this.selectedCategory);
     }
 
-    // Apply search filter
-    if (this.searchQuery.trim()) {
-      const query = this.searchQuery.toLowerCase().trim();
-      filtered = filtered.filter(p => 
-        p.name.toLowerCase().includes(query) ||
-        p.category.toLowerCase().includes(query) ||
-        p.description.toLowerCase().includes(query)
-      );
+    // Size filter (check array)
+    if (this.selectedSize) {
+      filtered = filtered.filter(p => p.sizes?.includes(this.selectedSize));
     }
 
-    // Apply sorting
+    // Color filter (check array)
+    if (this.selectedColor) {
+      filtered = filtered.filter(p => p.colors?.includes(this.selectedColor));
+    }
+
+    // Style filter (check array)
+    if (this.selectedStyle) {
+      filtered = filtered.filter(p => p.styles?.includes(this.selectedStyle));
+    }
+
+    // Sorting
     switch (this.sortBy) {
       case 'name':
         filtered.sort((a, b) => a.name.localeCompare(b.name));
@@ -81,7 +89,9 @@ export class ProductsComponent implements OnInit {
 
   clearFilters(): void {
     this.selectedCategory = '';
-    this.searchQuery = '';
+    this.selectedSize = '';
+    this.selectedColor = '';
+    this.selectedStyle = '';
     this.sortBy = 'name';
     this.applyFilters();
   }

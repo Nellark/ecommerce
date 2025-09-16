@@ -17,10 +17,6 @@ import { Product } from '../../models/product.model';              // ✅ ensure
 export class HeaderComponent implements OnInit {
 
   products: Product[] = [];
-  filteredProducts: Product[] = [];
-  categories: string[] = [];
-  selectedCategory = '';
-  sortBy = 'name';
   searchQuery = '';
   cartItemCount = 0;
   isMenuOpen = false;
@@ -41,72 +37,26 @@ export class HeaderComponent implements OnInit {
     // load products and categories
     this.productService.getAllProducts().subscribe(products => {
       this.products = products;
-      this.filteredProducts = [...products];
-      this.categories = [...new Set(products.map(p => p.category))];
     });
 
     // apply search from query param if present
     this.route.queryParams.subscribe(params => {
       if (params['search']) {
         this.searchQuery = params['search'];
-        this.applyFilters();
+        
       }
     });
   }
 
-  applyFilters(): void {
-    let filtered = [...this.products];
-  
-    // category filter
-    if (this.selectedCategory) {
-      filtered = filtered.filter(p => p.category === this.selectedCategory);
-    }
-  
-    // search filter (real-time)
-    if (this.searchQuery.trim()) {
-      const query = this.searchQuery.toLowerCase();
-      filtered = filtered.filter(p =>
-        p.name.toLowerCase().includes(query) ||
-        p.category.toLowerCase().includes(query) ||
-        p.description.toLowerCase().includes(query)
-      );
-    }
-  
-    // sorting
-    switch (this.sortBy) {
-      case 'name':
-        filtered.sort((a, b) => a.name.localeCompare(b.name));
-        break;
-      case 'price-low':
-        filtered.sort((a, b) => a.price - b.price);
-        break;
-      case 'price-high':
-        filtered.sort((a, b) => b.price - a.price);
-        break;
-      case 'rating':
-        filtered.sort((a, b) => b.rating - a.rating);
-        break;
-    }
-  
-    this.filteredProducts = filtered;
-  }
-  
 
-  clearFilters(): void {
-    this.selectedCategory = '';
-    this.searchQuery = '';
-    this.sortBy = 'name';
-    this.applyFilters();
-  }
-
-  onSearch(): void {
-    const term = this.searchQuery.trim();
-    if (term) {
+ 
+  
+    onSearch(): void {
+      const term = this.searchQuery.trim();
       this.router.navigate(['/products'], { queryParams: { search: term } });
     }
+    toggleMenu(): void {
+      this.isMenuOpen = !this.isMenuOpen;
+    }
   }
-
-  toggleMenu(): void {
-    this.isMenuOpen = !this.isMenuOpen;
-  }
-}
+  

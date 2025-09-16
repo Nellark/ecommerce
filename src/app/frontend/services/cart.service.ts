@@ -1,73 +1,114 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { CartItem, Product } from '../models/product.model';
+import { Product } from '../models/product.model';
+
+export interface CartItem {
+  product: Product;
+  quantity: number;
+  selectedSize?: string;
+  selectedColor?: string;
+  selectedStyle?: string;
+}
 
 @Injectable({
   providedIn: 'root'
 })
 export class CartService {
+  private cartItemsValue: CartItem[] = [];
   private cartItems = new BehaviorSubject<CartItem[]>([]);
   cartItems$ = this.cartItems.asObservable();
 
-  private cartItemsValue: CartItem[] = [];
-
-  addToCart(product: Product, quantity: number = 1): void {
-    const existingItem = this.cartItemsValue.find(item => item.product.id === product.id);
-    
-    if (existingItem) {
-      existingItem.quantity += quantity;
-    } else {
-      this.cartItemsValue.push({ product, quantity });
+  constructor() {
+    // Load cart from localStorage if available
+    const saved = localStorage.getItem('cart');
+    if (saved) {
+      this.cartItemsValue = JSON.parse(saved);
+      this.cartItems.next([...this.cartItemsValue]);
     }
-    
+  }
+
+  private saveCart() {
+    localStorage.setItem('cart', JSON.stringify(this.cartItemsValue));
     this.cartItems.next([...this.cartItemsValue]);
   }
 
-  removeFromCart(productId: number): void {
-    this.cartItemsValue = this.cartItemsValue.filter(item => item.product.id !== productId);
-    this.cartItems.next([...this.cartItemsValue]);
+  addToCart(item: Omit<CartItem, 'quantity'>, quantity: number = 1): void {
+    const existingIndex = this.cartItemsValue.findIndex(ci =>
+      ci.product.id === item.product.id &&
+      ci.selectedSize === item.selectedSize &&
+      ci.selectedColor === item.selectedColor &&
+      ci.selectedStyle === item.selectedStyle
+    );
+
+    if (existingIndex > -1) {
+      this.cartItemsValue[existingIndex].quantity += quantity;
+    } else {
+      this.cartItemsValue.push({ ...item, quantity });
+    }
+
+    this.saveCart();
   }
 
-  updateQuantity(productId: number, quantity: number): void {
-    const item = this.cartItemsValue.find(item => item.product.id === productId);
+  removeFromCart(productId: number, selectedSize?: string, selectedColor?: string, selectedStyle?: string): void {
+    this.cartItemsValue = this.cartItemsValue.filter(item =>
+      !(item.product.id === productId &&
+        item.selectedSize === selectedSize &&
+        item.selectedColor === selectedColor &&
+        item.selectedStyle === selectedStyle)
+    );
+    this.saveCart();
+  }
+
+  updateQuantity(productId: number, quantity: number, selectedSize?: string, selectedColor?: string, selectedStyle?: string): void {
+    const item = this.cartItemsValue.find(i =>
+      i.product.id === productId &&
+      i.selectedSize === selectedSize &&
+      i.selectedColor === selectedColor &&
+      i.selectedStyle === selectedStyle
+    );
+
     if (item) {
       if (quantity <= 0) {
-        this.removeFromCart(productId);
+        this.removeFromCart(productId, selectedSize, selectedColor, selectedStyle);
       } else {
         item.quantity = quantity;
-        this.cartItems.next([...this.cartItemsValue]);
+        this.saveCart();
       }
     }
   }
 
-  /**
-   * Helper method to adjust quantity by a delta
-   * @param productId number - Product ID
-   * @param delta number - positive or negative adjustment
-   */
-  changeQuantity(productId: number, delta: number): void {
-    const item = this.cartItemsValue.find(i => i.product.id === productId);
+  changeQuantity(productId: number, delta: number, selectedSize?: string, selectedColor?: string, selectedStyle?: string): void {
+    const item = this.cartItemsValue.find(i =>
+      i.product.id === productId &&
+      i.selectedSize === selectedSize &&
+      i.selectedColor === selectedColor &&
+      i.selectedStyle === selectedStyle
+    );
     if (item) {
-      this.updateQuantity(productId, item.quantity + delta);
+      this.updateQuantity(productId, item.quantity + delta, selectedSize, selectedColor, selectedStyle);
     }
   }
 
   getCartTotal(): number {
     return this.cartItemsValue.reduce(
-      (total, item) => total + (item.product.price * item.quantity), 
+      (total, item) => total + (item.product.price * item.quantity),
       0
     );
   }
 
   getCartItemCount(): number {
     return this.cartItemsValue.reduce(
-      (count, item) => count + item.quantity, 
+      (count, item) => count + item.quantity,
       0
     );
   }
 
   clearCart(): void {
     this.cartItemsValue = [];
-    this.cartItems.next([]);
+    this.saveCart();
+  }
+
+  getCartItems(): CartItem[] {
+    return [...this.cartItemsValue];
   }
 }

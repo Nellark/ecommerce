@@ -3,7 +3,8 @@ export interface Product {
   name: string;
   price: number;
   originalPrice?: number;
-  image: string;
+  image: string;           // main image
+  images?: string[];       // additional images for carousel
   category: string;
   rating: number;
   reviews: number;
@@ -12,7 +13,11 @@ export interface Product {
   inStock: boolean;
   isNew?: boolean;
   isSale?: boolean;
+  sizes?: string[];
+  colors?: string[];
+  styles?: string[];
 }
+
 
 
 
