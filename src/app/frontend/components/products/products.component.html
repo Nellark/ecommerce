@@ -7,59 +7,12 @@
       </div>
 
       <!-- Filters -->
-      <div class="filters-section">
-        <div class="filters-container">
-          <div class="filter-group">
-            <label for="category">Category:</label>
-            <select id="category" [(ngModel)]="selectedCategory" (change)="applyFilters()">
-              <option value="">All Categories</option>
-              <option *ngFor="let category of categories" [value]="category">{{ category }}</option>
-            </select>
-          </div>
+     
 
-          <div class="filter-group">
-            <label for="sort">Sort by:</label>
-            <select id="sort" [(ngModel)]="sortBy" (change)="applyFilters()">
-              <option value="name">Name</option>
-              <option value="price-low">Price: Low to High</option>
-              <option value="price-high">Price: High to Low</option>
-              <option value="rating">Rating</option>
-            </select>
-          </div>
+      
 
-          <div class="filter-group">
-            <label for="search">Search:</label>
-            <input 
-              type="text" 
-              id="search" 
-              [(ngModel)]="searchQuery" 
-              (input)="applyFilters()"
-              placeholder="Search products...">
-          </div>
-        </div>
-      </div>
-
-      <!-- Products Grid -->
-      <div class="products-section">
-        <div class="products-header">
-          <p class="products-count">{{ filteredProducts.length }} products found</p>
-        </div>
-
-        <div class="products-grid" *ngIf="filteredProducts.length > 0">
-          <app-product-card 
-            *ngFor="let product of filteredProducts" 
-            [product]="product">
-          </app-product-card>
-        </div>
-
-        <div class="no-products" *ngIf="filteredProducts.length === 0">
-          <div class="no-products-content">
-            <div class="no-products-icon">🔍</div>
-            <h3>No products found</h3>
-            <p>Try adjusting your filters or search terms</p>
-            <button class="btn btn-primary" (click)="clearFilters()">Clear Filters</button>
-          </div>
-        </div>
+      
+      
       </div>
     </div>
-  </div>
+
