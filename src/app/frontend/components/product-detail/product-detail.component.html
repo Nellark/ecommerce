@@ -1,0 +1,116 @@
+<div class="product-detail" *ngIf="product">
+    <div class="container">
+      <!-- Breadcrumb -->
+      <nav class="breadcrumb">
+        <a routerLink="/">Home</a> 
+        <span>/</span> 
+        <a routerLink="/products">Products</a> 
+        <span>/</span> 
+        <span>{{ product.name }}</span>
+      </nav>
+
+      <div class="product-content">
+        <!-- Product Image -->
+        <div class="product-image-section">
+          <div class="product-image">
+            <img [src]="product.image" [alt]="product.name">
+            <div class="product-badges">
+              <span class="badge badge-new" *ngIf="product.isNew">New</span>
+              <span class="badge badge-sale" *ngIf="product.isSale">Sale</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Product Info -->
+        <div class="product-info-section">
+          <div class="product-category">{{ product.category }}</div>
+          <h1 class="product-title">{{ product.name }}</h1>
+          
+          <!-- Rating -->
+          <div class="product-rating">
+            <div class="stars">
+              <span *ngFor="let star of getStars(product.rating)" [class]="star">⭐</span>
+            </div>
+            <span class="rating-text">{{ product.rating }} out of 5 ({{ product.reviews }} reviews)</span>
+          </div>
+
+          <!-- Pricing -->
+          <div class="product-pricing">
+            <span class="current-price">\${{ product.price }}</span>
+            <span class="original-price" *ngIf="product.originalPrice">\${{ product.originalPrice }}</span>
+            <span class="discount" *ngIf="product.originalPrice">
+              Save \${{ (product.originalPrice - product.price).toFixed(2) }}
+            </span>
+          </div>
+
+          <!-- Description -->
+          <div class="product-description">
+            <p>{{ product.description }}</p>
+          </div>
+
+          <!-- Features -->
+          <div class="product-features">
+            <h3>Key Features</h3>
+            <ul>
+              <li *ngFor="let feature of product.features">{{ feature }}</li>
+            </ul>
+          </div>
+
+          <!-- Stock Status -->
+          <div class="stock-status">
+            <span class="stock-badge" [class.in-stock]="product.inStock" [class.out-of-stock]="!product.inStock">
+              {{ product.inStock ? 'In Stock' : 'Out of Stock' }}
+            </span>
+          </div>
+
+          <!-- Actions -->
+          <div class="product-actions">
+            <div class="quantity-selector">
+              <button class="qty-btn" (click)="decreaseQuantity()">-</button>
+              <span class="quantity">{{ quantity }}</span>
+              <button class="qty-btn" (click)="increaseQuantity()">+</button>
+            </div>
+            
+            <button 
+              class="btn btn-primary add-to-cart"
+              (click)="addToCart()"
+              [disabled]="!product.inStock">
+              <span class="cart-icon">🛒</span>
+              Add to Cart
+            </button>
+            
+            <button class="btn btn-outline wishlist">
+              <span class="heart-icon">❤️</span>
+              Add to Wishlist
+            </button>
+          </div>
+
+          <!-- Additional Info -->
+          <div class="additional-info">
+            <div class="info-item">
+              <strong>🚚 Free Shipping</strong>
+              <span>On orders over $50</span>
+            </div>
+            <div class="info-item">
+              <strong>🔄 Easy Returns</strong>
+              <span>30-day return policy</span>
+            </div>
+            <div class="info-item">
+              <strong>🛡️ Warranty</strong>
+              <span>1-year manufacturer warranty</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="not-found" *ngIf="!product">
+    <div class="container">
+      <div class="not-found-content">
+        <h1>Product Not Found</h1>
+        <p>The product you're looking for doesn't exist.</p>
+        <button class="btn btn-primary" routerLink="/products">Back to Products</button>
+      </div>
+    </div>
+  </div>

@@ -1,0 +1,29 @@
+<div class="simple-page">
+    <div class="container">
+      <div class="page-content">
+        <h1>{{ title }}</h1>
+        <p>{{ content }}</p>
+        
+        <div class="contact-info" *ngIf="title === 'Contact Us'">
+          <div class="contact-grid">
+            <div class="contact-card">
+              <h3>📞 Phone</h3>
+              <p>+1 (555) 123-4567</p>
+            </div>
+            <div class="contact-card">
+              <h3>📧 Email</h3>
+              <p>support@shophub.com</p>
+            </div>
+            <div class="contact-card">
+              <h3>📍 Address</h3>
+              <p>123 Commerce Street<br>City, State 12345</p>
+            </div>
+            <div class="contact-card">
+              <h3>🕒 Hours</h3>
+              <p>Mon-Fri: 9AM-6PM<br>Sat-Sun: 10AM-4PM</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

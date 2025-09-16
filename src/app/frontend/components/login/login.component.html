@@ -1,45 +1,142 @@
-<div class="login-container">
-  <b><h1 class="text-center">Login</h1></b><br>
-  <form (ngSubmit)="onLogin()" class="login-form">
+<div class="auth-page">
+  <div class="auth-container">
+    <div class="auth-card">
+      <div class="auth-header">
+        <h1>Welcome Back</h1>
+        <p>Sign in to your account to continue shopping</p>
+      </div>
 
-    <div class="form-group">
-      <label for="username">Username</label>
-      <input
-        type="text"
-        id="username"
-        [(ngModel)]="username"
-        name="username"
-        required
-        placeholder="Enter your username"
-        class="form-control"
-      />
+      <form class="auth-form" (ngSubmit)="onLogin()">
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <input 
+            type="email" 
+            id="email" 
+            [(ngModel)]="email" 
+            name="email"
+            required
+            placeholder="Enter your email">
+        </div>
+
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input 
+            type="password" 
+            id="password" 
+            [(ngModel)]="password" 
+            name="password"
+            required
+            placeholder="Enter your password">
+        </div>
+
+        <div class="form-options">
+          <label class="checkbox-label">
+            <input type="checkbox" [(ngModel)]="rememberMe" name="rememberMe">
+            <span class="checkmark"></span>
+            Remember me
+          </label>
+          <a href="#" class="forgot-password">Forgot password?</a>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Sign In</button>
+      </form>
+
+      <div class="auth-divider">
+        <span>Or continue with</span>
+      </div>
+
+      <div class="social-buttons">
+        <button class="btn btn-social">
+          <span>G</span> Google
+        </button>
+        <button class="btn btn-social">
+          <span>f</span> Facebook
+        </button>
+      </div>
+
+      <div class="auth-footer">
+        <p>Don't have an account? <a href="#" (click)="switchToRegister()">Sign up</a></p>
+      </div>
     </div>
 
+    <!-- Register Form -->
+    <div class="auth-card" *ngIf="showRegister">
+      <div class="auth-header">
+        <h1>Create Account</h1>
+        <p>Join us and start your shopping journey</p>
+      </div>
 
-    <div class="form-group">
-      <label for="password">Password</label>
-      <input
-        type="password"
-        id="password"
-        [(ngModel)]="password"
-        name="password"
-        required
-        placeholder="Enter your password"
-        class="form-control"
-      />
+      <form class="auth-form" (ngSubmit)="onRegister()">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="firstName">First Name</label>
+            <input 
+              type="text" 
+              id="firstName" 
+              [(ngModel)]="firstName" 
+              name="firstName"
+              required
+              placeholder="First name">
+          </div>
+          <div class="form-group">
+            <label for="lastName">Last Name</label>
+            <input 
+              type="text" 
+              id="lastName" 
+              [(ngModel)]="lastName" 
+              name="lastName"
+              required
+              placeholder="Last name">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="registerEmail">Email Address</label>
+          <input 
+            type="email" 
+            id="registerEmail" 
+            [(ngModel)]="registerEmail" 
+            name="registerEmail"
+            required
+            placeholder="Enter your email">
+        </div>
+
+        <div class="form-group">
+          <label for="registerPassword">Password</label>
+          <input 
+            type="password" 
+            id="registerPassword" 
+            [(ngModel)]="registerPassword" 
+            name="registerPassword"
+            required
+            placeholder="Create a password">
+        </div>
+
+        <div class="form-group">
+          <label for="confirmPassword">Confirm Password</label>
+          <input 
+            type="password" 
+            id="confirmPassword" 
+            [(ngModel)]="confirmPassword" 
+            name="confirmPassword"
+            required
+            placeholder="Confirm your password">
+        </div>
+
+        <div class="form-options">
+          <label class="checkbox-label">
+            <input type="checkbox" [(ngModel)]="agreeTerms" name="agreeTerms">
+            <span class="checkmark"></span>
+            I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>
+          </label>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Create Account</button>
+      </form>
+
+      <div class="auth-footer">
+        <p>Already have an account? <a href="#" (click)="switchToLogin()">Sign in</a></p>
+      </div>
     </div>
-
-
-    <button type="submit" class="btn btn-primary">Login</button>
-  </form>
-
-
-  <div *ngIf="errorMessage" class="error-message">
-    {{ errorMessage }}
-  </div>
-
-
-  <div class="register-link">
-    <p>Don't have an account? <a routerLink="/register">Register here</a></p>
   </div>
 </div>

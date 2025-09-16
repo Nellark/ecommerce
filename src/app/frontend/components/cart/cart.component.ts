@@ -1,107 +1,52 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { ProductService } from '../../services/product.service';
-import { CommonModule, NgFor, NgIf } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { Router, RouterLink } from '@angular/router';
-import { NavbarComponent } from '../navbar/navbar.component';
-import { LoaderComponent } from '../../loader/loader.component';
-import { AuthService } from '../../services/auth.service'; 
+import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
+import { CartService } from '../../services/cart.service';
+import { CartItem } from '../../models/product.model';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-cart',
   standalone: true,
-  imports: [NavbarComponent, NgFor, NgIf, FormsModule, CommonModule, RouterLink, LoaderComponent],
+  imports: [CommonModule, RouterModule],
   templateUrl: './cart.component.html',
   styleUrls: ['./cart.component.css'],
-  providers: [ProductService] 
+  providers: [] 
 })
 export class CartComponent implements OnInit {
+  cartItems$: Observable<CartItem[]>;
 
-  cartItems: any[] = [];
-  cartTotal: number = 0;
-  cartItemCount: number = 0;
-  cdr: any;
-  Loading: boolean = true;
-
-  isLoading: boolean = true;
-  previousOrders: any;
-
-  // Make authService public so it can be accessed in the template
-  constructor(
-    private productService: ProductService,
-    private router: Router,
-    public authService: AuthService  // <-- Change 'private' to 'public' here
-  ) {}
-
-  ngOnInit(): void {
-    this.loadCart();
-    this.productService.getCartObservable().subscribe(cart => {
-      this.cartItems = cart;
-      this.updateCartTotal();  
-      setTimeout(() => {
-        this.isLoading = false;  
-      }, 500);  
-      this.cdr.detectChanges();
-    });
+  constructor(private cartService: CartService) {
+    this.cartItems$ = this.cartService.cartItems$;
   }
 
-  loadCart() {
-    this.cartItems = this.productService.getCart();
-    this.cartTotal = this.productService.getCartTotal(); 
-    this.cartItemCount = this.productService.getCartItemCount(); 
-    this.Loading = false;
+  ngOnInit(): void {}
+
+  getCartTotal(): number {
+    return this.cartService.getCartTotal();
   }
 
-  removeItem(productId: string) {
-    this.productService.removeFromCart(productId);  
-    this.loadCart();  
+  increaseQuantity(productId: number): void {
+    // Get current quantity and increase by 1
+    this.cartService.cartItems$.subscribe(items => {
+      const item = items.find(i => i.product.id === productId);
+      if (item) {
+        this.cartService.updateQuantity(productId, item.quantity + 1);
+      }
+    }).unsubscribe();
   }
 
-  clearCart() {
-    this.productService.clearCart(); 
-    this.loadCart(); 
+  decreaseQuantity(productId: number): void {
+    // Get current quantity and decrease by 1
+    this.cartService.cartItems$.subscribe(items => {
+      const item = items.find(i => i.product.id === productId);
+      if (item) {
+        this.cartService.updateQuantity(productId, item.quantity - 1);
+      }
+    }).unsubscribe();
   }
 
-  updateQuantity(item: any, index: number) {
-    if (item.quantity < 1) {
-      item.quantity = 1;  
-    }
-    this.productService.updateCartItemQuantity(item.id, item.quantity);  
-    this.loadCart(); 
-  }
-
-  updateCartTotal() {
-    let total = 0;
-    for (const item of this.cartItems) {
-      total += item.price * item.quantity; 
-    }
-    this.cartTotal = parseFloat(total.toFixed(2));  
-  }
-
-  goBack() {
-    window.history.back(); 
-  }
-
-  proceedToHome() {
-    if (this.authService.isAuthenticatedUser()) {
-      const orderData = {
-        orderId: Date.now(),  
-        date: new Date().toLocaleString(),
-        cartItems: this.cartItems,
-        cartTotal: this.cartTotal,
-        cartItemCount: this.cartItemCount
-      };
-
-      const previousOrders = JSON.parse(localStorage.getItem('previousOrders') || '[]');
-      previousOrders.push(orderData);  
-      localStorage.setItem('previousOrders', JSON.stringify(previousOrders));
-
-      this.productService.clearCart();
-      this.loadCart(); 
-
-      this.router.navigate(['/checkout']);
-    } else {
-      this.router.navigate(['/cart']);
-    }
+  removeItem(productId: number): void {
+    this.cartService.removeFromCart(productId);
   }
 }
