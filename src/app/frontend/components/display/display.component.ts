@@ -5,7 +5,7 @@ import { ProductService } from '../../services/product.service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule, Location, NgIf } from '@angular/common';
 import { LoaderComponent } from '../../loader/loader.component';
-import { ProductInterface } from '../../model/model.module';
+import { ProductInterface } from '../../models/product.model';
 import { FooterComponent } from '../footer/footer.component';
 import { NavbarComponent } from '../navbar/navbar.component';
 

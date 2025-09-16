@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
-import { ProductInterface } from '../../model/model.module';
+import { ProductInterface } from '../../models/product.model';
 import { ProductService } from '../../services/product.service';
 import { NavbarComponent } from "../navbar/navbar.component";
 import { LoaderComponent } from "../../loader/loader.component";

@@ -4,7 +4,7 @@ import { NgFor, NgIf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { NavbarComponent } from '../navbar/navbar.component';
 import { AuthService } from '../../services/auth.service'; 
-import { Order } from '../../model/model.module';
+import { Order } from '../../models/product.model';
 
 @Component({
   selector: 'app-order',

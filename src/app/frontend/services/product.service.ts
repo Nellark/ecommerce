@@ -1,180 +1,143 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { Router } from '@angular/router';
-import { environment } from '../../../environments/environment.development';
-import { map, tap } from 'rxjs/operators';
-import { ProductInterface, ProductsResponseInterface } from '../model/model.module';
+import { Product } from '../models/product.model';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class ProductService {
-  updateQuantity(id: any, quantity: any) {
-    throw new Error('Method not implemented.');
+  private products: Product[] = [
+    {
+      id: 1,
+      name: 'Premium Wireless Headphones',
+      price: 299.99,
+      originalPrice: 399.99,
+      image: 'https://images.pexels.com/photos/3394650/pexels-photo-3394650.jpeg?auto=compress&cs=tinysrgb&w=500',
+      category: 'Electronics',
+      rating: 4.8,
+      reviews: 245,
+      description: 'Experience crystal-clear audio with our premium wireless headphones featuring active noise cancellation.',
+      features: ['Active Noise Cancellation', '30-hour battery life', 'Wireless charging', 'Premium leather'],
+      inStock: true,
+      isSale: true
+    },
+    {
+      id: 2,
+      name: 'Smart Fitness Watch',
+      price: 199.99,
+      image: 'https://images.pexels.com/photos/437037/pexels-photo-437037.jpeg?auto=compress&cs=tinysrgb&w=500',
+      category: 'Electronics',
+      rating: 4.6,
+      reviews: 189,
+      description: 'Track your fitness goals with this advanced smartwatch featuring heart rate monitoring and GPS.',
+      features: ['Heart Rate Monitor', 'GPS Tracking', 'Water Resistant', '7-day battery'],
+      inStock: true,
+      isNew: true
+    },
+    {
+      id: 3,
+      name: 'Designer Backpack',
+      price: 89.99,
+      originalPrice: 129.99,
+      image: 'https://images.pexels.com/photos/2905238/pexels-photo-2905238.jpeg?auto=compress&cs=tinysrgb&w=500',
+      category: 'Fashion',
+      rating: 4.7,
+      reviews: 156,
+      description: 'Stylish and functional backpack perfect for work, travel, or everyday use.',
+      features: ['Water-resistant fabric', 'Laptop compartment', 'Multiple pockets', 'Ergonomic design'],
+      inStock: true,
+      isSale: true
+    },
+    {
+      id: 4,
+      name: 'Organic Coffee Beans',
+      price: 24.99,
+      image: 'https://images.pexels.com/photos/894695/pexels-photo-894695.jpeg?auto=compress&cs=tinysrgb&w=500',
+      category: 'Food',
+      rating: 4.9,
+      reviews: 312,
+      description: 'Premium organic coffee beans sourced from sustainable farms around the world.',
+      features: ['100% Organic', 'Fair Trade', 'Medium Roast', 'Freshly roasted'],
+      inStock: true
+    },
+    {
+      id: 5,
+      name: 'Minimalist Table Lamp',
+      price: 79.99,
+      image: 'https://images.pexels.com/photos/1037995/pexels-photo-1037995.jpeg?auto=compress&cs=tinysrgb&w=500',
+      category: 'Home',
+      rating: 4.5,
+      reviews: 98,
+      description: 'Elegant minimalist lamp that adds warmth and style to any room.',
+      features: ['LED bulb included', 'Adjustable brightness', 'Touch control', 'Modern design'],
+      inStock: true,
+      isNew: true
+    },
+    {
+      id: 6,
+      name: 'Professional Camera',
+      price: 899.99,
+      image: 'https://images.pexels.com/photos/90946/pexels-photo-90946.jpeg?auto=compress&cs=tinysrgb&w=500',
+      category: 'Electronics',
+      rating: 4.8,
+      reviews: 167,
+      description: 'Capture stunning photos with this professional-grade camera featuring advanced autofocus.',
+      features: ['24MP sensor', '4K video recording', 'Weather sealed', 'Fast autofocus'],
+      inStock: true
+    },
+    {
+      id: 7,
+      name: 'Luxury Skincare Set',
+      price: 149.99,
+      originalPrice: 199.99,
+      image: 'https://images.pexels.com/photos/3762879/pexels-photo-3762879.jpeg?auto=compress&cs=tinysrgb&w=500',
+      category: 'Beauty',
+      rating: 4.7,
+      reviews: 203,
+      description: 'Complete skincare routine with premium natural ingredients for glowing skin.',
+      features: ['Natural ingredients', 'Anti-aging formula', 'Suitable for all skin types', 'Cruelty-free'],
+      inStock: true,
+      isSale: true
+    },
+    {
+      id: 8,
+      name: 'Wireless Charging Pad',
+      price: 49.99,
+      image: 'https://images.pexels.com/photos/4498450/pexels-photo-4498450.jpeg?auto=compress&cs=tinysrgb&w=500',
+      category: 'Electronics',
+      rating: 4.4,
+      reviews: 134,
+      description: 'Fast wireless charging pad compatible with all Qi-enabled devices.',
+      features: ['Fast charging', 'Universal compatibility', 'LED indicator', 'Non-slip surface'],
+      inStock: true
+    }
+  ];
+
+  private productsSubject = new BehaviorSubject<Product[]>(this.products);
+  products$ = this.productsSubject.asObservable();
+
+  getAllProducts(): Observable<Product[]> {
+    return this.products$;
   }
-  private cartKey: string = 'cart';
-  private wishlistKey: string = 'wishlist';
-  private currentUrl: string | null = null;
 
-  products: ProductInterface[] = [];
-  filteredProductsSubject: BehaviorSubject<ProductInterface[]> = new BehaviorSubject<ProductInterface[]>([]);
+  getProductById(id: number): Product | undefined {
+    return this.products.find(p => p.id === id);
+  }
 
-  private cartSubject: BehaviorSubject<ProductInterface[]> = new BehaviorSubject<ProductInterface[]>(this.getCart());
-  private wishlistSubject: BehaviorSubject<ProductInterface[]> = new BehaviorSubject<ProductInterface[]>(this.getWishlist());
+  getProductsByCategory(category: string): Product[] {
+    return this.products.filter(p => p.category === category);
+  }
 
-  constructor(private http: HttpClient, private router: Router) {}
+  getFeaturedProducts(): Product[] {
+    return this.products.slice(0, 4);
+  }
 
-
-  getProductDownloadUrl(productId: string): Observable<string> {
-    return this.http.get<{ downloadUrl: string }>(`/get-product-download/${productId}`).pipe(
-      map(response => response.downloadUrl)
+  searchProducts(query: string): Product[] {
+    const searchTerm = query.toLowerCase();
+    return this.products.filter(p => 
+      p.name.toLowerCase().includes(searchTerm) || 
+      p.category.toLowerCase().includes(searchTerm) ||
+      p.description.toLowerCase().includes(searchTerm)
     );
-  }
-
-
-  getAllProducts() {
-    return this.http.get<ProductsResponseInterface>(environment.SERVER);
-  }
-
-  setProducts(products: ProductInterface[]) {
-    this.products = products;
-    this.filteredProductsSubject.next(products);
-  }
-
-  getProduct(productId: string): Observable<any> {
-    return this.http.get(`${environment.SERVER}/${productId}`);
-  }
-
-  getFilteredProducts() {
-    return this.filteredProductsSubject.asObservable();
-  }
-
-  searchProducts(query: string) {
-    const filtered = query
-      ? this.products.filter((product) => product.title.toLowerCase().includes(query.toLowerCase()))
-      : this.products;
-    this.filteredProductsSubject.next(filtered);
-  }
-
-  getCart(): ProductInterface[] {
-    const cart = localStorage.getItem(this.cartKey);
-    return cart ? JSON.parse(cart) : [];
-  }
-
-  private saveCart(cart: ProductInterface[]) {
-    localStorage.setItem(this.cartKey, JSON.stringify(cart));
-    this.cartSubject.next(cart);
-  }
-
-  addToCart(product: ProductInterface, quantity: number = 1) {
-    const cart = this.getCart();
-    const existingProductIndex = cart.findIndex(item => String(item.id) === String(product.id));
-
-    if (existingProductIndex !== -1) {
-      cart[existingProductIndex].quantity += quantity;
-    } else {
-      product.quantity = quantity;
-      cart.push(product);
-    }
-
-    this.saveCart(cart);
-    this.navigateToPreviousPage();
-  }
-
-  removeFromCart(productId: string) {
-    const updatedCart = this.getCart().filter(item => String(item.id) !== String(productId));
-    this.saveCart(updatedCart);
-  }
-
-  updateCartItemQuantity(productId: string, newQuantity: number) {
-    const cart = this.getCart();
-    const itemIndex = cart.findIndex(item => String(item.id) === String(productId));
-
-    if (itemIndex !== -1) {
-      if (newQuantity > 0) {
-        cart[itemIndex].quantity = newQuantity;
-      } else {
-        cart.splice(itemIndex, 1);
-      }
-    }
-    this.saveCart(cart);
-  }
-
-  getCartObservable(): Observable<ProductInterface[]> {
-    return this.cartSubject.asObservable();
-  }
-
-  getCartTotal(): number {
-    return this.getCart().reduce((total, item) => total + item.price * item.quantity, 0);
-  }
-
-  getCartItemCount(): number {
-    return this.getCart().reduce((count, item) => count + item.quantity, 0);
-  }
-
-  clearCart() {
-    localStorage.removeItem(this.cartKey);
-    this.cartSubject.next([]);
-  }
-
-  isCartEmpty(): boolean {
-    return this.getCart().length === 0;
-  }
-
-  proceedToCheckout(orderData: any) {
-    return this.http.post(`${environment.SERVER}/confirmed`, orderData).pipe(
-      tap(() => this.clearCart())
-    );
-  }
-
-  removeFromWishlist(productId: number): void {
-    let wishlist = this.getWishlist().filter((product) => product.id !== productId);
-    this.saveWishlist(wishlist);
-  }
-
-  getWishlist(): ProductInterface[] {
-    const wishlist = localStorage.getItem(this.wishlistKey);
-    return wishlist ? JSON.parse(wishlist) : [];
-  }
-
-  private saveWishlist(wishlist: ProductInterface[]): void {
-    localStorage.setItem(this.wishlistKey, JSON.stringify(wishlist));
-    this.wishlistSubject.next(wishlist);
-  }
-
-  getWishlistObservable() {
-    return this.wishlistSubject.asObservable();
-  }
-
-  setCurrentUrl(url: string) {
-    this.currentUrl = url;
-  }
-
-  getCurrentUrl(): string | null {
-    return this.currentUrl;
-  }
-
-  getWishlistItemCount(): number {
-    return this.getWishlist().length;
-  }
-
-  addToWishlist(product: ProductInterface): void {
-    let wishlist = this.getWishlist();
-    if (!wishlist.find((item) => item.id === product.id)) {
-      wishlist.push(product);
-      this.saveWishlist(wishlist);
-    }
-  }
-
-  private navigateToPreviousPage() {
-    const returnUrl = this.getCurrentUrl();
-    if (returnUrl) {
-      this.router.navigateByUrl(returnUrl);
-    }
-  }
-
-  getProductDownload(orderId: string): Observable<Blob> {
-    return this.http.get(`/api/products/download/${orderId}`, { responseType: 'blob' });
   }
 }

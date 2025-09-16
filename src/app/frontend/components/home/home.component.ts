@@ -6,7 +6,7 @@ import { RouterLink } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { ProductService } from '../../services/product.service';
 import { LoaderComponent } from '../../loader/loader.component';
-import { ProductInterface, ProductsResponseInterface } from '../../model/model.module';
+import { ProductInterface, ProductsResponseInterface } from '../../models/product.model';
 import { NavbarComponent } from '../navbar/navbar.component';
 
 @Component({
