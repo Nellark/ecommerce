@@ -5,13 +5,15 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ProductService } from '../../services/product.service';
 import { Product } from '../../models/product.model';
 import { ProductCardComponent } from '../../components/product-card/product-card.component';
+import { ViewEncapsulation } from '@angular/core';
 
 @Component({
   selector: 'app-products',
   standalone: true,
   imports: [CommonModule, FormsModule, ProductCardComponent],
   templateUrl: './products.component.html',
-  styleUrls: ['./products.component.css']
+  styleUrls: ['./products.component.css'],
+  encapsulation: ViewEncapsulation.None
 })
 export class ProductsComponent implements OnInit {
   products: Product[] = [];
@@ -20,10 +22,13 @@ export class ProductsComponent implements OnInit {
   selectedCategory = '';
   sortBy = 'name';
   searchQuery = '';
-  selectedDeal = ''; // store the currently active deal
+  selectedDeal = ''; 
   selectedSize = '';
   selectedColor = '';
   selectedStyle = '';
+  isModalOpen = false;
+
+  
 
   constructor(
     private productService: ProductService,
@@ -45,6 +50,7 @@ export class ProductsComponent implements OnInit {
       this.applyFilters();
     });
   }
+
 
   // Handle header deal clicks
   applyDeal(type: string): void {
@@ -110,6 +116,9 @@ export class ProductsComponent implements OnInit {
 
     this.filteredProducts = filtered;
   }
+  handleModalChange(isOpen: boolean) {
+    this.isModalOpen = isOpen;
+  }
 
   clearFilters(): void {
     this.selectedCategory = '';
@@ -121,4 +130,15 @@ export class ProductsComponent implements OnInit {
     this.selectedDeal = '';
     this.applyFilters();
   }
+
+  openModal() {
+    this.isModalOpen = true;
+    document.body.classList.add('modal-open');
+  }
+  
+  closeModal() {
+    this.isModalOpen = false;
+    document.body.classList.remove('modal-open');
+  }
+  
 }

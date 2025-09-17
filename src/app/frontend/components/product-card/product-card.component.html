@@ -1,106 +1,116 @@
 <div class="product-card" (click)="openModal()">
-  <div class="product-image">
-    <img [src]="product.image" [alt]="product.name" />
-    <div class="product-badges">
-      <span class="badge badge-new" *ngIf="product.isNew">New</span>
-      <span class="badge badge-sale" *ngIf="product.isSale">
-        Sale {{ getDiscount(product) }}% Off
-      </span>
+    <div class="product-image">
+      <img [src]="product.image" [alt]="product.name">
+      <div class="product-badges">
+        <span class="badge badge-new" *ngIf="product.isNew">New</span>
+        <span class="badge badge-sale" *ngIf="getDiscount()">
+          Sale {{ getDiscount() }}% Off
+        </span>
+      </div>
+      <button class="quick-add-btn" (click)="addToCart($event)" title="Add to Cart">🛒</button>
     </div>
-    <button class="quick-add-btn" (click)="addToCart($event)" title="Add to Cart">🛒</button>
-  </div>
-
-  <div class="product-info">
-    <div class="product-category">{{ product.category }}</div>
-    <h3 class="product-name">{{ product.name }}</h3>
-
-    <div class="product-rating">
-      <span *ngFor="let star of getStars(product.rating)"
-            [ngClass]="{'full-star': star==='full','half-star': star==='half','empty-star': star==='empty'}">
-        ★
-      </span>
-      <span class="rating-text">{{ product.rating }} ({{ product.reviews }})</span>
-    </div>
-
-    <div class="product-pricing">
-      <span class="current-price">R {{ product.price | number:'1.2-2' }}</span>
-      <span class="original-price" *ngIf="product.originalPrice">
-        R {{ product.originalPrice | number:'1.2-2' }}
-      </span>
+  
+    <div class="product-info">
+      <div class="product-category">{{ product.category }}</div>
+      <h3 class="product-name">{{ product.name }}</h3>
+      <div class="product-rating">
+        <span *ngFor="let star of getStars(product.rating)"
+              [ngClass]="{'full-star': star==='full','half-star': star==='half','empty-star': star==='empty'}">★</span>
+        <span class="rating-text">{{ product.rating }} ({{ product.reviews }})</span>
+      </div>
+      <div class="product-pricing">
+        <span class="current-price">R {{ product.price | number:'1.2-2' }}</span>
+        <span class="original-price" *ngIf="product.originalPrice">
+          R {{ product.originalPrice | number:'1.2-2' }}
+        </span>
+      </div>
     </div>
   </div>
-</div>
-
-<!-- Modal -->
-<div class="modal" *ngIf="isModalOpen">
-  <div class="modal-overlay" (click)="closeModal()"></div>
-  <div class="modal-content">
-    <button class="close-btn" (click)="closeModal()">✕</button>
-
-    <!-- Carousel -->
-    <div class="carousel">
-      <div class="carousel-images">
-        <img *ngFor="let img of allImages; let i = index"
-             [src]="img"
-             [alt]="product.name + ' ' + (i + 1)"
-             [class.active]="i === currentImageIndex" />
-      </div>
-
-      <button class="prev" (click)="prevImage()">‹</button>
-      <button class="next" (click)="nextImage()">›</button>
-
-      <!-- Thumbnails -->
-      <div class="carousel-thumbnails">
-        <img *ngFor="let img of allImages; let i = index"
-             [src]="img"
-             [alt]="product.name + ' thumb ' + (i + 1)"
-             [class.active]="i === currentImageIndex"
-             (click)="selectImage(i)" />
-      </div>
-    </div>
-
-    <h2>{{ product.name }}</h2>
-    <p>{{ product.description }}</p>
-    <div class="product-price">
-      <span class="current">R {{ product.price | number:'1.2-2' }}</span>
-      <span class="original" *ngIf="product.originalPrice">
-        R {{ product.originalPrice | number:'1.2-2' }}
-      </span>
-    </div>
-
-    <!-- Variants -->
-    <div class="product-variants">
-      <div class="variant" *ngIf="product.sizes?.length">
-        <label>Size</label>
-        <div class="options">
-          <button *ngFor="let s of product.sizes"
-                  (click)="selectedSize = s"
-                  [class.active]="selectedSize === s">{{ s }}</button>
-        </div>
-      </div>
-
-      <div class="variant" *ngIf="product.colors?.length">
-        <label>Color</label>
-        <div class="options colors">
-          <span *ngFor="let c of product.colors"
-                [ngStyle]="{'background-color': c}"
-                (click)="selectedColor = c"
-                [class.active]="selectedColor === c"></span>
-        </div>
-      </div>
-
-      <div class="variant" *ngIf="product.styles?.length">
-        <label>Style</label>
-        <div class="options">
-          <button *ngFor="let st of product.styles"
-                  (click)="selectedStyle = st"
-                  [class.active]="selectedStyle === st">{{ st }}</button>
-        </div>
-      </div>
-    </div>
-
-    <button class="btn-add-cart" (click)="addToCartWithVariants()">
-      Add to Cart
-    </button>
+  
+  <!-- Modal (unchanged, same as your version) -->
+  <div class="modal" *ngIf="isModalOpen">
+    <!-- ... -->
+    <button class="btn-add-cart" (click)="addToCart()">Add to Cart</button>
   </div>
-</div>
+  
+  <!-- ✅ Toast message -->
+  <div class="toast" *ngIf="successMessage">
+    {{ successMessage }}
+  </div>
+  
+  
+  
+  <!-- Modal -->
+  <div class="modal" *ngIf="isModalOpen">
+    <div class="modal-overlay" (click)="closeModal()"></div>
+    <div class="modal-content">
+      <button class="close-btn" (click)="closeModal()">✕</button>
+  
+      <!-- Carousel -->
+      <div class="carousel">
+        <div class="carousel-images">
+          <img *ngFor="let img of allImages; let i = index"
+               [src]="img"
+               [alt]="product.name + ' ' + (i + 1)"
+               [class.active]="i === currentImageIndex" />
+        </div>
+        <button class="prev" (click)="prevImage()">‹</button>
+        <button class="next" (click)="nextImage()">›</button>
+  
+        <div class="carousel-thumbnails">
+          <img *ngFor="let img of allImages; let i = index"
+               [src]="img"
+               [alt]="product.name + ' thumb ' + (i + 1)"
+               [class.active]="i === currentImageIndex"
+               (click)="selectImage(i)" />
+        </div>
+      </div>
+  
+      <h2>{{ product.name }}</h2>
+      <p>{{ product.description }}</p>
+      <div class="product-price">
+        <span class="current">R {{ product.price | number:'1.2-2' }}</span>
+        <span class="original" *ngIf="product.originalPrice">
+          R {{ product.originalPrice | number:'1.2-2' }}
+        </span>
+      </div>
+  
+      <!-- Variants -->
+      <div class="product-variants">
+        <div class="variant" *ngIf="product.sizes?.length">
+          <label>Size</label>
+          <div class="options">
+            <button *ngFor="let s of product.sizes"
+                    (click)="selectedSize = s"
+                    [class.active]="selectedSize === s">{{ s }}</button>
+          </div>
+        </div>
+  
+        <div class="variant" *ngIf="product.colors?.length">
+          <label>Color</label>
+          <div class="options colors">
+            <span *ngFor="let c of product.colors"
+                  [ngStyle]="{'background-color': c}"
+                  (click)="selectedColor = c"
+                  [class.active]="selectedColor === c"></span>
+          </div>
+        </div>
+  
+        <div class="variant" *ngIf="product.styles?.length">
+          <label>Style</label>
+          <div class="options">
+            <button *ngFor="let st of product.styles"
+                    (click)="selectedStyle = st"
+                    [class.active]="selectedStyle === st">{{ st }}</button>
+          </div>
+        </div>
+      </div>
+  
+      <button class="btn-add-cart" (click)="addToCart()">
+        Add to Cart
+      </button>
+    </div>
+  </div>
+  
+
+  

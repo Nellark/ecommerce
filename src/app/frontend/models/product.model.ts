@@ -16,6 +16,8 @@ export interface Product {
   sizes?: string[];
   colors?: string[];
   styles?: string[];
+  discountedPrice?: number; 
+  discount?: number;  
 }
 
 
@@ -24,6 +26,9 @@ export interface Product {
 export interface CartItem {
   product: Product;
   quantity: number;
+  selectedSize?: string;
+  selectedColor?: string;
+  selectedStyle?: string;
 }
 
 export interface User {

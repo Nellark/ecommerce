@@ -7,30 +7,28 @@
         </div>
   
         <!-- Mobile menu button -->
-        <button class="menu-toggle"
-                (click)="toggleMenu()"
-                aria-label="Toggle navigation">
-          ☰
-        </button>
+        <button class="menu-toggle" (click)="toggleMenu()">☰</button>
   
         <!-- Main navigation -->
         <nav class="nav" [class.open]="isMenuOpen">
           <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Home</a>
           <a routerLink="/products" routerLinkActive="active">Products</a>
-          <a routerLink="/about" routerLinkActive="active">About</a>
-          <a routerLink="/contact" routerLinkActive="active">Contact</a>
+          <a routerLink="/footer" routerLinkActive="active">Contact</a>
         </nav>
   
-      
+        <!-- Search -->
         <div class="search-container">
-          
-            <input
+          <input
             type="text"
             placeholder="Search products..."
             class="search-input"
             [(ngModel)]="searchQuery"
-            (ngModelChange)="onSearch()"  
+            (input)="onSearchChange()"
+            (focus)="onSearchChange()"
           >
+          <ul class="suggestions" *ngIf="suggestions.length > 0">
+            <li *ngFor="let s of suggestions" (click)="selectSuggestion(s)">{{ s }}</li>
+          </ul>
         </div>
   
         <!-- Actions -->
@@ -44,17 +42,15 @@
       </div>
     </div>
   
-    <!-- ▼ SECOND ROW: categories & deals only ▼ -->
+    <!-- Sub-header deals -->
     <div class="sub-header">
-        <div class="container sub-header-content">
-          <a (click)="applyDeal('sale')" [class.active]="activeDeal==='sale'" class="sub-link highlight">🔥 Hot Sale</a>
-          <a (click)="applyDeal('discounts')" [class.active]="activeDeal==='discounts'" class="sub-link">Discounts</a>
-          <a (click)="applyDeal('daily')" [class.active]="activeDeal==='daily'" class="sub-link">Daily Deals</a>
-          <a (click)="applyDeal('weekly')" [class.active]="activeDeal==='weekly'" class="sub-link">Weekly Deals</a>
-          <a (click)="applyDeal('flash')" [class.active]="activeDeal==='flash'" class="sub-link highlight">⚡ Flash Offers</a>
-        </div>
+      <div class="container sub-header-content">
+        <a class="sub-link highlight" (click)="applyDeal('sale')" [class.active]="activeDeal==='sale'">🔥 Hot Sale</a>
+        <a class="sub-link" (click)="applyDeal('discounts')" [class.active]="activeDeal==='discounts'">Discounts</a>
+        <a class="sub-link" (click)="applyDeal('daily')" [class.active]="activeDeal==='daily'">Daily Deals</a>
+        <a class="sub-link" (click)="applyDeal('weekly')" [class.active]="activeDeal==='weekly'">Weekly Deals</a>
+        <a class="sub-link highlight" (click)="applyDeal('flash')" [class.active]="activeDeal==='flash'">⚡ Flash Offers</a>
       </div>
-      
-      
+    </div>
   </header>
   

@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { CartService } from '../../services/cart.service';
-import { CartItem } from '../../models/product.model';
+import { CartService, CartItem } from '../../services/cart.service';
 
 @Component({
   selector: 'app-cart',
@@ -17,22 +16,41 @@ export class CartComponent implements OnInit {
   constructor(private cartService: CartService) {}
 
   ngOnInit(): void {
-    this.cartService.cartItems$.subscribe(items => this.cartItems = items);
+    this.cartService.cartItems$.subscribe(items => {
+      this.cartItems = items.filter(i => i?.product);
+    });
   }
 
   getCartTotal(): number {
     return this.cartService.getCartTotal();
   }
 
-  increaseQuantity(productId: number): void {
-    this.cartService.changeQuantity(productId, 1);
+  increaseQuantity(item: CartItem): void {
+    this.cartService.changeQuantity(
+      item.product.id,
+      1,
+      item.selectedSize,
+      item.selectedColor,
+      item.selectedStyle
+    );
   }
 
-  decreaseQuantity(productId: number): void {
-    this.cartService.changeQuantity(productId, -1);
+  decreaseQuantity(item: CartItem): void {
+    this.cartService.changeQuantity(
+      item.product.id,
+      -1,
+      item.selectedSize,
+      item.selectedColor,
+      item.selectedStyle
+    );
   }
 
-  removeItem(productId: number): void {
-    this.cartService.removeFromCart(productId);
+  removeItem(item: CartItem): void {
+    this.cartService.removeFromCart(
+      item.product.id,
+      item.selectedSize,
+      item.selectedColor,
+      item.selectedStyle
+    );
   }
 }

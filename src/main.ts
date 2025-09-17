@@ -5,7 +5,6 @@ import { CommonModule } from '@angular/common';
 import { routes } from './app/app.routes';
 
 import { RouterOutlet } from '@angular/router';
-import { FooterComponent } from './app/frontend/components/footer/footer.component';
 import { HeaderComponent } from './app/frontend/components/header/header.component';
 
 @Component({
@@ -27,6 +26,7 @@ import { HeaderComponent } from './app/frontend/components/header/header.compone
       display: flex;
       flex-direction: column;
     }
+    
 
     .main-content {
       flex: 1;
@@ -34,6 +34,8 @@ import { HeaderComponent } from './app/frontend/components/header/header.compone
   `]
 })
 export class App {}
+
+
 
 bootstrapApplication(App, {
   providers: [

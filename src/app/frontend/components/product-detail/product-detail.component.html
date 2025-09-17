@@ -39,7 +39,7 @@
             <span class="current-price">\${{ product.price }}</span>
             <span class="original-price" *ngIf="product.originalPrice">\${{ product.originalPrice }}</span>
             <span class="discount" *ngIf="product.originalPrice">
-              Save \${{ (product.originalPrice - product.price).toFixed(2) }}
+              Save R{{ (product.originalPrice - product.price).toFixed(2) }}
             </span>
           </div>
 
