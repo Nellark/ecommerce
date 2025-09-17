@@ -1,11 +1,12 @@
+// header.component.ts
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { CartService } from '../../services/cart.service';
-import { ProductService } from '../../services/product.service';   // ✅ ensure this exists
-import { Product } from '../../models/product.model';              // ✅ ensure this interface exists
+import { ProductService } from '../../services/product.service';   
+import { Product } from '../../models/product.model';             
 
 @Component({
   selector: 'app-header',
@@ -20,6 +21,7 @@ export class HeaderComponent implements OnInit {
   searchQuery = '';
   cartItemCount = 0;
   isMenuOpen = false;
+  activeDeal = '';
 
   constructor(
     private cartService: CartService,
@@ -28,35 +30,37 @@ export class HeaderComponent implements OnInit {
     private route: ActivatedRoute
   ) {}
 
+
+
   ngOnInit(): void {
     // cart counter
     this.cartService.cartItems$.subscribe(items => {
       this.cartItemCount = items.reduce((count, item) => count + item.quantity, 0);
     });
 
-    // load products and categories
+    // load products (optional here, products page will filter instead)
     this.productService.getAllProducts().subscribe(products => {
       this.products = products;
     });
 
-    // apply search from query param if present
+
     this.route.queryParams.subscribe(params => {
-      if (params['search']) {
-        this.searchQuery = params['search'];
-        
-      }
+      this.activeDeal = params['deal'] || '';
     });
   }
 
-
- 
-  
-    onSearch(): void {
-      const term = this.searchQuery.trim();
-      this.router.navigate(['/products'], { queryParams: { search: term } });
-    }
-    toggleMenu(): void {
-      this.isMenuOpen = !this.isMenuOpen;
-    }
+  applyDeal(type: string) {
+    this.router.navigate(['/products'], { queryParams: { deal: type } });
   }
   
+  
+
+  onSearch(): void {
+    const term = this.searchQuery.trim();
+    this.router.navigate(['/products'], { queryParams: { search: term } });
+  }
+
+  toggleMenu(): void {
+    this.isMenuOpen = !this.isMenuOpen;
+  }
+}

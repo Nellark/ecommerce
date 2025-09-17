@@ -11,14 +11,14 @@ import { HeaderComponent } from './app/frontend/components/header/header.compone
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, HeaderComponent, FooterComponent],
+  imports: [CommonModule, RouterOutlet, HeaderComponent],
   template: `
     <div class="app">
       <app-header></app-header>
       <main class="main-content">
         <router-outlet></router-outlet>
       </main>
-      <app-footer></app-footer>
+    
     </div>
   `,
   styles: [`

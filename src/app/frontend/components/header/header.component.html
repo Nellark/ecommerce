@@ -24,16 +24,13 @@
       
         <div class="search-container">
           
-          <input
+            <input
             type="text"
             placeholder="Search products..."
             class="search-input"
             [(ngModel)]="searchQuery"
-            (keyup.enter)="onSearch()"
+            (ngModelChange)="onSearch()"  
           >
-          <button class="search-btn" (click)="onSearch()">
-            
-          </button>
         </div>
   
         <!-- Actions -->
@@ -49,14 +46,15 @@
   
     <!-- ▼ SECOND ROW: categories & deals only ▼ -->
     <div class="sub-header">
-      <div class="container sub-header-content">
-        <a routerLink="/categories" class="sub-link">Categories</a>
-        <a routerLink="/deals/sale" class="sub-link highlight">🔥 Hot Sale</a>
-        <a routerLink="/deals/discounts" class="sub-link">Discounts</a>
-        <a routerLink="/deals/daily" class="sub-link">Daily Deals</a>
-        <a routerLink="/deals/weekly" class="sub-link">Weekly Deals</a>
-        <a routerLink="/deals/flash" class="sub-link highlight">⚡ Flash Offers</a>
+        <div class="container sub-header-content">
+          <a (click)="applyDeal('sale')" [class.active]="activeDeal==='sale'" class="sub-link highlight">🔥 Hot Sale</a>
+          <a (click)="applyDeal('discounts')" [class.active]="activeDeal==='discounts'" class="sub-link">Discounts</a>
+          <a (click)="applyDeal('daily')" [class.active]="activeDeal==='daily'" class="sub-link">Daily Deals</a>
+          <a (click)="applyDeal('weekly')" [class.active]="activeDeal==='weekly'" class="sub-link">Weekly Deals</a>
+          <a (click)="applyDeal('flash')" [class.active]="activeDeal==='flash'" class="sub-link highlight">⚡ Flash Offers</a>
+        </div>
       </div>
-    </div>
+      
+      
   </header>
   

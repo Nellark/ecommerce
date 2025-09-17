@@ -89,7 +89,15 @@
     cursor: pointer;
     transition: all 0.2s ease;
   }
-  .search-icon { color: white; font-size: 1rem; }
+/* 
+  .sub-link.active {
+    background: rgba(255,255,255,0.25);
+    font-weight: 700;
+  
+    
+  } */
+  
+ 
   
   /* Actions */
   .actions {
@@ -178,6 +186,7 @@
     color: white;
     font-size: 0.95rem;
     box-shadow: 0 1px 6px rgba(0,0,0,0.08);
+    cursor: pointer;
   }
   
   .sub-header-content {
