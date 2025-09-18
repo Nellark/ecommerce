@@ -4,11 +4,12 @@ import { RouterModule } from '@angular/router';
 import { ProductService } from '../../services/product.service';
 import { Product } from '../../models/product.model';
 import { ProductCardComponent } from '../../components/product-card/product-card.component';
+import { FooterComponent } from '../footer/footer.component';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, RouterModule, ProductCardComponent],
+  imports: [CommonModule, RouterModule, ProductCardComponent, FooterComponent],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],
 })

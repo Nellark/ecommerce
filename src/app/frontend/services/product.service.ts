@@ -14,12 +14,12 @@ export class ProductService {
           name: 'Wireless Headphones',
           price: 299.99,
           originalPrice: 399.99,
-          image: 'https://images.pexels.com/photos/3394650/pexels-photo-3394650.jpeg?auto=compress&cs=tinysrgb&w=500',
+          image: 'https://i.pinimg.com/1200x/6b/f4/eb/6bf4eb820af3fc679c49dc8783dc049c.jpg',
           images: [
-            'https://images.pexels.com/photos/3394650/pexels-photo-3394650.jpeg?auto=compress&cs=tinysrgb&w=500',
-            'https://images.pexels.com/photos/373945/pexels-photo-373945.jpeg?auto=compress&cs=tinysrgb&w=500',
-            'https://images.pexels.com/photos/374777/pexels-photo-374777.jpeg?auto=compress&cs=tinysrgb&w=500',
-            'https://images.pexels.com/photos/42408/pexels-photo-42408.jpeg?auto=compress&cs=tinysrgb&w=500'
+            'https://i.pinimg.com/1200x/1f/37/77/1f37771a5575b04f4a24fe3dbb869914.jpg',
+            'https://i.pinimg.com/736x/86/d7/a9/86d7a9509c2a7c2c926ca1f5e49d6ad5.jpg',
+            'https://i.pinimg.com/736x/00/41/64/004164c14a27adb28643330b3016e758.jpg',
+            'https://i.pinimg.com/736x/53/7f/04/537f04307d1bf25ec73cea788bcf2bfc.jpg'
           ],
           category: 'Electronics',
           rating: 4.8,
@@ -33,12 +33,12 @@ export class ProductService {
           id: 2,
           name: 'Smart Fitness Watch',
           price: 199.99,
-          image: 'https://images.pexels.com/photos/437037/pexels-photo-437037.jpeg?auto=compress&cs=tinysrgb&w=500',
+          image: 'https://i.pinimg.com/736x/6c/71/fc/6c71fc825ad5bf6b41eff81d7bc07a93.jpg',
           images: [
-            'https://images.pexels.com/photos/437037/pexels-photo-437037.jpeg?auto=compress&cs=tinysrgb&w=500',
-            'https://images.pexels.com/photos/267394/pexels-photo-267394.jpeg?auto=compress&cs=tinysrgb&w=500',
-            'https://images.pexels.com/photos/190819/pexels-photo-190819.jpeg?auto=compress&cs=tinysrgb&w=500',
-            'https://images.pexels.com/photos/277394/pexels-photo-277394.jpeg?auto=compress&cs=tinysrgb&w=500'
+            'https://i.pinimg.com/736x/51/6a/43/516a43a0069cf499729c6b4e5058ea28.jpg',
+            'https://i.pinimg.com/1200x/ae/c4/26/aec426a993ca7f10de6a1ae912619627.jpg',
+            'https://i.pinimg.com/1200x/c1/98/63/c19863b0acabb2b4a01d760e8056350d.jpg',
+            'https://i.pinimg.com/736x/23/3d/22/233d222d4ed40d9c13390d001d619eaa.jpg'
           ],
           category: 'Electronics',
           rating: 4.6,
@@ -53,12 +53,12 @@ export class ProductService {
           name: 'Designer Backpack',
           price: 89.99,
           originalPrice: 129.99,
-          image: 'https://images.pexels.com/photos/2905238/pexels-photo-2905238.jpeg?auto=compress&cs=tinysrgb&w=500',
+          image: 'https://i.pinimg.com/1200x/73/93/a5/7393a52f4bf1cd72afd14141cba9b1a3.jpg',
           images: [
-            'https://images.pexels.com/photos/2905238/pexels-photo-2905238.jpeg?auto=compress&cs=tinysrgb&w=500',
-            'https://images.pexels.com/photos/1598505/pexels-photo-1598505.jpeg?auto=compress&cs=tinysrgb&w=500',
-            'https://images.pexels.com/photos/322207/pexels-photo-322207.jpeg?auto=compress&cs=tinysrgb&w=500',
-            'https://images.pexels.com/photos/374574/pexels-photo-374574.jpeg?auto=compress&cs=tinysrgb&w=500'
+            'https://i.pinimg.com/1200x/54/1e/a0/541ea0c940aa9bf17f64068df5e7c524.jpg',
+            'https://i.pinimg.com/736x/be/e5/35/bee5350e38803fe962558b46ed47a998.jpg',
+            'https://i.pinimg.com/736x/22/a3/e9/22a3e93b25c2b44baf58f59e51a0cb47.jpg',
+            'https://i.pinimg.com/736x/6f/3e/dc/6f3edc09ef64588ebd082fc1d53a3f9d.jpg'
           ],
           category: 'Fashion',
           rating: 4.7,
@@ -72,12 +72,12 @@ export class ProductService {
           id: 4,
           name: 'Organic Coffee Beans',
           price: 24.99,
-          image: 'https://images.pexels.com/photos/894695/pexels-photo-894695.jpeg?auto=compress&cs=tinysrgb&w=500',
+          image: 'https://i.pinimg.com/1200x/95/f6/a2/95f6a28723784c9b5e06003209232195.jpg',
           images: [
-            'https://images.pexels.com/photos/894695/pexels-photo-894695.jpeg?auto=compress&cs=tinysrgb&w=500',
-            'https://images.pexels.com/photos/374885/pexels-photo-374885.jpeg?auto=compress&cs=tinysrgb&w=500',
-            'https://images.pexels.com/photos/972533/pexels-photo-972533.jpeg?auto=compress&cs=tinysrgb&w=500',
-            'https://images.pexels.com/photos/894693/pexels-photo-894693.jpeg?auto=compress&cs=tinysrgb&w=500'
+            'https://i.pinimg.com/1200x/da/ef/d6/daefd64b41014f25d5a68f9a69399423.jpg',
+            'https://i.pinimg.com/1200x/b5/45/88/b545883ec399f5cf9bcdc5219e656eb4.jpg',
+            'https://i.pinimg.com/1200x/9a/3c/b0/9a3cb0637685b5c68da4adeb9a1a2724.jpg',
+            'https://i.pinimg.com/1200x/49/2a/cb/492acb6b1035a4442c990f2ba74d3639.jpg'
           ],
           category: 'Food',
           rating: 4.9,
@@ -90,12 +90,13 @@ export class ProductService {
           id: 5,
           name: 'Minimalist Table Lamp',
           price: 79.99,
-          image: 'https://images.pexels.com/photos/1037995/pexels-photo-1037995.jpeg?auto=compress&cs=tinysrgb&w=500',
+          image: 'https://i.pinimg.com/1200x/e3/be/23/e3be239bc0a767a24e32e5680e407500.jpg' ,
           images: [
-            'https://images.pexels.com/photos/1037995/pexels-photo-1037995.jpeg?auto=compress&cs=tinysrgb&w=500',
-            'https://images.pexels.com/photos/2121120/pexels-photo-2121120.jpeg?auto=compress&cs=tinysrgb&w=500',
-            'https://images.pexels.com/photos/809243/pexels-photo-809243.jpeg?auto=compress&cs=tinysrgb&w=500',
-            'https://images.pexels.com/photos/389818/pexels-photo-389818.jpeg?auto=compress&cs=tinysrgb&w=500'
+            'https://i.pinimg.com/736x/15/cc/aa/15ccaacc59e60cbd204585acda858328.jpg',
+            'https://i.pinimg.com/736x/5a/4d/88/5a4d885b743ea2b42964b6fe22fe0dd8.jpg',
+            
+            'https://i.pinimg.com/1200x/a2/fe/02/a2fe02c51a8bd53cc3e50d9fba258f2b.jpg',
+            'https://i.pinimg.com/1200x/f8/9a/f6/f89af6cb9dbff9273c1e02c1d91d104a.jpg'
           ],
           category: 'Home',
           rating: 4.5,
@@ -111,12 +112,12 @@ export class ProductService {
           name: 'Gaming Mechanical Keyboard',
           price: 149.99,
           originalPrice: 199.99,
-          image: 'https://images.pexels.com/photos/371924/pexels-photo-371924.jpeg?auto=compress&cs=tinysrgb&w=500',
+          image: 'https://i.pinimg.com/1200x/3e/b9/16/3eb916a600c0e95f52da7fc881c9bf0e.jpg',
           images: [
-            'https://images.pexels.com/photos/371924/pexels-photo-371924.jpeg?auto=compress&cs=tinysrgb&w=500',
-            'https://images.pexels.com/photos/1714208/pexels-photo-1714208.jpeg?auto=compress&cs=tinysrgb&w=500',
-            'https://images.pexels.com/photos/845434/pexels-photo-845434.jpeg?auto=compress&cs=tinysrgb&w=500',
-            'https://images.pexels.com/photos/267394/pexels-photo-267394.jpeg?auto=compress&cs=tinysrgb&w=500'
+            'https://i.pinimg.com/1200x/b9/25/f2/b925f21922428d5305b5aca863449082.jpg',
+            'https://i.pinimg.com/736x/98/43/75/9843754dde46975e5373067b2d5dc499.jpg',
+            'https://i.pinimg.com/1200x/a2/53/4f/a2534fa85bb18159cfa4426a510a8fb5.jpg',
+            'https://i.pinimg.com/736x/56/47/4b/56474b66a560b05fa73707689cf6a2e8.jpg'
           ],
           category: 'Electronics',
           rating: 4.8,
@@ -130,12 +131,11 @@ export class ProductService {
           id: 7,
           name: 'Luxury Leather Wallet',
           price: 59.99,
-          image: 'https://images.pexels.com/photos/179934/pexels-photo-179934.jpeg?auto=compress&cs=tinysrgb&w=500',
+          image: 'https://i.pinimg.com/736x/5b/35/54/5b3554408efa9ea58196c70de48d9200.jpg',
           images: [
-            'https://images.pexels.com/photos/179934/pexels-photo-179934.jpeg?auto=compress&cs=tinysrgb&w=500',
-            'https://images.pexels.com/photos/273166/pexels-photo-273166.jpeg?auto=compress&cs=tinysrgb&w=500',
-            'https://images.pexels.com/photos/276563/pexels-photo-276563.jpeg?auto=compress&cs=tinysrgb&w=500',
-            'https://images.pexels.com/photos/291762/pexels-photo-291762.jpeg?auto=compress&cs=tinysrgb&w=500'
+            'https://i.pinimg.com/736x/62/e3/aa/62e3aac2a6c7416834ca6bc5fbcf3a0f.jpg',
+            'https://i.pinimg.com/1200x/d2/54/cc/d254cc6741328a89cc1600e8ca33398b.jpg',
+       
           ],
           category: 'Fashion',
           rating: 4.6,
@@ -150,12 +150,12 @@ export class ProductService {
           name: '4K Ultra HD TV',
           price: 799.99,
           originalPrice: 999.99,
-          image: 'https://images.pexels.com/photos/887751/pexels-photo-887751.jpeg?auto=compress&cs=tinysrgb&w=500',
+          image: 'https://i.pinimg.com/1200x/ad/2c/d6/ad2cd627b3c04d87ce31aa50f365f9c6.jpg',
           images: [
-            'https://images.pexels.com/photos/887751/pexels-photo-887751.jpeg?auto=compress&cs=tinysrgb&w=500',
-            'https://images.pexels.com/photos/3757059/pexels-photo-3757059.jpeg?auto=compress&cs=tinysrgb&w=500',
-            'https://images.pexels.com/photos/145939/pexels-photo-145939.jpeg?auto=compress&cs=tinysrgb&w=500',
-            'https://images.pexels.com/photos/2796145/pexels-photo-2796145.jpeg?auto=compress&cs=tinysrgb&w=500'
+            'https://i.pinimg.com/736x/a4/93/1e/a4931ebbdcb6054ea8f5950749a36999.jpg',
+            'https://i.pinimg.com/1200x/2c/64/16/2c64163149bf521a2f5d444aacd90edc.jpg',
+            'https://i.pinimg.com/1200x/ee/0f/e5/ee0fe5cb602318ab5855c01a0b34ef72.jpg',
+            'https://i.pinimg.com/736x/3d/7e/85/3d7e8511ca2ae1bbd93d8c9fc0e08d86.jpg'
           ],
           category: 'Electronics',
           rating: 4.9,
@@ -169,12 +169,12 @@ export class ProductService {
           id: 9,
           name: 'Running Shoes',
           price: 120.00,
-          image: 'https://images.pexels.com/photos/2529148/pexels-photo-2529148.jpeg?auto=compress&cs=tinysrgb&w=500',
+          image: 'https://i.pinimg.com/736x/fc/24/84/fc2484e6ca0e7951307f9b58527f2f84.jpg',
           images: [
-            'https://images.pexels.com/photos/2529148/pexels-photo-2529148.jpeg?auto=compress&cs=tinysrgb&w=500',
-            'https://images.pexels.com/photos/999267/pexels-photo-999267.jpeg?auto=compress&cs=tinysrgb&w=500',
-            'https://images.pexels.com/photos/3757373/pexels-photo-3757373.jpeg?auto=compress&cs=tinysrgb&w=500',
-            'https://images.pexels.com/photos/3756042/pexels-photo-3756042.jpeg?auto=compress&cs=tinysrgb&w=500'
+            'https://i.pinimg.com/1200x/b2/c0/41/b2c041f86e920318cfca3aa139789be2.jpg',
+            'https://i.pinimg.com/1200x/81/cd/cd/81cdcdc6e88a9264143c7b0622e01044.jpg',
+            'https://i.pinimg.com/1200x/f1/9b/87/f19b872f08e206240a19c322aeb7ce9e.jpg',
+            'https://i.pinimg.com/1200x/76/7a/57/767a575c025cf7beba1672e7d007a103.jpg'
           ],
           category: 'Fashion',
           rating: 4.7,
@@ -189,12 +189,12 @@ export class ProductService {
           name: 'Stainless Steel Cookware Set',
           price: 249.99,
           originalPrice: 349.99,
-          image: 'https://images.pexels.com/photos/276566/pexels-photo-276566.jpeg?auto=compress&cs=tinysrgb&w=500',
+          image: 'https://i.pinimg.com/736x/20/cd/cc/20cdcca2372d19e33f9f50cbf23be5a3.jpg',
           images: [
-            'https://images.pexels.com/photos/276566/pexels-photo-276566.jpeg?auto=compress&cs=tinysrgb&w=500',
-            'https://images.pexels.com/photos/461198/pexels-photo-461198.jpeg?auto=compress&cs=tinysrgb&w=500',
-            'https://images.pexels.com/photos/410988/pexels-photo-410988.jpeg?auto=compress&cs=tinysrgb&w=500',
-            'https://images.pexels.com/photos/460537/pexels-photo-460537.jpeg?auto=compress&cs=tinysrgb&w=500'
+            'https://i.pinimg.com/736x/a4/46/8e/a4468e24c371a238cd62a4e465ce0322.jpg',
+            'https://i.pinimg.com/736x/27/c2/06/27c2064279c44411955e3a27f513d584.jpg',
+            'https://i.pinimg.com/736x/13/03/30/1303305df7b216bd201c2fba106bd60a.jpg',
+            
           ],
           category: 'Home',
           rating: 4.8,
