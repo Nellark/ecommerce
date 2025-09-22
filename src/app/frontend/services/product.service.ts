@@ -22,6 +22,7 @@ export class ProductService {
             'https://i.pinimg.com/736x/53/7f/04/537f04307d1bf25ec73cea788bcf2bfc.jpg'
           ],
           category: 'Electronics',
+          color: 'Black',
           rating: 4.8,
           reviews: 245,
           description: 'Experience crystal-clear audio with our premium wireless headphones featuring active noise cancellation.',
@@ -41,6 +42,7 @@ export class ProductService {
             'https://i.pinimg.com/736x/23/3d/22/233d222d4ed40d9c13390d001d619eaa.jpg'
           ],
           category: 'Electronics',
+          color: 'Black',
           rating: 4.6,
           reviews: 189,
           description: 'Track your fitness goals with this advanced smartwatch featuring heart rate monitoring and GPS.',
@@ -61,6 +63,7 @@ export class ProductService {
             'https://i.pinimg.com/736x/6f/3e/dc/6f3edc09ef64588ebd082fc1d53a3f9d.jpg'
           ],
           category: 'Fashion',
+          color: 'Brown',
           rating: 4.7,
           reviews: 156,
           description: 'Stylish and functional backpack perfect for work, travel, or everyday use.',
@@ -80,6 +83,7 @@ export class ProductService {
             'https://i.pinimg.com/1200x/49/2a/cb/492acb6b1035a4442c990f2ba74d3639.jpg'
           ],
           category: 'Food',
+          color: 'Brown',
           rating: 4.9,
           reviews: 312,
           description: 'Premium organic coffee beans sourced from sustainable farms around the world.',
@@ -99,6 +103,7 @@ export class ProductService {
             'https://i.pinimg.com/1200x/f8/9a/f6/f89af6cb9dbff9273c1e02c1d91d104a.jpg'
           ],
           category: 'Home',
+          color: 'Black',
           rating: 4.5,
           reviews: 98,
           description: 'Elegant minimalist lamp that adds warmth and style to any room.',
@@ -120,6 +125,7 @@ export class ProductService {
             'https://i.pinimg.com/736x/56/47/4b/56474b66a560b05fa73707689cf6a2e8.jpg'
           ],
           category: 'Electronics',
+          color: 'Black',
           rating: 4.8,
           reviews: 223,
           description: 'RGB mechanical keyboard with custom switches and ergonomic design for gaming enthusiasts.',
@@ -138,6 +144,7 @@ export class ProductService {
        
           ],
           category: 'Fashion',
+          color: 'Black',
           rating: 4.6,
           reviews: 145,
           description: 'Handcrafted wallet made from genuine leather with multiple compartments.',
@@ -158,6 +165,7 @@ export class ProductService {
             'https://i.pinimg.com/736x/3d/7e/85/3d7e8511ca2ae1bbd93d8c9fc0e08d86.jpg'
           ],
           category: 'Electronics',
+          color: 'Black',
           rating: 4.9,
           reviews: 512,
           description: 'Immersive 4K Ultra HD smart TV with HDR and voice control support.',
@@ -177,6 +185,7 @@ export class ProductService {
             'https://i.pinimg.com/1200x/76/7a/57/767a575c025cf7beba1672e7d007a103.jpg'
           ],
           category: 'Fashion',
+          color: 'Black',
           rating: 4.7,
           reviews: 340,
           description: 'Lightweight and breathable running shoes designed for maximum comfort and durability.',
@@ -197,6 +206,7 @@ export class ProductService {
             
           ],
           category: 'Home',
+          color: 'Silver',
           rating: 4.8,
           reviews: 275,
           description: 'Complete set of premium stainless steel cookware for all your kitchen needs.',
@@ -217,6 +227,7 @@ export class ProductService {
             
           ],
           category: 'Electronics',
+          color: 'Black',
           rating: 4.8,
           reviews: 275,
           description: 'The iPhone 16 Pro-Max delivers cutting-edge performance and stunning design. Crafted from aerospace-grade titanium, it features Apple’s latest A18 Pro chip, an advanced triple-camera system with 8K video, and an expansive 6.9-inch Super Retina XDR display.',
@@ -230,7 +241,107 @@ export class ProductService {
           inStock: true,
           isSale: true
         
+        },
+        {
+          id: 12,  // ensure this is unique
+          name: 'Orange L-Couch',
+          price: 899.99,
+          originalPrice: 1299.99,   // whatever original you want (for discount logic)
+          image: 'https://images.unsplash.com/photo-1639322132757-14ee19fb04f5?q=80&w=2167&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+          images: [
+            'https://images.unsplash.com/photo-1639322132757-14ee19fb04f5?q=80&w=2167&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
+            // you can add more image URLs for interior angles
+          ],
+          category: 'Furniture',
+          color: 'Orange',
+          colors: ['Orange'],
+          sizes: ['One Size'],       // or whatever sizes make sense
+          styles: ['Modern','Luxury'],  // adjust as needed
+          rating: 4.5,
+          reviews: 72,
+          description: 'Comfortable modern orange L-shaped sofa couch, perfect for lounging or living room setups.',
+          features: ['L-shape', 'Stain resistant fabric', 'Modular', 'Throws included'],
+          inStock: true,
+          isSale: true  // or false if not on sale
+        },
+        {
+          id: 13,  // make sure this is unique
+          name: 'Silver MacBook Pro',
+          price: 1499.99,
+          originalPrice: 1799.99,      // optional, for discount logic
+          image: 'https://images.unsplash.com/photo-1541807084-5c52b6b3adef?q=80&w=774&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+          images: [
+            'https://images.unsplash.com/photo-1541807084-5c52b6b3adef?q=80&w=774&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+            'https://images.unsplash.com/photo-1511385348-a52b4a160dc2?q=80&w=2107&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+            'https://images.unsplash.com/photo-1420406676079-b8491f2d07c8?q=80&w=1771&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+            'https://images.unsplash.com/photo-1542393545-10f5cde2c810?q=80&w=1065&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
+          ],
+          category: 'Electronics',
+          color: 'Silver',
+          colors: ['Silver'],
+          sizes: ['13-inch', '15-inch'],  // adjust depending on variants
+          styles: ['Professional', 'Modern'],
+          rating: 4.7,
+          reviews: 230,
+          description: 'Premium silver MacBook with sleek design, high performance, and stunning display — perfect for professionals and creatives alike.',
+          features: ['Retina display', 'Lightweight aluminum chassis', 'Long battery life', 'Fast charging'],
+          inStock: true,
+          isNew: true  // or set isSale / discounts etc. as needed
+        },
+        {
+          id: 14, // unique!
+          name: 'Fresh Flower Arrangement',
+          price: 39.99,
+          originalPrice: 49.99,       // optional
+          image: 'https://images.unsplash.com/photo-1652346107876-58d7354ce9b8?q=80&w=774&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+          images: [
+            'https://images.unsplash.com/photo-1652346107876-58d7354ce9b8?q=80&w=774&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+            'https://images.unsplash.com/photo-1732784169994-1ce86fae02f5?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDd8fHxlbnwwfHx8fHw%3D',
+            'https://images.unsplash.com/photo-1680563094046-5d846e2c59d1?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDE3fHx8ZW58MHx8fHx8',
+            'https://images.unsplash.com/photo-1604929963739-69703a492bb7?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDIyfHx8ZW58MHx8fHx8',
+            'https://images.unsplash.com/photo-1709099158463-cae636593236?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDcyfHx8ZW58MHx8fHx8'
+          ],
+          category: 'Flowers',
+          color: 'Mixed',
+          colors: ['Pink', 'White', 'Yellow', 'Purple'],
+          rating: 4.8,
+          reviews: 87,
+          description: 'A beautiful mixed bouquet of fresh seasonal flowers — perfect for any occasion.',
+          features: [
+            'Hand-tied arrangement',
+            'Fragrant seasonal blooms',
+            'Wrapped in eco-friendly paper'
+          ],
+          inStock: true,
+          isNew: true
+        },
+        {
+          id: 15, // choose the next available id
+          name: 'Elegant Stiletto Heels',
+          price: 204.99,
+          image: 'https://images.unsplash.com/photo-1543163521-1bf539c55dd2?q=80&w=1180&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+          images: [
+            'https://images.unsplash.com/photo-1543163521-1bf539c55dd2?q=80&w=1180&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
+          ],
+          category: 'Footwear',
+          color: 'Blue',
+          colors: ['Blue'],
+          sizes: ['36', '37', '38', '39', '40', '41'],
+          rating: 4.6,
+          reviews: 54,
+          description: 'Sophisticated black stiletto heels perfect for evening wear or a stylish day out.',
+          features: [
+            'Premium faux leather upper',
+            'Comfortable cushioned insole',
+            'Classic pointed toe design'
+          ],
+          inStock: true,
+          
         }
+        
+        
+        
+        
       
         
       ];

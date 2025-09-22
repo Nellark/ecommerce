@@ -1,16 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+
 import { ProductService } from '../../services/product.service';
 import { Product } from '../../models/product.model';
 import { ProductCardComponent } from '../../components/product-card/product-card.component';
-import { ViewEncapsulation } from '@angular/core';
+import { FooterComponent } from '../footer/footer.component';
 
 @Component({
   selector: 'app-products',
   standalone: true,
-  imports: [CommonModule, FormsModule, ProductCardComponent],
+  imports: [CommonModule, FormsModule, ProductCardComponent, FooterComponent],
   templateUrl: './products.component.html',
   styleUrls: ['./products.component.css'],
   encapsulation: ViewEncapsulation.None
@@ -18,17 +19,19 @@ import { ViewEncapsulation } from '@angular/core';
 export class ProductsComponent implements OnInit {
   products: Product[] = [];
   filteredProducts: Product[] = [];
+
   categories: string[] = [];
   selectedCategory = '';
   sortBy = 'name';
   searchQuery = '';
-  selectedDeal = ''; 
+
+  // deal & filter selections
+  selectedDeal = '';
   selectedSize = '';
   selectedColor = '';
   selectedStyle = '';
-  isModalOpen = false;
 
-  
+  isModalOpen = false;
 
   constructor(
     private productService: ProductService,
@@ -44,6 +47,7 @@ export class ProductsComponent implements OnInit {
       this.applyFilters();
     });
 
+    // pick up query params like ?search=...&deal=sale
     this.route.queryParams.subscribe(params => {
       this.searchQuery = params['search'] || '';
       this.selectedDeal = params['deal'] || '';
@@ -51,54 +55,72 @@ export class ProductsComponent implements OnInit {
     });
   }
 
-
-  // Handle header deal clicks
-  applyDeal(type: string): void {
-    this.selectedDeal = type;
-    this.router.navigate([], { queryParams: { deal: type }, queryParamsHandling: 'merge' });
-    this.applyFilters();
-  }
-
+  /**
+   * Apply all active filters: search, deals, category, size, color, style, sort
+   */
   applyFilters(): void {
     let filtered = [...this.products];
 
-    // Search
+    // --- Search ---
     if (this.searchQuery) {
       const term = this.searchQuery.toLowerCase();
       filtered = filtered.filter(p =>
         p.name.toLowerCase().includes(term) ||
-        p.description?.toLowerCase().includes(term)
+        p.description.toLowerCase().includes(term)
       );
     }
 
-    // Deal filter using existing fields
+    // --- Deals ---
     if (this.selectedDeal) {
       switch (this.selectedDeal) {
         case 'sale':
-          filtered = filtered.filter(p => p.category.toLowerCase().includes('sale'));
+          filtered = filtered.filter(p => p.isSale === true);
           break;
         case 'discounts':
-          filtered = filtered.filter(p => (p.originalPrice || p.price) > p.price);
+          filtered = filtered.filter(
+            p => p.originalPrice !== undefined && p.price < p.originalPrice
+          );
           break;
         case 'daily':
-          filtered = filtered.filter(p => p.category.toLowerCase().includes('daily'));
+          // replace with your own logic/service call if you have daily deals
+          filtered = filtered.filter(p => p.features?.some(f => f.toLowerCase().includes('daily')));
           break;
         case 'weekly':
-          filtered = filtered.filter(p => p.category.toLowerCase().includes('weekly'));
+          filtered = filtered.filter(p => p.features?.some(f => f.toLowerCase().includes('weekly')));
           break;
         case 'flash':
-          filtered = filtered.filter(p => p.category.toLowerCase().includes('flash'));
+          filtered = filtered.filter(p => p.features?.some(f => f.toLowerCase().includes('flash')));
           break;
       }
     }
 
-    // Other filters
-    if (this.selectedCategory) filtered = filtered.filter(p => p.category === this.selectedCategory);
-    if (this.selectedSize) filtered = filtered.filter(p => p.sizes?.includes(this.selectedSize));
-    if (this.selectedColor) filtered = filtered.filter(p => p.colors?.includes(this.selectedColor));
-    if (this.selectedStyle) filtered = filtered.filter(p => p.styles?.includes(this.selectedStyle));
+    // --- Other Filters ---
+    if (this.selectedCategory) {
+      filtered = filtered.filter(p => p.category === this.selectedCategory);
+    }
 
-    // Sorting
+    if (this.selectedSize) {
+      filtered = filtered.filter(p =>
+        p.sizes?.some(size => size === this.selectedSize)
+      );
+    }
+
+    if (this.selectedColor) {
+      const sel = this.selectedColor.toLowerCase();
+      filtered = filtered.filter(p =>
+        // match either the single color field or colors[]
+        p.color?.toLowerCase() === sel ||
+        p.colors?.some(c => c.toLowerCase() === sel)
+      );
+    }
+
+    if (this.selectedStyle) {
+      filtered = filtered.filter(p =>
+        p.styles?.some(style => style === this.selectedStyle)
+      );
+    }
+
+    // --- Sorting ---
     switch (this.sortBy) {
       case 'name':
         filtered.sort((a, b) => a.name.localeCompare(b.name));
@@ -116,8 +138,17 @@ export class ProductsComponent implements OnInit {
 
     this.filteredProducts = filtered;
   }
-  handleModalChange(isOpen: boolean) {
-    this.isModalOpen = isOpen;
+
+  /**
+   * Called from header buttons or links to apply a deal type
+   */
+  applyDeal(type: string): void {
+    this.selectedDeal = type;
+    this.router.navigate([], {
+      queryParams: { deal: type },
+      queryParamsHandling: 'merge'
+    });
+    this.applyFilters();
   }
 
   clearFilters(): void {
@@ -131,14 +162,17 @@ export class ProductsComponent implements OnInit {
     this.applyFilters();
   }
 
-  openModal() {
+  openModal(): void {
     this.isModalOpen = true;
     document.body.classList.add('modal-open');
   }
-  
-  closeModal() {
+
+  closeModal(): void {
     this.isModalOpen = false;
     document.body.classList.remove('modal-open');
   }
-  
+
+  handleModalChange(isOpen: boolean): void {
+    this.isModalOpen = isOpen;
+  }
 }
