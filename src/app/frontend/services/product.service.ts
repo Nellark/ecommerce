@@ -203,7 +203,35 @@ export class ProductService {
           features: ['Non-stick surface', 'Oven safe', 'Dishwasher safe', '10-piece set'],
           inStock: true,
           isSale: true
+        },
+        {
+          id: 11,
+          name: 'iPhone 16 Pro-max',
+          price: 2049.99,
+          originalPrice: 2349.99,
+          image: 'https://images.unsplash.com/photo-1726587912109-3422e8f54741?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDF8fHxlbnwwfHx8fHw%3D',
+          images: [
+            'https://images.unsplash.com/photo-1709178295038-acbeec786fcf?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDd8fHxlbnwwfHx8fHw%3D',
+            'https://images.unsplash.com/photo-1605636808063-ba999ff935eb?q=80&w=1035&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+            'https://images.unsplash.com/photo-1724051017997-15c226434b57?q=80&w=987&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+            
+          ],
+          category: 'Electronics',
+          rating: 4.8,
+          reviews: 275,
+          description: 'The iPhone 16 Pro-Max delivers cutting-edge performance and stunning design. Crafted from aerospace-grade titanium, it features Apple’s latest A18 Pro chip, an advanced triple-camera system with 8K video, and an expansive 6.9-inch Super Retina XDR display.',
+          features: ['6.9-inch Super Retina XDR OLED display with ProMotion, A18 Pro chip for blazing-fast performance', 
+                    'Triple-camera system with 48MP main sensor and 8K video recording',
+                    ' 5G connectivity and Wi-Fi 7 support',
+                    'Up to 1TB storage options',
+                    'All-day battery with fast charging and MagSafe',
+                    'Titanium frame with Ceramic Shield front for enhanced durability',
+                    'Face ID and iOS 26 with advanced AI features'],
+          inStock: true,
+          isSale: true
+        
         }
+      
         
       ];
       

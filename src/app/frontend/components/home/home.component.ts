@@ -21,7 +21,7 @@ export class HomeComponent implements OnInit {
   selectedColor: any;
   selectedStyle: any;
   product: Product | undefined;
-  quantity = 1;  // keep this as your quantity state
+  quantity = 1; 
 
   constructor(
     private route: ActivatedRoute,

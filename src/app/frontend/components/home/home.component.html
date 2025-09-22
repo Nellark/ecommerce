@@ -101,7 +101,7 @@
           </div>
           <div class="product-info">
             <button class="add-to-cart-btn" (click)="addToCart(product)">Add to cart</button>
-            <div class="product-price">Rs {{ (product.price * 100).toFixed(0) }}</div>
+            <div class="product-price">R {{ product.price.toFixed(2) }}</div>
           </div>
         </div>
       </div>
