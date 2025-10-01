@@ -109,7 +109,7 @@ export class ProductService {
 
         {
           id: 6,
-          name: 'Gaming Mechanical Keyboard',
+          name: 'Gaming Keyboard',
           price: 149.99,
           originalPrice: 199.99,
           image: 'https://i.pinimg.com/1200x/3e/b9/16/3eb916a600c0e95f52da7fc881c9bf0e.jpg',
@@ -230,7 +230,85 @@ export class ProductService {
           inStock: true,
           isSale: true
         
+        },
+
+        {
+          id: 12,
+          name: 'Lipstick',
+          price: 49.99,
+          originalPrice: 69.99,
+          image: 'https://images.unsplash.com/photo-1600852307130-41924335e4dc?q=80&w=3135&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+          images: [
+            'https://images.unsplash.com/photo-1621441617122-be70d6579ac9?q=80&w=1035&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+            'https://images.unsplash.com/photo-1600852435692-8f34756456e5?q=80&w=1674&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+            
+          ],
+          category: 'Cosmetics',
+          rating: 4.7,
+          reviews: 134,
+          description: 'Premium lipstick set featuring long-lasting vibrant colors for all occasions.',
+          features: ['Matte finish', 'Long-lasting', 'Hydrating formula', 'Vegan & cruelty-free'],
+          inStock: true,
+          isNew: true
+        },
+        {
+          id: 13,
+          name: 'Hydrating Face Serum',
+          price: 39.99,
+          originalPrice: 59.99,
+          image: 'https://images.unsplash.com/photo-1643747394944-89b11e7fb616?q=80&w=2128&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+          images: [
+            'https://images.unsplash.com/photo-1728842949422-afe84b25ad81?q=80&w=2091&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+            'https://images.unsplash.com/photo-1642162229036-cc0617ea36fc?q=80&w=927&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+            'https://images.unsplash.com/photo-1719132249609-ad7f1fb4abfc?q=80&w=3084&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
+          ],
+          category: 'Cosmetics',
+          rating: 4.8,
+          reviews: 98,
+          description: 'Boost your skin’s hydration with this lightweight, fast-absorbing serum.',
+          features: ['Vitamin C enriched', 'Non-greasy', 'Reduces fine lines', 'Dermatologist tested'],
+          inStock: true,
+          isNew: true
+        },
+        {
+          id: 14,
+          name: 'Rejuvenating Night Cream',
+          price: 59.99,
+          originalPrice: 79.99,
+          image: 'https://images.unsplash.com/photo-1629732047847-50219e9c5aef?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+          images: [
+            'https://images.unsplash.com/photo-1629732047847-50219e9c5aef?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+            'https://images.unsplash.com/photo-1630398776959-6ff31b49df55?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+            
+          ],
+          category: 'Cosmetics',
+          rating: 4.9,
+          reviews: 112,
+          description: 'Night cream designed to rejuvenate and restore your skin while you sleep.',
+          features: ['Rich in antioxidants', 'Hydrating formula', 'Reduces wrinkles', 'Suitable for all skin types'],
+          inStock: true,
+          isSale: true
+        },
+        {
+          id: 15,
+          name: 'Eyeshadow Palette',
+          price: 69.99,
+          originalPrice: 89.99,
+          image: 'https://images.unsplash.com/photo-1723238221899-25b57408ac24?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+          images: [
+            'https://images.unsplash.com/photo-1723238221828-da386ef38cc9?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+            'https://images.unsplash.com/photo-1723238221515-18b9cea74b75?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+            
+          ],
+          category: 'Cosmetics',
+          rating: 4.8,
+          reviews: 89,
+          description: 'Versatile eyeshadow palette with highly pigmented mineral colors for stunning eye looks.',
+          features: ['12 vibrant shades', 'Smooth application', 'Long-lasting', 'Cruelty-free'],
+          inStock: true,
+          isNew: true
         }
+        
       
         
       ];

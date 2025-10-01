@@ -1,3 +1,4 @@
+<!-- Hero Section -->
 <section class="hero animate-fade-in">
   <div class="container">
     <div class="hero-content">
@@ -11,15 +12,19 @@
           You Cannot Inspect Quality Into The Product; It Is Already There.
           <br>I Am Not A Product Of My Circumstances, I Am A Product Of My Decisions.
         </p>
-        <button class="btn btn-primary" routerLink="/products">
-          View More
+        <!-- Navigate to products page showing all or filtered items -->
+        <button class="btn btn-primary" (click)="goToProducts({deal: 'sale'})">
+          View More Deals
         </button>
       </div>
       <div class="hero-image">
         <div class="product-showcase">
-          <img src="https://images.pexels.com/photos/18105/pexels-photo.jpg?auto=compress&cs=tinysrgb&w=800" alt="Laptop" class="showcase-laptop">
-          <img src="https://images.pexels.com/photos/3394650/pexels-photo-3394650.jpeg?auto=compress&cs=tinysrgb&w=400" alt="Headphones" class="showcase-headphones">
-          <img src="https://images.pexels.com/photos/1649771/pexels-photo-1649771.jpeg?auto=compress&cs=tinysrgb&w=400" alt="Perfume" class="showcase-perfume">
+          <img src="https://images.pexels.com/photos/18105/pexels-photo.jpg?auto=compress&cs=tinysrgb&w=800" 
+               alt="Laptop" class="showcase-laptop">
+          <img src="https://images.pexels.com/photos/3394650/pexels-photo-3394650.jpeg?auto=compress&cs=tinysrgb&w=400" 
+               alt="Headphones" class="showcase-headphones">
+          <img src="https://images.pexels.com/photos/1649771/pexels-photo-1649771.jpeg?auto=compress&cs=tinysrgb&w=400" 
+               alt="Perfume" class="showcase-perfume">
           <div class="discount-badge">
             <span class="discount-text">40%</span>
             <span class="discount-label">Off</span>
@@ -30,11 +35,14 @@
   </div>
 </section>
 
+
 <!-- Category Cards -->
 <section class="category-section">
   <div class="container">
     <div class="category-grid">
-      <div class="category-card" routerLink="/products" [queryParams]="{category: 'Electronics'}">
+      <div class="category-card" 
+           [routerLink]="['/products']" 
+           [queryParams]="{ category: 'Electronics' }">
         <div class="category-image">
           <img src="https://images.pexels.com/photos/356056/pexels-photo-356056.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Electronics">
         </div>
@@ -43,8 +51,10 @@
           <button class="category-btn">Shop</button>
         </div>
       </div>
-      
-      <div class="category-card" routerLink="/products" [queryParams]="{category: 'Fashion'}">
+
+      <div class="category-card" 
+           [routerLink]="['/products']" 
+           [queryParams]="{ category: 'Fashion' }">
         <div class="category-image">
           <img src="https://images.pexels.com/photos/996329/pexels-photo-996329.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Fashion">
         </div>
@@ -53,29 +63,34 @@
           <button class="category-btn">Shop</button>
         </div>
       </div>
-      
-      <div class="category-card" routerLink="/products" [queryParams]="{category: 'Home'}">
+
+      <div class="category-card" 
+           [routerLink]="['/products']" 
+           [queryParams]="{ category: 'Home' }">
         <div class="category-image">
-          <img src="https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Appliances">
+          <img src="https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg?auto=compress&cs=tinysrgb&w=600" alt="home">
         </div>
         <div class="category-content">
-          <h3>Appliances</h3>
+          <h3>Home</h3>
           <button class="category-btn">Shop</button>
         </div>
       </div>
-      
-      <div class="category-card" routerLink="/products" [queryParams]="{category: 'Beauty'}">
+
+      <div class="category-card" 
+           [routerLink]="['/products']" 
+           [queryParams]="{ category: 'Beauty' }">
         <div class="category-image">
-          <img src="https://images.pexels.com/photos/3762879/pexels-photo-3762879.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Babies Store">
+          <img src="https://images.pexels.com/photos/3762879/pexels-photo-3762879.jpeg?auto=compress&cs=tinysrgb&w=600" alt="cosmetics">
         </div>
         <div class="category-content">
-          <h3>Babies Store</h3>
+          <h3>Cosmetics</h3>
           <button class="category-btn">Shop</button>
         </div>
       </div>
     </div>
   </div>
 </section>
+
 
 <!-- Deals Section -->
 <section class="deals-section">

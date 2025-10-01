@@ -3,7 +3,7 @@ export interface Product {
   name: string;
   price: number;
   originalPrice?: number;
-  image: string;           // main image
+  image: string;          
   images?: string[];       // additional images for carousel
   category: string;
   rating: number;

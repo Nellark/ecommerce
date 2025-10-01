@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import { RouterModule, Router } from '@angular/router';
 import { ProductService } from '../../services/product.service';
 import { Product } from '../../models/product.model';
 import { ProductCardComponent } from '../../components/product-card/product-card.component';
@@ -17,35 +17,20 @@ import { CartService } from '../../services/cart.service';
 export class HomeComponent implements OnInit {
   featuredProducts: Product[] = [];
   weeklyDeals: Product[] = [];
-  selectedSize: any;
-  selectedColor: any;
-  selectedStyle: any;
-  product: Product | undefined;
-  quantity = 1; 
+  quantity = 1;
 
   constructor(
-    private route: ActivatedRoute,
     private router: Router,
     private productService: ProductService,
     private cartService: CartService
   ) {}
 
   ngOnInit(): void {
-    this.route.params.subscribe(params => {
-      const id = +params['id'];
-      this.product = this.productService.getProductById(id);
-      this.featuredProducts = this.productService.getFeaturedProducts();
-      this.weeklyDeals = this.productService.getWeeklyDeals();
-
-      // Set default variants if available
-      if (this.product) {
-        this.selectedSize = this.product.sizes?.[0] || '';
-        this.selectedColor = this.product.colors?.[0] || '';
-        this.selectedStyle = this.product.styles?.[0] || '';
-      }
-    });
+    this.featuredProducts = this.productService.getFeaturedProducts();
+    this.weeklyDeals = this.productService.getWeeklyDeals();
   }
 
+  /** Add product to cart */
   addToCart(product: Product): void {
     this.cartService.addToCart(
       {
@@ -57,7 +42,13 @@ export class HomeComponent implements OnInit {
       this.quantity
     );
   }
-  
+
+  /** Navigate to products page optionally filtered by category or deal */
+  goToProducts(filter?: { category?: string; deal?: string }): void {
+    const queryParams: any = {};
+    if (filter?.category) queryParams.category = filter.category;
+    if (filter?.deal) queryParams.deal = filter.deal;
+
+    this.router.navigate(['/products'], { queryParams });
+  }
 }
-
-

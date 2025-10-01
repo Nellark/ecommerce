@@ -9,16 +9,18 @@
     <aside class="sidebar">
       <div class="sidebar-filters">
         <!-- Category -->
-        <h3 class="filter-title">Category</h3>
-        <div class="filter-group">
-          <button *ngFor="let category of categories"
-                  (click)="selectedCategory = category; applyFilters()"
-                  [class.active]="selectedCategory === category"
-                  class="filter-btn">
-            {{ category }}
-          </button>
-          <button (click)="selectedCategory=''; applyFilters()" class="filter-btn clear">All</button>
-        </div>
+      <!-- Category -->
+<h3 class="filter-title">Category</h3>
+<div class="filter-group">
+  <button *ngFor="let category of categories"
+          (click)="selectCategory(category)"
+          [class.active]="selectedCategory === category"
+          class="filter-btn">
+    {{ category }}
+  </button>
+  <button (click)="clearFilters()" class="filter-btn clear">All</button>
+</div>
+
 
         <!-- Size -->
         <h3 class="filter-title">Size</h3>
