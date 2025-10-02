@@ -98,12 +98,16 @@ body {
 .product-rating {
   display: flex;
   align-items: center;
-  gap: 10px;
-  margin-bottom: 15px;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
 }
 
-.stars {
-  color: #ffc107; /* gold stars */
+.full-star { color: #f59e0b; }
+.half-star { color: #f59e0b; }
+.empty-star { color: #d1d5db; }
+.rating-text {
+  font-size: 0.85rem;
+  color: #6b7280;
 }
 
 .rating-text {

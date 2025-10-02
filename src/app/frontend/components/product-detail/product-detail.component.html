@@ -28,10 +28,11 @@
 
         <!-- Rating -->
         <div class="product-rating">
-          <div class="stars">
-            <span *ngFor="let star of getStars(product.rating)" [class]="star">⭐</span>
-          </div>
-          <span class="rating-text">{{ product.rating }} out of 5 ({{ product.reviews }} reviews)</span>
+            <span *ngFor="let star of getStars(product.rating)"
+                  [ngClass]="{'full-star': star==='full','half-star': star==='half','empty-star': star==='empty'}">★</span>
+            <span class="rating-text">{{ product.rating }} ({{ product.reviews }})</span>
+
+       
         </div>
 
         <!-- Pricing -->

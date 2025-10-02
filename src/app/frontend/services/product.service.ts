@@ -53,12 +53,11 @@ export class ProductService {
           name: 'Designer Backpack',
           price: 89.99,
           originalPrice: 129.99,
-          image: 'https://i.pinimg.com/1200x/73/93/a5/7393a52f4bf1cd72afd14141cba9b1a3.jpg',
+          image: 'https://i.pinimg.com/736x/be/e5/35/bee5350e38803fe962558b46ed47a998.jpg',
           images: [
             'https://i.pinimg.com/1200x/54/1e/a0/541ea0c940aa9bf17f64068df5e7c524.jpg',
-            'https://i.pinimg.com/736x/be/e5/35/bee5350e38803fe962558b46ed47a998.jpg',
             'https://i.pinimg.com/736x/22/a3/e9/22a3e93b25c2b44baf58f59e51a0cb47.jpg',
-            'https://i.pinimg.com/736x/6f/3e/dc/6f3edc09ef64588ebd082fc1d53a3f9d.jpg'
+            'https://i.pinimg.com/736x/22/a3/e9/22a3e93b25c2b44baf58f59e51a0cb47.jpg'
           ],
           category: 'Fashion',
           rating: 4.7,
