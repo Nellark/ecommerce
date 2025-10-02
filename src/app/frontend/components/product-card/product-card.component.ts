@@ -2,25 +2,27 @@ import { Component, Input, Output, EventEmitter, HostListener, OnInit } from '@a
 import { CommonModule } from '@angular/common';
 import { Product } from '../../models/product.model';
 import { CartService } from '../../services/cart.service';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-product-card',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './product-card.component.html',
   styleUrls: ['./product-card.component.css']
 })
 export class ProductCardComponent implements OnInit {
   @Input() product!: Product;
   @Output() modalChange = new EventEmitter<boolean>();
-
+ 
+  quantity: number = 1
   currentImageIndex = 0;
   selectedSize = '';
   selectedColor = '';
   selectedStyle = '';
   isModalOpen = false;
 
-  successMessage = ''; // ✅ message for toast
+  successMessage = ''; 
 
   touchStartX = 0;
   touchEndX = 0;
@@ -108,6 +110,16 @@ export class ProductCardComponent implements OnInit {
       },
       1
     );
+  }
+
+  increaseQuantity() {
+    this.quantity++;
+  }
+
+  decreaseQuantity() {
+    if (this.quantity > 1) {
+      this.quantity--;
+    }
   }
 
   @HostListener('touchstart', ['$event']) onTouchStart(event: TouchEvent) {

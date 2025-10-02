@@ -12,7 +12,7 @@ export type { CartItem };
     private cartItems = new BehaviorSubject<CartItem[]>([]);
     cartItems$ = this.cartItems.asObservable();
   
-    // ✅ message subject for success notifications
+    //message subject for success notifications
     private messageSource = new Subject<string>();
     message$ = this.messageSource.asObservable();
   
@@ -102,6 +102,9 @@ export type { CartItem };
     getCartItems(): CartItem[] {
       return [...this.cartItemsValue];
     }
+    clearCart(): void {
+      this.cartItemsValue = [];
+      this.cartItems.next([]);
   }
 
-
+  }

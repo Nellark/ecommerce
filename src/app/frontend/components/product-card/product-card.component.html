@@ -70,9 +70,6 @@
       <p>{{ product.description }}</p>
       <div class="product-price">
         <span class="current">R {{ product.price | number:'1.2-2' }}</span>
-        <span class="original" *ngIf="product.originalPrice">
-          R {{ product.originalPrice | number:'1.2-2' }}
-        </span>
       </div>
   
       <!-- Variants -->
@@ -106,9 +103,19 @@
         </div>
       </div>
   
-      <button class="btn-add-cart" (click)="addToCart()">
-        Add to Cart
-      </button>
+
+<!-- Quantity + Add Row -->
+<div class="quantity-add-row">
+  <div class="quantity-controls">
+    <button (click)="decreaseQuantity()">−</button>
+    <input type="number" [(ngModel)]="quantity" min="1" />
+    <button (click)="increaseQuantity()">+</button>
+  </div>
+
+<button class="btn-add-cart" (click)="addToCart()">
+  Add {{ quantity }} to Cart
+</button>
+
     </div>
   </div>
   

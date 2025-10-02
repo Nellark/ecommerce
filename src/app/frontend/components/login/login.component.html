@@ -1,142 +1,61 @@
-<div class="auth-page">
-  <div class="auth-container">
-    <div class="auth-card">
-      <div class="auth-header">
-        <h1>Welcome Back</h1>
-        <p>Sign in to your account to continue shopping</p>
-      </div>
+<div class="auth-container">
 
-      <form class="auth-form" (ngSubmit)="onLogin()">
-        <div class="form-group">
-          <label for="email">Email Address</label>
-          <input 
-            type="email" 
-            id="email" 
-            [(ngModel)]="email" 
-            name="email"
-            required
-            placeholder="Enter your email">
+  <!-- RADIO BUTTONS -->
+  <input type="radio" name="auth-toggle" id="signInToggle" checked>
+  <input type="radio" name="auth-toggle" id="signUpToggle">
+
+  <!-- FORMS -->
+  <div class="forms-container">
+
+    <div class="sign-in-form form">
+      <form>
+        <h1>Sign In</h1>
+        <div class="social-container">
+          <a href="https://www.facebook.com" class="social facebook"><i class="fab fa-facebook-f"></i></a>
+          <a href="https://accounts.google.com" class="social google"><i class="fab fa-google-plus-g"></i></a>
+          <a href="https://www.apple.com" class="social apple"><i class="fab fa-apple"></i></a>
         </div>
-
-        <div class="form-group">
-          <label for="password">Password</label>
-          <input 
-            type="password" 
-            id="password" 
-            [(ngModel)]="password" 
-            name="password"
-            required
-            placeholder="Enter your password">
-        </div>
-
-        <div class="form-options">
-          <label class="checkbox-label">
-            <input type="checkbox" [(ngModel)]="rememberMe" name="rememberMe">
-            <span class="checkmark"></span>
-            Remember me
-          </label>
-          <a href="#" class="forgot-password">Forgot password?</a>
-        </div>
-
-        <button type="submit" class="btn btn-primary">Sign In</button>
+          
+        <span>or use your account</span>
+        <input type="email" placeholder="Email" required />
+        <input type="password" placeholder="Password" required />
+        <a href="#">Forgot your password?</a>
+        <button type="submit">Sign In</button>
       </form>
-
-      <div class="auth-divider">
-        <span>Or continue with</span>
-      </div>
-
-      <div class="social-buttons">
-        <button class="btn btn-social">
-          <span>G</span> Google
-        </button>
-        <button class="btn btn-social">
-          <span>f</span> Facebook
-        </button>
-      </div>
-
-      <div class="auth-footer">
-        <p>Don't have an account? <a href="#" (click)="switchToRegister()">Sign up</a></p>
-      </div>
     </div>
 
-    <!-- Register Form -->
-    <div class="auth-card" *ngIf="showRegister">
-      <div class="auth-header">
+    <div class="sign-up-form form">
+      <form>
         <h1>Create Account</h1>
-        <p>Join us and start your shopping journey</p>
-      </div>
-
-      <form class="auth-form" (ngSubmit)="onRegister()">
-        <div class="form-row">
-          <div class="form-group">
-            <label for="firstName">First Name</label>
-            <input 
-              type="text" 
-              id="firstName" 
-              [(ngModel)]="firstName" 
-              name="firstName"
-              required
-              placeholder="First name">
-          </div>
-          <div class="form-group">
-            <label for="lastName">Last Name</label>
-            <input 
-              type="text" 
-              id="lastName" 
-              [(ngModel)]="lastName" 
-              name="lastName"
-              required
-              placeholder="Last name">
-          </div>
+        <div class="social-container">
+          <a href="https://www.facebook.com" class="social facebook"><i class="fab fa-facebook-f"></i></a>
+          <a href="https://accounts.google.com" class="social google"><i class="fab fa-google-plus-g"></i></a>
+          <a href="https://www.apple.com" class="social apple"><i class="fab fa-apple"></i></a>
         </div>
-
-        <div class="form-group">
-          <label for="registerEmail">Email Address</label>
-          <input 
-            type="email" 
-            id="registerEmail" 
-            [(ngModel)]="registerEmail" 
-            name="registerEmail"
-            required
-            placeholder="Enter your email">
-        </div>
-
-        <div class="form-group">
-          <label for="registerPassword">Password</label>
-          <input 
-            type="password" 
-            id="registerPassword" 
-            [(ngModel)]="registerPassword" 
-            name="registerPassword"
-            required
-            placeholder="Create a password">
-        </div>
-
-        <div class="form-group">
-          <label for="confirmPassword">Confirm Password</label>
-          <input 
-            type="password" 
-            id="confirmPassword" 
-            [(ngModel)]="confirmPassword" 
-            name="confirmPassword"
-            required
-            placeholder="Confirm your password">
-        </div>
-
-        <div class="form-options">
-          <label class="checkbox-label">
-            <input type="checkbox" [(ngModel)]="agreeTerms" name="agreeTerms">
-            <span class="checkmark"></span>
-            I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>
-          </label>
-        </div>
-
-        <button type="submit" class="btn btn-primary">Create Account</button>
+        <span>or use your email for registration</span>
+        <input type="text" placeholder="Fullnames" required />
+        <input type="email" placeholder="Email" required />
+        <input type="password" placeholder="Password" required />
+        <button type="submit">Sign Up</button>
       </form>
+    </div>
 
-      <div class="auth-footer">
-        <p>Already have an account? <a href="#" (click)="switchToLogin()">Sign in</a></p>
+  </div>
+
+  <!-- OVERLAY -->
+  <div class="overlay-container">
+    <div class="overlay">
+      <div class="overlay-panel overlay-left">
+        <h1>Welcome Back!</h1>
+        <p>To keep connected with us please login with your personal info</p>
+        <label for="signInToggle" class="ghost">Sign In</label>
+      </div>
+      <div class="overlay-panel overlay-right">
+        <h1>Hello, Friend!</h1>
+        <p>Enter your personal details and start journey with us</p>
+        <label for="signUpToggle" class="ghost">Sign Up</label>
       </div>
     </div>
   </div>
+
 </div>

@@ -7,6 +7,7 @@ import { LoginComponent } from './frontend/components/login/login.component';
 import { ProductsComponent } from './frontend/components/products/products.component';
 import { ProductCardComponent } from './frontend/components/product-card/product-card.component';
 import { ProductDetailComponent } from './frontend/components/product-detail/product-detail.component';
+import { CheckoutComponent } from './frontend/components/checkout/checkout.component';
 
 
 export const routes: Routes = [
@@ -16,6 +17,7 @@ export const routes: Routes = [
     { path: 'products', component: ProductsComponent },
     { path: 'product-card', component: ProductCardComponent },
     { path: 'product-detail', component: ProductDetailComponent },
+    { path: 'checkout', component: CheckoutComponent },
     { path: 'login', component: LoginComponent },
  
 ];

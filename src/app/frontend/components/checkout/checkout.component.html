@@ -1,0 +1,104 @@
+<div class="checkout-page">
+    <div class="checkout-content">
+      <!-- Main Checkout Steps -->
+      <div class="checkout-main">
+        <!-- Step 1: Shipping -->
+        <div *ngIf="currentStep === 1" class="checkout-step">
+          <h2>Shipping Information</h2>
+          <form>
+            <div class="form-row">
+              <input type="text" [(ngModel)]="shippingAddress.firstName" name="firstName" placeholder="First Name *">
+              <input type="text" [(ngModel)]="shippingAddress.lastName" name="lastName" placeholder="Last Name *">
+            </div>
+            <input type="email" [(ngModel)]="shippingAddress.email" name="email" placeholder="Email *">
+            <input type="tel" [(ngModel)]="shippingAddress.phone" name="phone" placeholder="Phone">
+            <input type="text" [(ngModel)]="shippingAddress.address" name="address" placeholder="Street Address *">
+            <div class="form-row">
+              <input type="text" [(ngModel)]="shippingAddress.city" name="city" placeholder="City *">
+              <select [(ngModel)]="shippingAddress.province" name="province">
+                <option value="">Select Province *</option>
+                <option *ngFor="let prov of provinces" [value]="prov">{{ prov }}</option>
+              </select>
+              <input type="text" [(ngModel)]="shippingAddress.postalCode" name="postalCode" placeholder="Postal Code *">
+            </div>
+          </form>
+        </div>
+  
+        <!-- Step 2: Delivery -->
+        <div *ngIf="currentStep === 2" class="checkout-step">
+          <h2>Delivery Options</h2>
+          <div *ngFor="let option of shippingOptions" (click)="selectedShipping = option.id" 
+               [class.selected]="selectedShipping === option.id" class="shipping-option">
+            <input type="radio" [value]="option.id" [(ngModel)]="selectedShipping" name="shipping">
+            <span>{{ option.name }} - R{{ option.price }} ({{ option.days }})</span>
+          </div>
+        </div>
+  
+        <!-- Step 3: Payment -->
+        <div *ngIf="currentStep === 3" class="checkout-step">
+          <h2>Payment Information</h2>
+          <div class="payment-methods">
+            <div (click)="selectPaymentMethod('card')" [class.selected]="paymentMethod.type==='card'">💳 Card</div>
+            <div (click)="selectPaymentMethod('paypal')" [class.selected]="paymentMethod.type==='paypal'">🅿️ PayPal</div>
+          </div>
+          <div *ngIf="paymentMethod.type === 'card'">
+            <input type="text" [value]="paymentMethod.cardNumber" (input)="formatCardNumber($event)" placeholder="Card Number">
+            <input type="text" [value]="paymentMethod.expiryDate" (input)="formatExpiryDate($event)" placeholder="MM/YY">
+            <input type="text" [(ngModel)]="paymentMethod.cvv" placeholder="CVV">
+            <input type="text" [(ngModel)]="paymentMethod.cardholderName" placeholder="Cardholder Name">
+          </div>
+          <label>
+            <input type="checkbox" [(ngModel)]="sameAsShipping" (change)="onSameAsShippingChange()"> Billing same as shipping
+          </label>
+          <div *ngIf="!sameAsShipping">
+            <input type="text" [(ngModel)]="billingAddress.firstName" placeholder="Billing First Name">
+            <input type="text" [(ngModel)]="billingAddress.lastName" placeholder="Billing Last Name">
+            <!-- Add other billing fields as needed -->
+          </div>
+        </div>
+  
+        <!-- Step 4: Review -->
+        <div *ngIf="currentStep === 4" class="checkout-step">
+          <h2>Review Order</h2>
+          <div>
+            <h3>Shipping:</h3>
+            <p>{{ shippingAddress.firstName }} {{ shippingAddress.lastName }}, {{ shippingAddress.address }}, {{ shippingAddress.city }}, {{ shippingAddress.province }}, {{ shippingAddress.postalCode }}</p>
+            <h3>Shipping Method:</h3>
+            <p>{{ getSelectedShippingName() }}</p>
+            <h3>Payment Method:</h3>
+            <p>{{ paymentMethod.type === 'card' ? 'Card ending ' + paymentMethod.cardNumber?.slice(-4) : paymentMethod.type }}</p>
+          </div>
+        </div>
+  
+        <!-- Navigation Buttons -->
+        <div class="checkout-nav">
+          <button *ngIf="currentStep>1" (click)="prevStep()">← Back</button>
+          <button *ngIf="currentStep<4" [disabled]="!isStepValid(currentStep)" (click)="nextStep()">Continue →</button>
+          <button *ngIf="currentStep===4" (click)="processOrder()" [disabled]="isProcessing">
+            {{ isProcessing ? 'Processing...' : 'Complete Order' }}
+          </button>
+        </div>
+      </div>
+  
+      <!-- Sidebar: Order Summary -->
+      <div class="checkout-sidebar">
+        <h3>Order Summary</h3>
+        <div class="summary-items">
+          <div *ngFor="let item of cartItems$ | async" class="summary-item">
+            <span>{{ item.product.name }} x{{ item.quantity }}</span>
+            <span>R{{ (item.product.price * item.quantity).toFixed(2) }}</span>
+          </div>
+        </div>
+  
+        <div class="summary-line"> <span>Subtotal</span> <span>R{{ getSubtotal().toFixed(2) }}</span> </div>
+        <div class="summary-line"> <span>Shipping</span> <span>R{{ getShippingCost().toFixed(2) }}</span> </div>
+        <div class="summary-line"> <span>VAT (15%)</span> <span>R{{ getTax().toFixed(2) }}</span> </div>
+        <div class="summary-line" *ngIf="promoDiscount>0"> <span>Discount</span> <span>- R{{ promoDiscount.toFixed(2) }}</span> </div>
+        <div class="summary-total"> <span>Total</span> <span>R{{ getTotal().toFixed(2) }}</span> </div>
+  
+        <input type="text" placeholder="Promo Code" [(ngModel)]="promoCode">
+        <button (click)="applyPromoCode()">Apply</button>
+      </div>
+    </div>
+  </div>
+  

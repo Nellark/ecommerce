@@ -96,14 +96,14 @@
 }
 
 .filter-btn.active {
-  background: #7e22ce;
+  background: #626262;
   color: #fff;
-  border-color: #7e22ce;
+  /* border-color: #7e22ce; */
 }
 
 .filter-btn:hover {
   background: #f5f3ff;
-  border-color: #7e22ce;
+  border-color: #575757;
 }
 
 .filter-btn.clear {
@@ -121,7 +121,7 @@
   transition: all 0.2s ease;
 }
 .color-circle.active {
-  border-color: #7e22ce;
+  border-color: #49494a;
   transform: scale(1.15);
 }
 

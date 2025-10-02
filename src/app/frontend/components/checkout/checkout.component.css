@@ -1,0 +1,297 @@
+/* Elegant and Professional CSS for Checkout Page */
+.checkout-page {
+    max-width: 1200px;
+    margin: 160px auto; 
+    padding: 20px;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    background: linear-gradient(135deg, #f9f9f9 0%, #ffffff 100%);
+    color: #333;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.checkout-content {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.checkout-main {
+    flex: 2;
+    background: #ffffff;
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.checkout-step {
+    margin-bottom: 20px;
+}
+
+.checkout-step h2 {
+    font-size: 24px;
+    color: #1a3c5e;
+    border-bottom: 2px solid #1a3c5e;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.form-row {
+    display: flex;
+    gap: 15px;
+}
+
+input, select {
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+    width: 100%;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease;
+}
+
+input:focus, select:focus {
+    border-color: #1a3c5e;
+    outline: none;
+    box-shadow: 0 0 5px rgba(26, 60, 94, 0.2);
+}
+
+input::placeholder, select::placeholder {
+    color: #888;
+}
+
+.shipping-option {
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    background: #fff;
+    transition: background 0.3s ease, border-color 0.3s ease;
+}
+
+.shipping-option:hover {
+    background: #f5f5f5;
+    border-color: #1a3c5e;
+}
+
+.shipping-option.selected {
+    border-color: #1a3c5e;
+    background: #e6f0fa;
+}
+
+.payment-methods {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.payment-methods div {
+    padding: 10px 20px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: all 0.3s ease;
+}
+
+.payment-methods div:hover {
+    border-color: #1a3c5e;
+    background: #e6f0fa;
+}
+
+.payment-methods div.selected {
+    border-color: #1a3c5e;
+    background: #e6f0fa;
+    font-weight: bold;
+}
+
+.checkout-nav {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+button {
+    padding: 12px 25px;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+    cursor: pointer;
+    background: #1a3c5e;
+    color: #fff;
+    transition: background 0.3s ease;
+}
+
+button:hover {
+    background: #153a5a;
+}
+
+button:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+}
+
+/* Enhanced Order Summary Styling */
+.checkout-sidebar {
+    flex: 1;
+    background: #ffffff;
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    border-left: 4px solid #1a3c5e; /* Classy border */
+}
+
+.checkout-sidebar h3 {
+    font-size: 20px;
+    color: #1a3c5e;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #1a3c5e;
+    padding-bottom: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.summary-items {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 15px 0;
+    border-bottom: 1px dashed #ddd;
+}
+
+.summary-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    font-size: 14px;
+    color: #555;
+}
+
+.summary-item span:first-child {
+    font-weight: 500;
+}
+
+.summary-item span:last-child {
+    color: #1a3c5e;
+}
+
+.summary-line {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    font-size: 14px;
+    color: #666;
+    border-bottom: 1px dashed #eee;
+}
+
+.summary-total {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px 0;
+    font-size: 18px;
+    color: #1a3c5e;
+    font-weight: 700;
+    border-top: 2px solid #1a3c5e;
+    margin-top: 15px;
+    text-transform: uppercase;
+}
+
+input[type="text"][placeholder="Promo Code"] {
+    width: 70%;
+    margin-right: 10px;
+    padding: 10px;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+}
+
+button.apply-promo {
+    width: 25%;
+    padding: 10px;
+    background: #28a745;
+    border: none;
+    border-radius: 4px;
+    color: #fff;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+button.apply-promo:hover {
+    background: #218838;
+}
+
+/* Responsive Design for All Devices */
+@media (max-width: 1024px) {
+    .checkout-content {
+        flex-direction: column;
+        gap: 20px;
+    }
+    .checkout-main, .checkout-sidebar {
+        width: 100%;
+    }
+    .form-row {
+        flex-direction: column;
+    }
+    .payment-methods {
+        flex-direction: column;
+    }
+    .checkout-page {
+        margin: 10px auto;
+        padding: 15px;
+    }
+    .checkout-main, .checkout-sidebar {
+        padding: 20px;
+    }
+    .summary-item, .summary-line {
+        font-size: 13px;
+    }
+    .summary-total {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    .checkout-page {
+        margin: 5px auto;
+        padding: 10px;
+    }
+    .checkout-main, .checkout-sidebar {
+        padding: 15px;
+    }
+    .checkout-step h2 {
+        font-size: 20px;
+    }
+    .checkout-sidebar h3 {
+        font-size: 18px;
+    }
+    .form-row, .payment-methods {
+        gap: 10px;
+    }
+    input, select, button {
+        padding: 10px;
+        font-size: 13px;
+    }
+    .summary-item, .summary-line {
+        font-size: 12px;
+    }
+    .summary-total {
+        font-size: 14px;
+    }
+    button {
+        padding: 10px 20px;
+    }
+    input[type="text"][placeholder="Promo Code"] {
+        width: 60%;
+    }
+    button.apply-promo {
+        width: 35%;
+    }
+}
