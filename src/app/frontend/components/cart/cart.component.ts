@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Router } from '@angular/router';
 import { CartService, CartItem } from '../../services/cart.service';
 
 @Component({
@@ -13,7 +13,7 @@ import { CartService, CartItem } from '../../services/cart.service';
 export class CartComponent implements OnInit {
   cartItems: CartItem[] = [];
 
-  constructor(private cartService: CartService) {}
+  constructor(private cartService: CartService, private router: Router) {}
 
   ngOnInit(): void {
     this.cartService.cartItems$.subscribe(items => {
@@ -45,12 +45,17 @@ export class CartComponent implements OnInit {
     );
   }
 
-  removeItem(item: CartItem): void {
+  removeItem(item: CartItem, event: Event): void {
+    event.stopPropagation(); // prevent navigation
     this.cartService.removeFromCart(
       item.product.id,
       item.selectedSize,
       item.selectedColor,
       item.selectedStyle
     );
+  }
+
+  goToProduct(productId: number): void {
+    this.router.navigate(['/products', productId]);
   }
 }

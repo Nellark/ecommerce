@@ -19,5 +19,7 @@ export const routes: Routes = [
     { path: 'product-detail', component: ProductDetailComponent },
     { path: 'checkout', component: CheckoutComponent },
     { path: 'login', component: LoginComponent },
+    { path: 'products/:id', component: ProductDetailComponent },
+    { path: '', redirectTo: '/products', pathMatch: 'full' }
  
 ];
