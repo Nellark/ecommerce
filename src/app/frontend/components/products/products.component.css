@@ -1,31 +1,28 @@
+/* ====== Base Products Page ====== */
 .products-page {
   margin-top: 250px;
   max-width: 1400px;
   padding: 0 1rem;
   margin-left: auto;
   margin-right: auto;
-
 }
-
-
 
 .products-content {
   display: flex;
-  gap: 1rem;      
+  gap: 1rem;
   align-items: flex-start;
-  margin-left: 300px
+  margin-left: 300px; /* space for sidebar on desktop */
 }
 
 .page-header {
-  position: fixed;        /* keeps it locked to the viewport */
-  top: 120px;              /* adjust so it sits below your main site header */
+  position: fixed;
+  top: 120px;
   left: 0;
   width: 100%;
-  background: #ffffff;   
+  background: #ffffff;
   padding: 1rem 0;
-  z-index: 900;           /* above page content but below nav if needed */
+  z-index: 900;
   text-align: center;
-  /* box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06); */
 }
 
 .page-title {
@@ -41,30 +38,19 @@
   margin: 0;
 }
 
-
-/* Sidebar */
+/* ===== Sidebar ===== */
 .sidebar {
   width: 300px;
   position: fixed;
   top: 136px;
   left: 20px;
-  flex-shrink: 0;
   background: #fff;
   padding: 1rem;
-
-
-  /* shadow only on the right side */
   box-shadow: 6px 0 8px -4px rgba(0, 0, 0, 0.08);
-  /*   ^x-offset  ^y-offset  ^blur  ^spread  ^color */
-
   height: calc(100vh - 150px);
   overflow-y: auto;
   z-index: 1001;
 }
-
-
-
-
 
 .sidebar-filters {
   display: flex;
@@ -98,7 +84,6 @@
 .filter-btn.active {
   background: #626262;
   color: #fff;
-  /* border-color: #7e22ce; */
 }
 
 .filter-btn:hover {
@@ -120,17 +105,18 @@
   cursor: pointer;
   transition: all 0.2s ease;
 }
+
 .color-circle.active {
   border-color: #49494a;
   transform: scale(1.15);
 }
 
-/* Grid */
+/* ===== Products Grid ===== */
 .products-grid {
   flex: 1;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(250px, 2fr));
-  gap: 1rem;     
+  gap: 1rem;
 }
 
 /* No Products */
@@ -141,19 +127,55 @@
   font-size: 1rem;
 }
 
-/* Responsive */
+/* ===== Mobile Responsive ===== */
 @media (max-width: 1024px) {
   .products-content {
     flex-direction: column;
+    margin-left: 0;
   }
+
   .sidebar {
     position: static;
     width: 100%;
+    height: auto;
+    box-shadow: none;
+    margin-bottom: 1rem;
+  }
+
+  .products-grid {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  }
+
+  .page-header {
+    top: 80px;
+    padding: 0.8rem 0;
   }
 }
 
-body.modal-open .sidebar {
-    visibility: hidden !important;
-    pointer-events: none;
+/* Extra small mobile */
+@media (max-width: 640px) {
+  .products-page {
+    margin-top: 200px;
+    padding: 0 0.5rem;
   }
 
+  .products-grid {
+    gap: 0.5rem;
+  }
+
+  .filter-btn {
+    padding: 0.3rem 0.5rem;
+    font-size: 0.75rem;
+  }
+
+  .color-circle {
+    width: 18px;
+    height: 18px;
+  }
+}
+
+/* Hide sidebar on modal open */
+body.modal-open .sidebar {
+  visibility: hidden !important;
+  pointer-events: none;
+}

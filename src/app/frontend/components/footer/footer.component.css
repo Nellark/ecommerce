@@ -20,7 +20,7 @@
   .footer-section h3 {
     font-size: 1.8rem;
     font-weight: 800;
-    background: linear-gradient(135deg, #faad60, #34d399);
+    background: linear-gradient(135deg, #34d399a5, #34d399, #70ffca);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     margin-bottom: 1rem;
