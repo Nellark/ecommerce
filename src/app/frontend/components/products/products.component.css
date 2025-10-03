@@ -140,6 +140,8 @@
     height: auto;
     box-shadow: none;
     margin-bottom: 1rem;
+    margin-top: 10px;
+    z-index: 20;
   }
 
   .products-grid {

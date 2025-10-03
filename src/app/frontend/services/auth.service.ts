@@ -25,7 +25,7 @@ export class AuthService {
     const users: User[] = JSON.parse(localStorage.getItem('users') || '[]');
     users.push(user);
     localStorage.setItem('users', JSON.stringify(users));
-    this.isAuthenticated.next(true); // optional: auto-login after sign up
+    this.isAuthenticated.next(true); 
   }
 
   logout(): void {

@@ -1,49 +1,51 @@
 <header class="header">
   <div class="container">
     <div class="header-content">
-      <!-- Logo -->
-      <div class="logo" routerLink="/">
-        <h1>KulShopper</h1>
-      </div>
-      <!-- Mobile menu button -->
-<button class="menu-toggle" (click)="toggleMenu()">
-  <span class="bar top" [class.open]="isMenuOpen"></span>
-  <span class="bar middle" [class.open]="isMenuOpen"></span>
-  <span class="bar bottom" [class.open]="isMenuOpen"></span>
-</button>
-
-      <!-- Hamburger -->
-      <button class="menu-toggle" (click)="toggleMenu()">☰</button>
-
-      <!-- Main navigation -->
-      <nav class="nav" [class.open]="isMenuOpen">
-        <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Home</a>
-        <a routerLink="/products" routerLinkActive="active">Products</a>
-        <a routerLink="/footer" routerLinkActive="active">Contact</a>
-      </nav>
-
-      <!-- Search -->
-      <div class="search-container">
-        <input
-          type="text"
-          placeholder="Search products..."
-          class="search-input"
-          [(ngModel)]="searchQuery"
-          (input)="onSearchChange()"
-          (focus)="onSearchChange()"
-        >
-        <ul class="suggestions" *ngIf="suggestions.length > 0">
-          <li *ngFor="let s of suggestions" (click)="selectSuggestion(s)">{{ s }}</li>
-        </ul>
-      </div>
-
-      <!-- Actions -->
-      <div class="actions">
-        <button class="action-btn" routerLink="/login">Login</button>
-        <button class="cart-btn" routerLink="/cart">
-          <span class="cart-icon">🛒</span>
-          <span class="cart-count" *ngIf="cartItemCount > 0">{{ cartItemCount }}</span>
+      <!-- Top header -->
+      <div class="top-header">
+        <!-- Logo -->
+        <div class="logo" routerLink="/">
+          <h1>KulShopper</h1>
+        </div>
+        <!-- Mobile menu button -->
+        <button class="menu-toggle" (click)="toggleMenu()">
+          <span class="bar top" [class.open]="isMenuOpen"></span>
+          <span class="bar middle" [class.open]="isMenuOpen"></span>
+          <span class="bar bottom" [class.open]="isMenuOpen"></span>
         </button>
+
+        <!-- Main navigation -->
+        <nav class="nav" [class.open]="isMenuOpen">
+          <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Home</a>
+          <a routerLink="/products" routerLinkActive="active">Products</a>
+          <a routerLink="/footer" routerLinkActive="active">Contact</a>
+        </nav>
+      </div>
+      <!-- Bottom header -->
+      <div class="bottom-header">
+        <!-- Search -->
+        <div class="search-container">
+          <input
+            type="text"
+            placeholder="Search products..."
+            class="search-input"
+            [(ngModel)]="searchQuery"
+            (input)="onSearchChange()"
+            (focus)="onSearchChange()"
+          >
+          <ul class="suggestions" *ngIf="suggestions.length > 0">
+            <li *ngFor="let s of suggestions" (click)="selectSuggestion(s)">{{ s }}</li>
+          </ul>
+        </div>
+
+        <!-- Actions -->
+        <div class="actions">
+          <button class="action-btn" routerLink="/login">Login</button>
+          <button class="cart-btn" routerLink="/cart">
+            <span class="cart-icon">🛒</span>
+            <span class="cart-count" *ngIf="cartItemCount > 0">{{ cartItemCount }}</span>
+          </button>
+        </div>
       </div>
     </div>
   </div>

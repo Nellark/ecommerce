@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule,  } from '@angular/common';
-import { FormBuilder, FormGroup, FormsModule,  ReactiveFormsModule, Validators } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { User } from '../../models/user.model';
-
 
 @Component({
   selector: 'app-login',
@@ -17,22 +16,25 @@ export class LoginComponent implements OnInit {
   isSignUpMode = false;
   signUpForm!: FormGroup;
   signInForm!: FormGroup;
+  loggedInUser: string | null = null;
 
   constructor(private fb: FormBuilder, private authService: AuthService) {}
 
   ngOnInit() {
+    // Restore logged-in user if exists
+    this.loggedInUser = localStorage.getItem('loggedInUser');
+
     // Sign Up form
     this.signUpForm = this.fb.group({
-      name: ['', Validators.required],
-      surname: ['', Validators.required],
+      fullname: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(6)]]
+      password: ['', [Validators.required, Validators.minLength(6)]],
     });
 
     // Sign In form
     this.signInForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
-      password: ['', Validators.required]
+      password: ['', Validators.required],
     });
   }
 
@@ -48,6 +50,12 @@ export class LoginComponent implements OnInit {
 
     const newUser: User = this.signUpForm.value;
     let users: User[] = JSON.parse(localStorage.getItem('users') || '[]');
+
+    if (users.find((u) => u.email === newUser.email)) {
+      alert('Email already registered!');
+      return;
+    }
+
     users.push(newUser);
     localStorage.setItem('users', JSON.stringify(users));
 
@@ -63,15 +71,31 @@ export class LoginComponent implements OnInit {
     }
 
     const { email, password } = this.signInForm.value;
-    if (this.authService.login(email, password)) {
-      alert('Login Successful!');
+    const users: User[] = JSON.parse(localStorage.getItem('users') || '[]');
+    const foundUser = users.find(
+      (u) => u.email === email && u.password === password
+    );
+
+    if (foundUser) {
+      this.loggedInUser = `${foundUser.fullname}`;
+      localStorage.setItem('loggedInUser', this.loggedInUser);
+      alert(`Welcome, ${this.loggedInUser}!`);
       this.signInForm.reset();
     } else {
       alert('Invalid email or password!');
     }
   }
 
+  logout() {
+    localStorage.removeItem('loggedInUser');
+    this.loggedInUser = null;
+  }
+
   // Getters for template access
-  get sUp() { return this.signUpForm.controls; }
-  get sIn() { return this.signInForm.controls; }
+  get sUp() {
+    return this.signUpForm.controls;
+  }
+  get sIn() {
+    return this.signInForm.controls;
+  }
 }
