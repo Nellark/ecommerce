@@ -127,7 +127,8 @@
   font-size: 1rem;
 }
 
-/* ===== Mobile Responsive ===== */
+
+/* Tablet / small screens */
 @media (max-width: 1024px) {
   .products-content {
     flex-direction: column;
@@ -145,7 +146,8 @@
   }
 
   .products-grid {
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    grid-template-columns: 1fr; /* single column for cards */
+    gap: 1rem;
   }
 
   .page-header {
@@ -162,8 +164,10 @@
   }
 
   .products-grid {
+    grid-template-columns: 1fr; /* force single column */
     gap: 0.5rem;
   }
+}
 
   .filter-btn {
     padding: 0.3rem 0.5rem;
@@ -174,7 +178,7 @@
     width: 18px;
     height: 18px;
   }
-}
+
 
 /* Hide sidebar on modal open */
 body.modal-open .sidebar {
